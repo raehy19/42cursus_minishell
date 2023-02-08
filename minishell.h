@@ -6,51 +6,69 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/07 17:16:55 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/08 17:24:01 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_pipe_node		t_pipe_node;
-typedef struct s_cmd_node		t_cmd_node;
-typedef struct s_redirect_node	t_redirect_node;
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-typedef struct s_pipe_node {
-	t_cmd_node	*cmd_node;
-	t_pipe_node	*pipe_node;
-} t_pipe_node;
+# include <signal.h>
+# include <unistd.h>
 
-typedef struct s_logical_node {
-	t_cmd_node	*cmd_node;
-	t_pipe_node	*pipe_node;
-} t_logical_node;
+typedef enum e_node_type
+{
+	LOGICAL,
+	COMMAND,
+	REDIRECT
+}	t_node_type;
 
-typedef struct s_cmd_node {
-	t_redirect_node	*redirect;
-	char 			*cmd;
-	char 			**arguments;
-} t_cmd_node;
+typedef enum e_logical_type
+{
+	ROOT,
+	PIPE,
+	AND,
+	OR
+}	t_logical_type;
 
-typedef struct s_redirect_node {
-	t_redirect_node	*redirect;
-	char			*redirect_type;
-	char			*filename;
-} t_redirect_node;
+typedef enum e_redirect_type
+{
+	LEFT_ARROW,
+	DOUBLE_LEFT_ARROW,
+	RIGHT_ARROW,
+	DOUBLE_RIGHT_ARROW
+}	t_redirect_type;
 
-// logical_type == pipe, and, or, null ==> 명령어 뒤에 오는 | , &&, || , eof 
-typedef struct s_big_node {
-	int				node_type; // logical cmd redirect
-	t_big_node		*cmd_node; // 
-	char 			*command;
-	char 			**arguments;
-	t_big_node		*next_node; // 
-	int				logical_type // 
-	t_big_node		*redirect_node; // 
-	char			*redirect_type;
+typedef struct s_node	t_node;
+
+typedef struct s_node
+{
+	t_node_type		node_type;
+	t_node			*left_node;
+	t_node			*right_node;
+
+	// node_type == logical
+	t_logical_type	logical_type;
+
+	// node_type == command
+	char			*command_path;
+	char			**command_arg;
+
+	// node_type == redirect
+	t_redirect_type	redirect_type;
 	char			*redirect_filename;
+
+	// ?
 	pid_t			pid;
 	char			**path;
 
-	t_big_node		*parent_node; // 
-	int				child_status;
-} t_redirect_node;
+}	t_node;
 
+typedef struct s_global
+{
+	int		status_code;
+	char	**envp;
+	char	**path;
+}	t_global;
+
+#endif

@@ -1,5 +1,4 @@
-재귀함수
-
+## 재귀함수
 
 1. 자신의 타입 확인
     1. Logical node
@@ -26,3 +25,27 @@
         2. 다음 redirect 노드가 있는지 확인하고 있으면 들어가서 재귀 실행
         3. 없으면 종료
 
+
+
+### node type
+- logical node
+  - cmd node
+  - logical
+  - logical2
+- cmd
+  - redirection
+  - cmd
+
+### 재귀 - left, right
+1. 자신의 node 타입 확인
+    1. Logical node
+        1. Logical type 확인
+            1. pipe
+                1. left node 들어가서 재귀
+                2. right node 들어가서 재귀
+            2. and
+                1.
+            3. or
+            4. null
+    2. cmd
+    3. Redirect
