@@ -25,6 +25,7 @@ typedef enum e_node_type
 
 typedef enum e_logical_type
 {
+	NaL,
 	ROOT,
 	PIPE,
 	AND,
@@ -33,6 +34,7 @@ typedef enum e_logical_type
 
 typedef enum e_redirect_type
 {
+	NaR,
 	LEFT_ARROW,
 	DOUBLE_LEFT_ARROW,
 	RIGHT_ARROW,
@@ -43,9 +45,10 @@ typedef struct s_node	t_node;
 
 typedef struct s_node
 {
-	t_node_type		node_type;
-	t_node			*left_node;
-	t_node			*right_node;
+	t_node_type		type;
+	t_node			*pre_red;
+	t_node			*left;
+	t_node			*right;
 
 	// node_type == logical
 	t_logical_type	logical_type;
@@ -57,10 +60,11 @@ typedef struct s_node
 	// node_type == redirect
 	t_redirect_type	redirect_type;
 	char			*redirect_filename;
+	int				in_fd; // initialize STDIN
+	int				out_fd; // initialize STDOUT
 
 	// ?
 	pid_t			pid;
-	char			**path;
 
 }	t_node;
 
