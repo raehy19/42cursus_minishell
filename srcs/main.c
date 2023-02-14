@@ -16,7 +16,21 @@ t_global	g_global;
 
 int	main(int argc, char **argv, char **envp)
 {
+	char	*input;
+
 	(void)argc;
 	(void)argv;
 	g_global.envp = envp;
+	while (1)
+	{
+		input = readline("\033[34mminishell-1.0$ \033[0m");
+
+		// parsing
+
+		// executing
+
+		printf("input command : %s\n", input); //debug
+
+		free(input);
+	}
 }

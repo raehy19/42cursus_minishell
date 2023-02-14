@@ -19,6 +19,7 @@ BONUS_SRCS_DIR := srcs/
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -MMD -MP
+READLINE_FLAG := -lreadline
 RM := rm -f
 
 all : $(NAME)
@@ -54,7 +55,7 @@ re : fclean
 	make all
 
 $(NAME) : $(OBJS)
-	$(CC) $^ -o $@
+	$(CC) $^ -o $@ $(READLINE_FLAG)
 
 $(BONUS_NAME) : $(BONUS_OBJS)
 	$(CC) $^ -o $@

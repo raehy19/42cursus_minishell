@@ -13,8 +13,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
+# include <readline/readline.h>
+# include <signal.h>
 
 typedef enum e_node_type
 {
@@ -46,7 +49,7 @@ typedef struct s_node	t_node;
 typedef struct s_node
 {
 	t_node_type		type;
-	t_node			*pre_red;
+	t_node			*pre_redirect;
 	t_node			*left;
 	t_node			*right;
 
