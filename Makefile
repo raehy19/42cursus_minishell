@@ -17,6 +17,9 @@ SRCS_DIR := srcs/
 # need to change bonus_srcs/
 BONUS_SRCS_DIR := srcs/
 
+LIBFT := ./libft/libft.a
+LIBFT_DIR := libft
+
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -MMD -MP
 READLINE_FLAG := -lreadline
@@ -40,21 +43,25 @@ BONUS_DEPS := $(addprefix $(BONUS_SRCS_DIR), $(BONUS_SRCS:.c=.d))
 
 -include $(DEPS) $(BONUS_DEPS)
 
-
 clean :
+	make -C $(LIBFT_DIR) clean
 	$(RM) $(OBJS)
 	$(RM) $(DEPS)
 	$(RM) $(BONUS_OBJS)
 	$(RM) $(BONUS_DEPS)
 
 fclean : clean
+	make -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 	$(RM) $(BONUS_NAME)
 
 re : fclean
 	make all
 
-$(NAME) : $(OBJS)
+$(LIBFT) :
+	make -C $(LIBFT_DIR) all
+
+$(NAME) : $(LIBFT) $(OBJS)
 	$(CC) $^ -o $@ $(READLINE_FLAG)
 
 $(BONUS_NAME) : $(BONUS_OBJS)
