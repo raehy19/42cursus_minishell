@@ -38,10 +38,10 @@ typedef enum e_logical_type
 typedef enum e_redirect_type
 {
 	NaR,
-	LEFT_ARROW,
-	DOUBLE_LEFT_ARROW,
-	RIGHT_ARROW,
-	DOUBLE_RIGHT_ARROW
+	L_REDIRECT,
+	HERE_DOC,
+	R_REDIRECT,
+	RR_REDIRECT,
 }	t_redirect_type;
 
 typedef struct s_node	t_node;
