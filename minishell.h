@@ -39,10 +39,10 @@ typedef enum e_logical_type
 typedef enum e_redirect_type
 {
 	NaR,
-	REDIRECT_INPUT,
-	HERE_DOC,
-	REDIRECT_OUTPUT,
-	APPENDING_REDIRECT_OUTPUT,
+	REDIRECTING_INPUT,
+	HERE_DOCUMENT,
+	REDIRECTING_OUTPUT,
+	APPENDING_REDIRECTED_OUTPUT,
 }	t_redirect_type;
 
 typedef struct s_node	t_node;
@@ -60,6 +60,7 @@ typedef struct s_node
 	// node_type == command
 	char			*command_path;
 	char			**command_arg;
+	int				arg_cnt;
 
 	// node_type == redirect
 	t_redirect_type	redirect_type;
@@ -78,5 +79,26 @@ typedef struct s_global
 	char	**envp;
 	char	**path;
 }	t_global;
+
+typedef enum e_parse_type
+{
+	T_SINGLE_QUOTE,
+	T_DOUBLE_QUOTE,
+	T_REDIRECTING_INPUT,
+	T_HERE_DOCUMENT,
+	T_REDIRECTING_OUTPUT,
+	T_APPENDING_REDIRECTED_OUTPUT,
+	T_SEMICOLON,
+	T_LEFT_PARENTHESIS,
+	T_RIGHT_PARENTHESIS,
+	T_AND,
+	T_OR,
+	T_PIPE,
+	T_STRING,
+}	t_parse_type;
+
+typedef struct s_parse_node
+{
+}	t_parse_node;
 
 #endif
