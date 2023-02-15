@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/08 17:24:01 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/02/15 09:53:04 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include "libft/libft.h"
 
 typedef enum e_node_type
 {
@@ -38,10 +39,10 @@ typedef enum e_logical_type
 typedef enum e_redirect_type
 {
 	NaR,
-	L_REDIRECT,
+	REDIRECT_INPUT,
 	HERE_DOC,
-	R_REDIRECT,
-	RR_REDIRECT,
+	REDIRECT_OUTPUT,
+	APPENDING_REDIRECT_OUTPUT,
 }	t_redirect_type;
 
 typedef struct s_node	t_node;
@@ -73,7 +74,7 @@ typedef struct s_node
 
 typedef struct s_global
 {
-	int		status_code;
+	int		exit_status;
 	char	**envp;
 	char	**path;
 }	t_global;
