@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/15 09:53:04 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/15 18:03:38 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ typedef enum e_redirect_type
 	APPENDING_REDIRECT_OUTPUT,
 }	t_redirect_type;
 
+typedef enum e_error_number
+{
+	NaE,
+	FAIL_MALLOC
+}	t_error_number;
+
 typedef struct s_node	t_node;
 
 typedef struct s_node
@@ -72,11 +78,21 @@ typedef struct s_node
 
 }	t_node;
 
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	int				order;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_global
 {
-	int		exit_status;
-	char	**envp;
-	char	**path;
+	int				exit_status;
+	t_env			*envp;
+	char			**path;
 }	t_global;
+
+int	init_envp(char *envp[]);
 
 #endif
