@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/02/08 20:46:19 by rjeong           ###   ########.fr        #
+#    Updated: 2023/02/15 17:40:41 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ all : $(NAME)
 
 SRCS := \
 	main.c \
+	envp.c \
 
 BONUS_SRCS := \
 	main.c \
