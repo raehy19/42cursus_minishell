@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/16 17:19:03 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/16 20:51:27 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,10 @@ typedef struct s_parse_node
 int		init_envp(char *envp[]);
 
 int		ft_index(char *str, int c);
+int		is_valid_name(char *str);
 t_env	*make_env(char *src);
 void	add_env_back(t_env *new);
+void	remove_env(char *name);
 int		clear_env(void);
 
 // export
