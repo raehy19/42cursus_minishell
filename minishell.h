@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/16 20:51:27 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/16 21:10:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ typedef struct s_parse_node
 {
 }	t_parse_node;
 
-
 // envp
 
 int		init_envp(char *envp[]);
@@ -129,10 +128,15 @@ void	add_env_back(t_env *new);
 void	remove_env(char *name);
 int		clear_env(void);
 
-// export
+// builtin
 
+void	ft_echo(t_node *node);
+void	ft_pwd(void);
 void	ft_export(t_node *node);
+void	ft_unset(t_node *node);
+void	ft_env(void);
 
+// export
 void	init_rank(void);
 int		get_envp_size(void);
 t_env	*get_largest_env(void);
