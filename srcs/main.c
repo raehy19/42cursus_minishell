@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/15 18:05:14 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:21:10 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	if (init_envp(envp))
-		return (1);
+		return (clear_env()); 
 	while (1)
 	{
 		input = readline("\033[34mminishell-1.0$ \033[0m");

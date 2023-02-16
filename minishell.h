@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/15 18:03:38 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:19:03 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef enum e_redirect_type
 typedef enum e_error_number
 {
 	NaE,
-	FAIL_MALLOC
+	FAIL_MALLOC,
+	INVALID_IDENTIFIER
 }	t_error_number;
 
 typedef struct s_node	t_node;
@@ -92,6 +93,7 @@ typedef struct s_global
 	int				exit_status;
 	t_env			*envp;
 	char			**path;
+	t_error_number	errno;
 }	t_global;
 
 typedef enum e_parse_type
@@ -115,6 +117,23 @@ typedef struct s_parse_node
 {
 }	t_parse_node;
 
-int	init_envp(char *envp[]);
+
+// envp
+
+int		init_envp(char *envp[]);
+
+int		ft_index(char *str, int c);
+t_env	*make_env(char *src);
+void	add_env_back(t_env *new);
+int		clear_env(void);
+
+// export
+
+void	ft_export(t_node *node);
+
+void	init_rank(void);
+int		get_envp_size(void);
+t_env	*get_largest_env(void);
+void	rank_envp(void);
 
 #endif
