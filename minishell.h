@@ -96,25 +96,26 @@ typedef struct s_global
 	t_error_number	errno;
 }	t_global;
 
-typedef enum e_parse_type
+// parse
+
+typedef enum e_token_type
 {
-	T_SINGLE_QUOTE,
-	T_DOUBLE_QUOTE,
 	T_REDIRECTING_INPUT,
 	T_HERE_DOCUMENT,
 	T_REDIRECTING_OUTPUT,
 	T_APPENDING_REDIRECTED_OUTPUT,
-	T_SEMICOLON,
 	T_LEFT_PARENTHESIS,
 	T_RIGHT_PARENTHESIS,
 	T_AND,
 	T_OR,
 	T_PIPE,
 	T_STRING,
-}	t_parse_type;
+}	t_token_type;
 
 typedef struct s_parse_node
 {
+	t_token_type	type;
+	char			*string;
 }	t_parse_node;
 
 // envp
