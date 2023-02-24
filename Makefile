@@ -31,6 +31,7 @@ SRCS := \
 	main.c \
 	parse/tokenize.c \
 	envp.c \
+	env_utils.c \
 
 BONUS_SRCS := \
 	main.c \
