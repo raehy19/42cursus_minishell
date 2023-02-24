@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:32:44 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/24 22:15:39 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/24 22:48:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,30 @@ int	is_option(char *str)
 	return (!str[idx]);
 }
 
+int	check_option(t_node *node)
+{
+	int	idx;
+
+	idx = 1;
+	if (!node->command_arg[idx])
+		return (idx);
+	while (is_option(node->command_arg[idx]))
+		idx++;
+	return (idx);
+}
+
 void	ft_echo(t_node *node)
 {
 	int	idx;
 	int	option;
 	int	newline;
 
-	idx = 1;
-	option = 1;
 	newline = 1;
+	idx = check_option(node);
+	if (idx > 1)
+		newline = 0;
 	while (node->command_arg[idx])
 	{
-		if (option && is_option(node->command_arg[idx]))
-		{
-			newline = 0;
-			idx++;
-			continue ;
-		}
-		option = 0;
 		printf("%s", node->command_arg[idx]);
 		idx++;
 		if (node->command_arg[idx])
