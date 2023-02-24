@@ -29,6 +29,7 @@ all : $(NAME)
 
 SRCS := \
 	main.c \
+	parse/tokenize.c \
 	envp.c \
 
 BONUS_SRCS := \
