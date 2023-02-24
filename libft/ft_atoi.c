@@ -12,13 +12,6 @@
 
 #include "libft.h"
 
-int	ft_isspace(int c)
-{
-	if ((c > 8 && c < 14) || c == ' ')
-		return (1);
-	return (0);
-}
-
 int	ft_cal_sign(const char *str, int *i)
 {
 	int	sign;
