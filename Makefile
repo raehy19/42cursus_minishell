@@ -14,6 +14,7 @@ NAME := minishell
 BONUS_NAME := minishell_bonus
 
 SRCS_DIR := srcs/
+PARSE_SRCS_DIR := $(SRCS_DIR)parse/
 # need to change bonus_srcs/
 BONUS_SRCS_DIR := srcs/
 
@@ -29,22 +30,25 @@ all : $(NAME)
 
 SRCS := \
 	main.c \
-	parse/tokenize.c \
 	envp.c \
 	env_utils.c \
+
+PARSE_SRCS := \
+	tokenize.c \
+	tokenize_utils.c \
 
 BONUS_SRCS := \
 	main.c \
 
-OBJS := $(addprefix $(SRCS_DIR), $(SRCS:.c=.o))
+OBJS := $(addprefix $(SRCS_DIR), $(SRCS:.c=.o)) $(addprefix $(PARSE_SRCS_DIR), $(PARSE_SRCS:.c=.o))
 
-DEPS := $(addprefix $(SRCS_DIR), $(SRCS:.c=.d))
+DEPS := $(addprefix $(SRCS_DIR), $(SRCS:.c=.d)) $(addprefix $(PARSE_SRCS_DIR), $(PARSE_SRCS:.c=.d))
 
 BONUS_OBJS := $(addprefix $(BONUS_SRCS_DIR), $(BONUS_SRCS:.c=.o))
 
 BONUS_DEPS := $(addprefix $(BONUS_SRCS_DIR), $(BONUS_SRCS:.c=.d))
 
--include $(DEPS) $(BONUS_DEPS)
+-include $(DEPS) $(PARSE_DEPS) $(BONUS_DEPS)
 
 clean :
 	make -C $(LIBFT_DIR) clean

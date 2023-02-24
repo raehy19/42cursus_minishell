@@ -12,7 +12,7 @@
 
 #include "parse.h"
 
-t_token_node	*new_token(t_token_type type, char *str)
+t_token_node	*lst_new_token(t_token_type type, char *str)
 {
 	t_token_node	*new;
 
@@ -25,3 +25,38 @@ t_token_node	*new_token(t_token_type type, char *str)
 	return (new);
 }
 
+void	lst_add_front_token(t_token_node **lst, t_token_node *new)
+{
+	new->next = (*(lst));
+	*(lst) = new;
+	return ;
+}
+
+t_token_node	*lst_last_token(t_token_node *lst)
+{
+	t_token_node	*temp;
+
+	if (!lst)
+		return (NULL);
+	temp = lst;
+	while (temp->next)
+		temp = temp->next;
+	return (temp);
+}
+
+
+void	lst_add_back_token(t_token_node **lst, t_token_node *new)
+{
+	t_token_node	*temp;
+
+	if (!(*(lst)))
+	{
+		*lst = new;
+		return ;
+	}
+	temp = lst_last_token(*(lst));
+	if (!temp)
+		return ;
+	temp->next = new;
+	return ;
+}

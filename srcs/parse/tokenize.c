@@ -12,6 +12,24 @@
 
 #include "parse.h"
 
+void	tokenize_and_or_pipe(char *str, int *idx, t_token_node *lst)
+{
+	if (*(str + *idx) == '&' && *(str + *idx + 1) == '&')
+	{
+		lst_add_back_token(&lst, lst_new_token(T_AND, NULL));
+		++*idx;
+	}
+	else if (*(str + *idx) == '|' && *(str + *idx + 1) == '|')
+	{
+		lst_add_back_token(&lst, lst_new_token(T_OR, NULL));
+		++*idx;
+	}
+	else if (*(str + *idx) == '|')
+		lst_add_back_token(&lst, lst_new_token(T_PIPE, NULL));
+	else
+		;
+}
+
 t_token_node	*ft_tokenize(char *input)
 {
 	int				idx;
@@ -23,13 +41,15 @@ t_token_node	*ft_tokenize(char *input)
 	{
 		if (ft_isspace(*(input + idx)))
 			;
-		else if (*(input + ++idx) == '&' || *(input + ++idx) == '|')
+		else if (*(input + idx) == '(' || *(input + idx) == ')')
 			;
-		else if (*(input + ++idx) == '<' || *(input + ++idx) == '>')
+		else if (*(input + idx) == '&' || *(input + idx) == '|')
 			;
-		else if (*(input + ++idx) == '\'')
+		else if (*(input + idx) == '<' || *(input + idx) == '>')
 			;
-		else if (*(input + ++idx) == '\"')
+		else if (*(input + idx) == '\'')
+			;
+		else if (*(input + idx) == '\"')
 			;
 		else
 			;
