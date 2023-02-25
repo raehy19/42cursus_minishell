@@ -6,11 +6,11 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:02:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 13:07:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 14:52:16 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 extern t_global	g_global;
 

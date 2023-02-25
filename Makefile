@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/02/25 09:55:43 by yeepark          ###   ########.fr        #
+#    Updated: 2023/02/25 14:51:55 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME := minishell
 BONUS_NAME := minishell_bonus
 
 SRCS_DIR := srcs/
+ENV_SRCS_DIR := $(SRCS_DIR)env/
 PARSE_SRCS_DIR := $(SRCS_DIR)parse/
+BUILTIN_SRCS_DIR := $(SRCS_DIR)builtin/
 # need to change bonus_srcs/
 BONUS_SRCS_DIR := srcs/
 
@@ -31,19 +33,39 @@ all : $(NAME)
 SRCS := \
 	main.c \
 	envp.c \
+
+ENV_SRCS := \
 	env_utils.c \
 	env_utils2.c \
+	env_rank.c \
 
 PARSE_SRCS := \
 	tokenize.c \
 	tokenize_utils.c \
 
+BUILTIN_SRCS := \
+	echo.c \
+	cd.c \
+	pwd.c \
+	export.c \
+	unset.c \
+	env.c \
+	exit.c \
+
 BONUS_SRCS := \
 	main.c \
 
-OBJS := $(addprefix $(SRCS_DIR), $(SRCS:.c=.o)) $(addprefix $(PARSE_SRCS_DIR), $(PARSE_SRCS:.c=.o))
+OBJS := \
+	$(addprefix $(SRCS_DIR), $(SRCS:.c=.o)) \
+	$(addprefix $(ENV_SRCS_DIR), $(ENV_SRCS:.c=.o)) \
+	$(addprefix $(PARSE_SRCS_DIR), $(PARSE_SRCS:.c=.o)) \
+	$(addprefix $(BUILTIN_SRCS_DIR), $(BUILTIN_SRCS:.c=.o)) \
 
-DEPS := $(addprefix $(SRCS_DIR), $(SRCS:.c=.d)) $(addprefix $(PARSE_SRCS_DIR), $(PARSE_SRCS:.c=.d))
+DEPS := \
+	$(addprefix $(SRCS_DIR), $(SRCS:.c=.d)) \
+	$(addprefix $(ENV_SRCS_DIR), $(ENV_SRCS:.c=.d)) \
+	$(addprefix $(PARSE_SRCS_DIR), $(PARSE_SRCS:.c=.d)) \
+	$(addprefix $(BUILTIN_SRCS_DIR), $(BUILTIN_SRCS:.c=.d)) \
 
 BONUS_OBJS := $(addprefix $(BONUS_SRCS_DIR), $(BONUS_SRCS:.c=.o))
 

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:32:44 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/24 22:48:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 14:48:29 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	check_option(t_node *node)
 void	ft_echo(t_node *node)
 {
 	int	idx;
-	int	option;
 	int	newline;
 
 	newline = 1;
