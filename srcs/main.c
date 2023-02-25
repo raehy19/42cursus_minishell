@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/16 17:21:10 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:53:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	main(int argc, char **argv, char **envp)
 		// parsing
 
 		// executing
+//		search_heredoc(node);
+//		search_tree(node);
 
 		printf("input command : %s\n", input); //debug
 

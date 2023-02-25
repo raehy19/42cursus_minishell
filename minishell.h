@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/25 13:07:04 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 17:49:46 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include "libft/libft.h"
+# include "srcs/execute/redirect.h"
 
 typedef enum e_node_type
 {
@@ -49,7 +50,8 @@ typedef enum e_error_number
 {
 	NaE,
 	FAIL_MALLOC,
-	INVALID_IDENTIFIER
+	INVALID_IDENTIFIER,
+	FAIL_OPEN_PIPE
 }	t_error_number;
 
 typedef struct s_node	t_node;
@@ -92,7 +94,6 @@ typedef struct s_global
 {
 	unsigned char	exit_status;
 	t_env			*envp;
-	char			**path;
 	t_error_number	errno;
 }	t_global;
 
@@ -125,5 +126,17 @@ void	ft_export(t_node *node);
 void	ft_unset(t_node *node);
 void	ft_env(void);
 void	ft_exit(t_node *node);
+
+// redirect
+
+void	handle_redirect(t_node *node);
+void	search_heredoc(t_node *node);
+void	process_heredoc(t_node *node);
+
+// command
+
+void	handle_builtin(t_node *node);
+void	execve_command(t_node *node);
+void	handle_command(t_node *node);
 
 #endif
