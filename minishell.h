@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/16 21:10:30 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 09:51:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,14 @@ int		init_envp(char *envp[]);
 
 int		ft_index(char *str, int c);
 int		is_valid_name(char *str);
+char	*make_name(char *src, int index);
+void	set_node(t_node **node, char *src);
 t_env	*make_env(char *src);
 void	add_env_back(t_env *new);
+t_env	*find_env(t_env **tmp, char *name);
 void	remove_env(char *name);
 int		clear_env(void);
+int		get_env_size(void);
 
 // builtin
 
@@ -117,7 +121,6 @@ void	ft_env(void);
 
 // export
 void	init_rank(void);
-int		get_envp_size(void);
 t_env	*get_largest_env(void);
 void	rank_envp(void);
 

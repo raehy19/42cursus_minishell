@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:46:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/16 19:39:30 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 09:55:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ extern t_global	g_global;
 static void	handle_single_arg(void)
 {
 	int		idx;
+	int		size;
 	t_env	*tmp;
 
 	idx = 0;
+	size = get_env_size();
 	tmp = g_global.envp;
 	rank_envp();
-	while (idx < get_envp_size())
+	while (idx < size)
 	{
 		if (tmp->order == idx)
 		{
@@ -38,14 +40,38 @@ static void	handle_single_arg(void)
 	}
 }
 
+static int	handle_duplicated_name(char *src)
+{
+	int		index;
+	char	*name;
+	t_env	*tmp;
+	t_env	*duplicated;
+
+	index = ft_index(src, '=');
+	name = make_name(src, index);
+	tmp = g_global.envp;
+	duplicated = find_env(&tmp, name);
+	if (!duplicated)
+		return (0);
+	if (index < 1)
+		return (1);
+	free(duplicated->value);
+	duplicated->value = ft_substr(src, index + 1, ft_strlen(src));
+	if (!duplicated->value)
+		g_global.errno = FAIL_MALLOC;
+	return (1);
+}
+
 static void	handle_multi_arg(t_node *node)
 {
 	int				idx;
 	t_env			*new;
 
-	idx = 1;
-	while (node->command_arg[idx])
+	idx = 0;
+	while (node->command_arg[++idx])
 	{
+		if (handle_duplicated_name(node->command_arg[idx]))
+			continue ;
 		new = make_env(node->command_arg[idx]);
 		if (g_global.errno == FAIL_MALLOC)
 			return ;
@@ -53,11 +79,9 @@ static void	handle_multi_arg(t_node *node)
 		{
 			g_global.exit_status = 1;
 			printf("bash: export: `%s': not a valid identifier\n", node->command_arg[idx]);
-			idx++;
 			continue ;
 		}
 		add_env_back(new);
-		idx++;
 	}
 }
 
