@@ -19,6 +19,12 @@ void	ft_pwd(void)
 	char	*buf;
 
 	buf = getcwd(0, 4096);
+	if (!buf)
+	{
+		perror("");
+		g_global.exit_status = 1;
+		exit(g_global.exit_status);
+	}
 	printf("%s\n", buf);
 	free(buf);
 	g_global.exit_status = 0;

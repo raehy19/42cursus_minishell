@@ -22,7 +22,7 @@ int	is_option(char *str)
 	if (str[idx] != '-')
 		return (0);
 	idx++;
-	while (str[idx] && str[idx] == 'n')
+	while (str[idx] == 'n')
 		idx++;
 	return (!str[idx]);
 }
@@ -32,7 +32,7 @@ int	check_option(t_node *node)
 	int	idx;
 
 	idx = 1;
-	if (!node->command_arg[idx])
+	if (node->arg_cnt == 1)
 		return (idx);
 	while (is_option(node->command_arg[idx]))
 		idx++;

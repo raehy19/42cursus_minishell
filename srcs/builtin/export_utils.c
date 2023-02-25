@@ -14,7 +14,7 @@
 
 extern t_global	g_global;
 
-void	init_rank(void)
+void	init_env_order(void)
 {
 	t_env	*env;
 
@@ -26,9 +26,9 @@ void	init_rank(void)
 	}
 }
 
-int	is_large(t_env *largest, t_env *env)
+static int	is_large(t_env *largest, t_env *env)
 {
-	return (!largest || (largest && ft_strcmp(env->name, largest->name) > 0));
+	return (!largest || ft_strcmp(env->name, largest->name) > 0);
 }
 
 t_env	*get_largest_env(void)
@@ -55,7 +55,7 @@ void	rank_envp(void)
 	t_env	*env;
 
 	size = get_env_size();
-	init_rank();
+	init_env_order();
 	while (size)
 	{
 		env = get_largest_env();

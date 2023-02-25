@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 10:27:55 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 14:08:48 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@ int	is_valid_name(char *name)
 	int	idx;
 
 	if (!name || !(ft_isalpha(*name) || *name == '_'))
-		return (0);
-	idx = 1;
-	while (name[idx])
 	{
-		if (!(ft_isalnum(name[idx]) || name[idx] == '_'))
-			return (0);
-		idx++;
+		g_global.errno = INVALID_IDENTIFIER;
+		return (0);
 	}
-	return (1);
+	idx = 1;
+	while (ft_isalnum(name[idx]) || name[idx] == '_')
+		idx++;
+	if (name[idx])
+	{
+		g_global.errno = INVALID_IDENTIFIER;
+	}
+	return (!name[idx]);
 }
 
 char	*make_name(char *src, int index)
@@ -71,10 +74,12 @@ t_env	*make_env(char *src)
 {
 	t_env	*new;
 
-	g_global.errno = NaE;
 	new = malloc(sizeof(t_env));
 	if (!new)
+	{
+		g_global.errno = FAIL_MALLOC;
 		return (0);
+	}
 	set_env(&new, src);
 	if (g_global.errno == NaE && !is_valid_name(new->name))
 		g_global.errno = INVALID_IDENTIFIER;

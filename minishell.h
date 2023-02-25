@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/25 11:30:33 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 13:07:04 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_global
 	t_error_number	errno;
 }	t_global;
 
-// envp
+// env
 
 int		init_envp(char *envp[]);
 
@@ -106,9 +106,15 @@ void	set_node(t_node **node, char *src);
 t_env	*make_env(char *src);
 void	add_env_back(t_env *new);
 int		get_env_size(void);
-t_env	*find_env(t_env **tmp, char *name);
+t_env	*find_env(char *name);
 void	remove_env(char *name);
 int		clear_env(void);
+
+// env rank
+
+void	init_env_order(void);
+t_env	*get_largest_env(void);
+void	rank_envp(void);
 
 // builtin
 
@@ -119,11 +125,5 @@ void	ft_export(t_node *node);
 void	ft_unset(t_node *node);
 void	ft_env(void);
 void	ft_exit(t_node *node);
-
-// export
-
-void	init_rank(void);
-t_env	*get_largest_env(void);
-void	rank_envp(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:02:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 10:28:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 13:07:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@ int	get_env_size(void)
 }
 // 0개일때(=null), segv 안뜨는지 체크
 
-t_env	*find_env(t_env **env, char *name)
+t_env	*find_env(char *name)
 {
-	while (*env)
+	t_env	*env;
+
+	env = g_global.envp;
+	while (env)
 	{
-		if (!ft_strcmp(name, (*env)->name))
-			return (*env);
-		*env = (*env)->next;
+		if (!ft_strcmp(name, env->name))
+			return (env);
+		env = env->next;
 	}
 	return (0);
 }
