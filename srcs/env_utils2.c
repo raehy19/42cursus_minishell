@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:02:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 09:50:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 10:28:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,64 @@
 
 extern t_global	g_global;
 
-t_env	*find_env(t_env **tmp, char *name)
+int	get_env_size(void)
 {
-	while (*tmp)
+	int		size;
+	t_env	*env;
+
+	size = 0;
+	env = g_global.envp;
+	while (env)
 	{
-		if (!ft_strcmp(name, (*tmp)->name))
-			return (*tmp);
-		*tmp = (*tmp)->next;
+		size++;
+		env = env->next;
+	}
+	return (size);
+}
+// 0개일때(=null), segv 안뜨는지 체크
+
+t_env	*find_env(t_env **env, char *name)
+{
+	while (*env)
+	{
+		if (!ft_strcmp(name, (*env)->name))
+			return (*env);
+		*env = (*env)->next;
 	}
 	return (0);
 }
 
 void	remove_env(char *name)
 {
-	t_env	*tmp;
+	t_env	*env;
 	t_env	*prev;
 
-	tmp = g_global.envp;
-	while (tmp)
+	env = g_global.envp;
+	while (env)
 	{
-		if (!ft_strcmp(name, tmp->name))
+		if (!ft_strcmp(name, env->name))
 		{
-			prev->next = tmp->next;
-			free(tmp->name);
-			free(tmp->value);
+			prev->next = env->next;
+			free(env->name);
+			free(env->value);
 			return ;
 		}
-		prev = tmp;
-		tmp = tmp->next;
+		prev = env;
+		env = env->next;
 	}
 }
 
-int	get_env_size(void)
+int	clear_env(void)
 {
-	int		size;
 	t_env	*tmp;
 
-	size = 0;
-	tmp = g_global.envp;
-	while (tmp)
+	while (g_global.envp)
 	{
-		size++;
-		tmp = tmp->next;
+		tmp = g_global.envp->next;
+		free(g_global.envp->name);
+		free(g_global.envp->value);
+		free(g_global.envp);
+		g_global.envp = tmp;
 	}
-	return (size);
+	return (1);
 }
-// 0개일때(=null), segv 안뜨는지 체크

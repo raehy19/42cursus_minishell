@@ -6,27 +6,13 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 09:43:39 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 10:27:55 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 extern t_global	g_global;
-
-int	ft_index(char *str, int c)
-{
-	int	idx;
-
-	idx = 0;
-	while (str[idx])
-	{
-		if (str[idx] == c)
-			return (idx);
-		idx++;
-	}
-	return (-1);
-}
 
 int	is_valid_name(char *name)
 {
@@ -70,7 +56,7 @@ void	set_env(t_env **env, char *src)
 	t_env	*tmp;
 
 	tmp = *env;
-	index = ft_index(src, '=');
+	index = ft_stridx(src, '=');
 	tmp->name = make_name(src, index);
 	tmp->value = 0;
 	if (index > 0)
@@ -97,30 +83,15 @@ t_env	*make_env(char *src)
 
 void	add_env_back(t_env *new)
 {
-	t_env	*tmp;
+	t_env	*env;
 
 	if (!g_global.envp)
 	{
 		g_global.envp = new;
 		return ;
 	}
-	tmp = g_global.envp;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-}
-
-int	clear_env(void)
-{
-	t_env	*tmp;
-
-	while (g_global.envp)
-	{
-		tmp = g_global.envp->next;
-		free(g_global.envp->name);
-		free(g_global.envp->value);
-		free(g_global.envp);
-		g_global.envp = tmp;
-	}
-	return (1);
+	env = g_global.envp;
+	while (env->next)
+		env = env->next;
+	env->next = new;
 }

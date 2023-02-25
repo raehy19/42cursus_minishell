@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:46:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 09:55:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 10:29:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ static void	handle_single_arg(void)
 {
 	int		idx;
 	int		size;
-	t_env	*tmp;
+	t_env	*env;
 
 	idx = 0;
 	size = get_env_size();
-	tmp = g_global.envp;
+	env = g_global.envp;
 	rank_envp();
 	while (idx < size)
 	{
-		if (tmp->order == idx)
+		if (env->order == idx)
 		{
-			if (!tmp->value)
-				printf("declare -x %s\n", tmp->name);
-			if (tmp->value)
-				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
-			tmp = g_global.envp;
+			if (!env->value)
+				printf("declare -x %s\n", env->name);
+			if (env->value)
+				printf("declare -x %s=\"%s\"\n", env->name, env->value);
+			env = g_global.envp;
 			idx++;
 			continue ;
 		}
-		tmp = tmp->next;
+		env = env->next;
 	}
 }
 
@@ -44,13 +44,13 @@ static int	handle_duplicated_name(char *src)
 {
 	int		index;
 	char	*name;
-	t_env	*tmp;
+	t_env	*env;
 	t_env	*duplicated;
 
-	index = ft_index(src, '=');
+	index = ft_stridx(src, '=');
 	name = make_name(src, index);
-	tmp = g_global.envp;
-	duplicated = find_env(&tmp, name);
+	env = g_global.envp;
+	duplicated = find_env(&env, name);
 	if (!duplicated)
 		return (0);
 	if (index < 1)

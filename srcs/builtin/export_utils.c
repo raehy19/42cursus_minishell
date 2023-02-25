@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:01:00 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 09:11:36 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 10:28:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,35 @@ extern t_global	g_global;
 
 void	init_rank(void)
 {
-	t_env	*tmp;
+	t_env	*env;
 
-	tmp = g_global.envp;
-	while (tmp)
+	env = g_global.envp;
+	while (env)
 	{
-		tmp->order = 0;
-		tmp = tmp->next;
+		env->order = 0;
+		env = env->next;
 	}
 }
 
-int	is_large(t_env *largest, t_env *tmp)
+int	is_large(t_env *largest, t_env *env)
 {
-	return (!largest || (largest && ft_strcmp(tmp->name, largest->name) > 0));
+	return (!largest || (largest && ft_strcmp(env->name, largest->name) > 0));
 }
 
 t_env	*get_largest_env(void)
 {
 	int		idx;
-	t_env	*tmp;
+	t_env	*env;
 	t_env	*largest;
 
 	idx = 0;
-	tmp = g_global.envp;
+	env = g_global.envp;
 	largest = 0;
-	while (tmp)
+	while (env)
 	{
-		if (!tmp->order && is_large(largest, tmp))
-			largest = tmp;
-		tmp = tmp->next;
+		if (!env->order && is_large(largest, env))
+			largest = env;
+		env = env->next;
 	}
 	return (largest);
 }
