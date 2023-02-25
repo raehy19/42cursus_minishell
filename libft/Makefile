@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 17:19:28 by rjeong            #+#    #+#              #
-#    Updated: 2022/07/14 21:57:03 by rjeong           ###   ########.fr        #
+#    Updated: 2023/02/25 10:02:33 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ SRCS := \
 	ft_strlcpy.c \
 	ft_strlcat.c \
 	ft_strncmp.c \
+	ft_strcmp.c \
+	ft_stridx.c \
 	ft_toupper.c \
 	ft_tolower.c \
 	ft_strchr.c \
