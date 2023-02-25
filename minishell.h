@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/25 10:42:12 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/02/25 11:30:33 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_env
 
 typedef struct s_global
 {
-	int				exit_status;
+	unsigned char	exit_status;
 	t_env			*envp;
 	char			**path;
 	t_error_number	errno;
@@ -118,6 +118,7 @@ void	ft_pwd(void);
 void	ft_export(t_node *node);
 void	ft_unset(t_node *node);
 void	ft_env(void);
+void	ft_exit(t_node *node);
 
 // export
 
