@@ -17,6 +17,7 @@
 
 typedef enum e_token_type
 {
+	T_WHITESPACE,
 	T_LEFT_PARENTHESIS,
 	T_RIGHT_PARENTHESIS,
 	T_AND,

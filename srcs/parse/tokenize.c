@@ -12,6 +12,13 @@
 
 #include "parse.h"
 
+void	tokenize_whitespace(char *str, int *idx, t_token_node *lst)
+{
+	while ((*(str + *idx)) && ft_isspace(*(str + *idx)))
+		++(*idx);
+	lst_add_back_token(&lst, lst_new_token(T_WHITESPACE, NULL));
+}
+
 void	tokenize_parenthesis(char *str, int *idx, t_token_node *lst)
 {
 	if (*(str + *idx) == '(')
@@ -51,7 +58,7 @@ t_token_node	*ft_tokenize(char *input)
 	while (*(input + ++idx))
 	{
 		if (ft_isspace(*(input + idx)))
-			;
+			tokenize_whitespace(input, &idx, token_list);
 		else if (*(input + idx) == '(' || *(input + idx) == ')')
 			tokenize_parenthesis(input, &idx, token_list);
 		else if (*(input + idx) == '&' || *(input + idx) == '|')
