@@ -29,6 +29,8 @@ void	tokenize_parenthesis(char *str, int *idx, t_token_node *lst)
 
 void	tokenize_and_or_pipe(char *str, int *idx, t_token_node *lst)
 {
+	char	tmp;
+
 	if ((*(str + *idx + 1)))
 	{
 		if (*(str + *idx) == '&' && *(str + *idx + 1) == '&')
@@ -45,7 +47,10 @@ void	tokenize_and_or_pipe(char *str, int *idx, t_token_node *lst)
 	else if (*(str + *idx) == '|')
 		lst_add_back_token(&lst, lst_new_token(T_PIPE, NULL));
 	else
-		lst_add_back_token(&lst, lst_new_token(T_STRING, ft_strdup(str + *idx)));
+	{
+		tmp = *(str + *idx);
+		lst_add_back_token(&lst, lst_new_token(T_STRING, ft_strdup(&tmp)));
+	}
 }
 
 t_token_node	*ft_tokenize(char *input)
