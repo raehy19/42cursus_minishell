@@ -64,7 +64,8 @@ void	tokenize_arrows(char *str, int *idx, t_token_node *lst)
 		}
 		else if (*(str + *idx) == '>' && *(str + *idx + 1) == '>')
 		{
-			lst_add_back_token(&lst, lst_new_token(T_APPENDING_REDIRECTED_OUTPUT, NULL));
+			lst_add_back_token(&lst,
+				lst_new_token(T_APPENDING_REDIRECTED_OUTPUT, NULL));
 			++*idx;
 		}
 	}
@@ -72,6 +73,18 @@ void	tokenize_arrows(char *str, int *idx, t_token_node *lst)
 		lst_add_back_token(&lst, lst_new_token(T_REDIRECTING_INPUT, NULL));
 	else if (*(str + *idx) == '>')
 		lst_add_back_token(&lst, lst_new_token(T_REDIRECTING_OUTPUT, NULL));
+}
+
+void	tokenize_string_single(char *str, int *idx, t_token_node *lst)
+{
+	int	i;
+
+	i = 1;
+	while ((*(str + *idx + i)) && (*(str + *idx + i)) != '\'')
+		++i;
+	lst_add_back_token(&lst,
+		lst_new_token(T_STRING, ft_strndup((str + *idx + 1), i - 1)));
+	*idx += i;
 }
 
 t_token_node	*ft_tokenize(char *input)
@@ -92,7 +105,7 @@ t_token_node	*ft_tokenize(char *input)
 		else if (*(input + idx) == '<' || *(input + idx) == '>')
 			tokenize_arrows(input, &idx, token_list);
 		else if (*(input + idx) == '\'')
-			;
+			tokenize_string_single(input, &idx, token_list);
 		else if (*(input + idx) == '\"')
 			;
 		else
