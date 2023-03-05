@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 20:52:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/05 19:03:16 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ void	search_node(t_node *node)
 void	search_tree(t_node *node)
 {
 	int	pipe[2][2];
-	int	start;
 	int	cnt;
 
-	start = 1;
 	cnt = 0;
 	open_pipe(pipe[OLD]);
 	while (node)
@@ -50,7 +48,7 @@ void	search_tree(t_node *node)
 		{
 			close(pipe[NEW][READ]);
 			close(pipe[OLD][WRITE]);
-			if (!start)
+			if (cnt)
 				dup2(pipe[OLD][READ], STDIN_FILENO);
 			if (node->right)
 				dup2(pipe[NEW][WRITE], STDOUT_FILENO);
@@ -60,7 +58,6 @@ void	search_tree(t_node *node)
 		}
 		if (node->pid > 0)
 		{
-			start = 0;
 			close(pipe[OLD][READ]);
 			close(pipe[OLD][WRITE]);
 			pipe[OLD][READ] = pipe[NEW][READ];
