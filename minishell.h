@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/05 18:53:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/05 20:34:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,9 @@ void	handle_builtin(t_node *node);
 void	execve_command(t_node *node);
 void	handle_command(t_node *node);
 char	*find_command_path(t_node *node);
+
+// error
+
+void	print_error_message(char *str, char *error_msg);
 
 #endif

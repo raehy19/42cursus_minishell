@@ -6,11 +6,13 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:38 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/05 20:18:47 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/05 20:43:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+extern t_global	g_global;
 
 int	is_in(t_redirect_type type)
 {
@@ -19,7 +21,7 @@ int	is_in(t_redirect_type type)
 
 int	is_out(t_redirect_type type)
 {
-	return (type == REDIRECTING_OUTPUT 
+	return (type == REDIRECTING_OUTPUT
 		|| type == APPENDING_REDIRECTED_OUTPUT);
 }
 
@@ -29,10 +31,9 @@ void	handle_in_redirect(t_node *node)
 	{
 		if (access(node->redirect_filename, F_OK | R_OK) == -1)
 		{
-			ft_putstr_fd("bash: ", 2);
-			ft_putstr_fd(node->redirect_filename, 2);
-			ft_putstr_fd(": command not found\n", 2);
-			exit(1);
+			g_global.exit_status = 1;
+			print_error_message(node->redirect_filename,
+				"No such file or directory");
 		}
 		node->in_fd = open(node->redirect_filename, O_RDWR);
 	}
