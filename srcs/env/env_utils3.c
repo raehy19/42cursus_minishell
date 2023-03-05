@@ -56,6 +56,7 @@ char	**make_envp(void)
 		idx++;
 		env = env->next;
 	}
+	envp[idx] = 0;
 	if (g_global.errno == FAIL_MALLOC)
 	{
 //		free_two_dim()
