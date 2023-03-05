@@ -24,7 +24,7 @@ LIBFT := ./libft/libft.a
 LIBFT_DIR := libft
 
 CC := cc
-CFLAGS := -Wall -Wextra -Werror -MMD -MP
+CFLAGS := -Wall -Wextra -Werror -MMD -MP -g
 READLINE_FLAG := -lreadline
 RM := rm -f
 

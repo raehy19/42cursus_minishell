@@ -28,6 +28,14 @@ int	main(int argc, char **argv, char **envp)
 
 		// parsing
 
+		// parse debug
+		t_token_node *temp = ft_tokenize(input);
+		while (temp != NULL)
+		{
+			printf("\ntoken type :\t%d\ntoken str  :\t%s\n", temp->type, temp->string);
+			temp = temp->next;
+		}
+
 		// executing
 //		search_heredoc(node);
 //		search_tree(node);

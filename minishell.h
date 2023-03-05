@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include "libft/libft.h"
+# include "srcs/parse//parse.h"
 # include "srcs/execute/redirect.h"
 
 typedef enum e_node_type
