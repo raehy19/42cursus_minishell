@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/25 17:49:46 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/05 15:25:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_env	*make_env(char *src);
 void	add_env_back(t_env *new);
 int		get_env_size(void);
 t_env	*find_env(char *name);
+char	**make_envp(void);
 void	remove_env(char *name);
 int		clear_env(void);
 
