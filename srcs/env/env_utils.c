@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 14:52:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/05 15:59:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	is_valid_name(char *name)
 	while (ft_isalnum(name[idx]) || name[idx] == '_')
 		idx++;
 	if (name[idx])
-	{
 		g_global.errno = INVALID_IDENTIFIER;
-	}
 	return (!name[idx]);
 }
 
@@ -82,7 +80,10 @@ t_env	*make_env(char *src)
 	}
 	set_env(&new, src);
 	if (g_global.errno == NaE && !is_valid_name(new->name))
-		g_global.errno = INVALID_IDENTIFIER;
+	{
+		free(new);
+		new = 0;
+	}
 	return (new);
 }
 
