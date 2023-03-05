@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/05 18:55:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/05 19:58:02 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ void	execve_command(t_node *node)
 //		exit();
 	}
 	node->command_path = find_command_path(node);
+	if (!node->command_path)
+	{
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(node->command_arg[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+//		printf("bash: %s: command not found\n", node->command_arg[0]);
+		g_global.exit_status = 127;
+		exit(g_global.exit_status);
+	}
 	execve(node->command_path, node->command_arg, envp);
 }
 
