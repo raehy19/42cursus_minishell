@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/05 15:25:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/05 18:53:49 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,12 @@ void	init_env_order(void);
 t_env	*get_largest_env(void);
 void	rank_envp(void);
 
+// tree
+
+void	search_tree(t_node *node);
+void	search_node(t_node *node);
+void	handle_node(t_node *node);
+
 // builtin
 
 void	ft_echo(t_node *node);
@@ -141,5 +147,6 @@ void	process_heredoc(t_node *node);
 void	handle_builtin(t_node *node);
 void	execve_command(t_node *node);
 void	handle_command(t_node *node);
+char	*find_command_path(t_node *node);
 
 #endif
