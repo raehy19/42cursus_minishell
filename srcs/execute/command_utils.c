@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/05 19:32:28 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/05 19:53:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ char	*find_command_path(t_node *node)
 	idx = -1;
 	is_accessible = 0;
 	command_path = 0;
-	if (access(command, X_OK) == 0)
-		return (command);
+	if (access(node->command_arg[0], X_OK) == 0)
+		return (node->command_arg[0]);
 	path = get_path();
 	if (!path)
 		return (0);
@@ -83,10 +83,8 @@ char	*find_command_path(t_node *node)
 		is_accessible = (access(command_path, X_OK) == 0);
 	}
 	free_two_dim(path);
-	if (!is_accessible)
-	{
-		free(command_path);
-		command_path = 0;
-	}
-	return (command_path);
+	if (is_accessible)
+		return (command_path);
+	free(command_path);
+	return (0);
 }
