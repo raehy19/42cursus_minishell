@@ -161,10 +161,9 @@ void	tokenize_string(char *str, int *idx, t_token_node **lst)
 		}
 		++i;
 	}
-	--i;
 	lst_add_back_token(lst,
-		lst_new_token(T_STRING, ft_strndup((str + *idx + 1), i)));
-	*idx += i;
+		lst_new_token(T_STRING, ft_strndup((str + *idx), i)));
+	*idx += i - 1;
 }
 
 t_token_node	*ft_tokenize(char *input)
