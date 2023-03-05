@@ -60,3 +60,12 @@ void	lst_add_back_token(t_token_node **lst, t_token_node *new)
 	temp->next = new;
 	return ;
 }
+
+int	is_env_allowed_char(const char c)
+{
+	if (ft_isalnum(c))
+		return 1;
+	if (c == '_')
+		return 1;
+	return 0;
+}

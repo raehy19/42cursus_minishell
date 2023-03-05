@@ -43,5 +43,6 @@ t_token_node	*lst_new_token(t_token_type type, char *str);
 void			lst_add_front_token(t_token_node **lst, t_token_node *new);
 t_token_node	*lst_last_token(t_token_node *lst);
 void			lst_add_back_token(t_token_node **lst, t_token_node *new);
+int				is_env_allowed_char(const char c);
 
 #endif

@@ -89,6 +89,46 @@ void	tokenize_string_single(char *str, int *idx, t_token_node **lst)
 	*idx += i;
 }
 
+void	tokenize_string_double(char *str, int *idx, t_token_node **lst)
+{
+	int		i;
+	char	*env_name;
+	t_env	*env;
+
+	i = 1;
+	while (*(str + *idx + i) && (*(str + *idx + i)) != '\"')
+	{
+		if (*(str + *idx + i) == '$')
+		{
+			lst_add_back_token(lst,
+				lst_new_token(T_STRING, ft_strndup((str + *idx + 1), i - 1)));
+			*idx += i;
+			i = 0;
+			while (is_env_allowed_char(*(str + *idx + i + 1)))
+				++i;
+			env_name = ft_strndup((str + *idx + 1), i);
+			if (!env_name)
+				g_global.errno = FAIL_MALLOC;
+			env = find_env(env_name);
+			if (env)
+				lst_add_back_token(lst,
+					lst_new_token(T_STRING, ft_strdup(env->value)));
+			free(env_name);
+			*idx += i;
+			i = 0;
+		}
+		++i;
+	}
+	if (!*(str + *idx + i))
+	{
+		g_global.errno = SYNTAX_ERR;
+		return;
+	}
+	lst_add_back_token(lst,
+		lst_new_token(T_STRING, ft_strndup((str + *idx + 1), i - 1)));
+	*idx += i;
+}
+
 t_token_node	*ft_tokenize(char *input)
 {
 	int				idx;
@@ -111,7 +151,7 @@ t_token_node	*ft_tokenize(char *input)
 		else if (*(input + idx) == '\'')
 			tokenize_string_single(input, &idx, &token_list);
 		else if (*(input + idx) == '\"')
-			;
+			tokenize_string_double(input, &idx, &token_list);
 		else
 			;
 	}
