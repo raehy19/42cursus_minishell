@@ -50,6 +50,7 @@ typedef enum e_error_number
 {
 	NaE,
 	FAIL_MALLOC,
+	SYNTAX_ERR,
 	INVALID_IDENTIFIER,
 	FAIL_OPEN_PIPE
 }	t_error_number;

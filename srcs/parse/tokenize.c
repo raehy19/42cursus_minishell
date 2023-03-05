@@ -16,7 +16,7 @@ extern t_global	g_global;
 
 void	tokenize_whitespace(char *str, int *idx, t_token_node **lst)
 {
-	while ((*(str + *idx)) && ft_isspace(*(str + *idx)))
+	while (*(str + *idx + 1) && ft_isspace(*(str + *idx + 1)))
 		++(*idx);
 	lst_add_back_token(lst, lst_new_token(T_WHITESPACE, NULL));
 }
@@ -33,18 +33,14 @@ void	tokenize_and_or_pipe(char *str, int *idx, t_token_node **lst)
 {
 	char	*tmp;
 
-	if ((*(str + *idx + 1)))
+	if (*(str + *idx + 1)
+		&& (*(str + *idx + 1) == '|' || *(str + *idx + 1) == '&'))
 	{
 		if (*(str + *idx) == '&' && *(str + *idx + 1) == '&')
-		{
 			lst_add_back_token(lst, lst_new_token(T_AND, NULL));
-			++*idx;
-		}
 		else if (*(str + *idx) == '|' && *(str + *idx + 1) == '|')
-		{
 			lst_add_back_token(lst, lst_new_token(T_OR, NULL));
-			++*idx;
-		}
+		++*idx;
 	}
 	else if (*(str + *idx) == '|')
 		lst_add_back_token(lst, lst_new_token(T_PIPE, NULL));
@@ -54,25 +50,21 @@ void	tokenize_and_or_pipe(char *str, int *idx, t_token_node **lst)
 		if (!tmp)
 			g_global.errno = FAIL_MALLOC;
 		else
-			lst_add_back_token(lst, lst_new_token(T_STRING, ft_strdup(&tmp)));
+			lst_add_back_token(lst, lst_new_token(T_STRING, tmp));
 	}
 }
 
 void	tokenize_arrows(char *str, int *idx, t_token_node **lst)
 {
-	if ((*(str + *idx + 1)))
+	if (*(str + *idx + 1)
+		&& (*(str + *idx + 1) == '<' || *(str + *idx + 1) == '>' ))
 	{
 		if (*(str + *idx) == '<' && *(str + *idx + 1) == '<')
-		{
 			lst_add_back_token(lst, lst_new_token(T_HERE_DOCUMENT, NULL));
-			++*idx;
-		}
 		else if (*(str + *idx) == '>' && *(str + *idx + 1) == '>')
-		{
 			lst_add_back_token(lst,
 				lst_new_token(T_APPENDING_REDIRECTED_OUTPUT, NULL));
-			++*idx;
-		}
+		++*idx;
 	}
 	else if (*(str + *idx) == '<')
 		lst_add_back_token(lst, lst_new_token(T_REDIRECTING_INPUT, NULL));
@@ -85,8 +77,13 @@ void	tokenize_string_single(char *str, int *idx, t_token_node **lst)
 	int	i;
 
 	i = 1;
-	while ((*(str + *idx + i)) && (*(str + *idx + i)) != '\'')
+	while (*(str + *idx + i) && (*(str + *idx + i)) != '\'')
 		++i;
+	if (!*(str + *idx + i))
+	{
+		g_global.errno = SYNTAX_ERR;
+		return;
+	}
 	lst_add_back_token(lst,
 		lst_new_token(T_STRING, ft_strndup((str + *idx + 1), i - 1)));
 	*idx += i;
@@ -97,7 +94,7 @@ t_token_node	*ft_tokenize(char *input)
 	int				idx;
 	t_token_node	*token_list;
 
-	idx = 0;
+	idx = -1;
 	token_list = NULL;
 	while (*(input + ++idx))
 	{
