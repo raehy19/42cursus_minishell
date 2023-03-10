@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 17:27:17 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:48:44 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 extern t_global	g_global;
 
-void	handle_child_process(t_node *node, int pipe[2][2], int *cnt)
+void	handle_child_process(t_node *node, int pipe[2][2], int cnt)
 {
 	if (node->pid == 0)
 	{
 		close_fildes(pipe[NEW][READ]);
 		close_fildes(pipe[OLD][WRITE]);
-		if (*cnt)
+		if (cnt)
 			duplicate_fildes(pipe[OLD][READ], STDIN_FILENO);
 		if (node->right)
 			duplicate_fildes(pipe[NEW][WRITE], STDOUT_FILENO);
@@ -30,14 +30,12 @@ void	handle_child_process(t_node *node, int pipe[2][2], int *cnt)
 	}
 }
 
-void	handle_parent_process(t_node *node, int pipe[2][2], int *cnt)
+void	handle_parent_process(t_node *node, int pipe[2][2])
 {
 	if (node->pid > 0)
 	{
 		close_pipe(pipe[OLD]);
 		pipe[OLD][READ] = pipe[NEW][READ];
 		pipe[OLD][WRITE] = pipe[NEW][WRITE];
-		node = node->right;
-		(*cnt)++;
 	}
 }

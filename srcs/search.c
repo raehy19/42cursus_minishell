@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 17:18:28 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:48:20 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	search_tree(t_node *node)
 		open_pipe(pipe[NEW]);
 		node->pid = fork();
 	//	if (node->pid == -1)
-		handle_child_process(node, pipe, &cnt);
-		handle_parent_process(node, pipe, &cnt);
+		handle_child_process(node, pipe, cnt);
+		handle_parent_process(node, pipe);
+		node = node->right;
+		cnt++;
 	}
 	close_pipe(pipe[OLD]);
 	while (cnt--)
