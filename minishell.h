@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/10 17:22:17 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 19:29:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ char	*find_command_path(t_node *node);
 // error
 
 void	print_command_error(t_node *node, int idx, char *error_message);
+void	print_invalid_identifier_error(t_node *node, int idx);
 void	print_redirect_error(char *filename);
 void	print_error_fildes(t_error_number error_number);
 

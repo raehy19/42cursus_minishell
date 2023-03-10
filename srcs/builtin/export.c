@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:46:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 15:56:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:26:16 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,7 @@ static void	handle_multi_arg(t_node *node)
 		if (g_global.errno == NaE)
 			add_env_back(new);
 		if (g_global.errno == INVALID_IDENTIFIER)
-		{
-			g_global.exit_status = 1;
-			print_command_error(node, idx, "not a valid identifier");
-		}
+			print_invalid_identifier_error(node, idx);
 	}
 }
 
@@ -94,5 +91,5 @@ void	ft_export(t_node *node)
 		handle_multi_arg(node);
 	if (g_global.errno == FAIL_MALLOC)
 		g_global.exit_status = 1;
-	exit(g_global.exit_status);
+//	exit(g_global.exit_status);
 }
