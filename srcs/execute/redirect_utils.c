@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:43:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 17:25:18 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 21:11:28 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	open_pipe(int fd[2])
 void	close_pipe(int pipe[2])
 {
 	int	is_error;
-	
+
 	is_error = ((close(pipe[0]) == -1) || (close(pipe[1]) == -1));
 	if (!is_error)
 		return ;
@@ -46,7 +46,7 @@ void	close_fildes(int fd)
 
 void	duplicate_fildes(int exist_fd, int new_fd)
 {
-	int	is_error; 
+	int	is_error;
 
 	is_error = (dup2(exist_fd, new_fd) == -1);
 	if (!is_error)

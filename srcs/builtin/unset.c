@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 19:52:52 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 20:26:26 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 21:06:44 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	ft_unset(t_node *node)
 		}
 		remove_env(node->command_arg[idx]);
 	}
-//	exit(g_global.exit_status);
+	exit(g_global.exit_status);
 }
