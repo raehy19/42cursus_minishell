@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/05 20:34:36 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 15:01:25 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 # include "libft/libft.h"
-# include "srcs/parse//parse.h"
-# include "srcs/execute/redirect.h"
+# include "srcs/parse/parse.h"
+
+# define READ 0
+# define WRITE 1
+
+# define OLD 0
+# define NEW 1
 
 typedef enum e_node_type
 {
@@ -141,6 +149,7 @@ void	ft_exit(t_node *node);
 void	handle_redirect(t_node *node);
 void	search_heredoc(t_node *node);
 void	process_heredoc(t_node *node);
+void	open_pipe(int fd[2]);
 
 // command
 

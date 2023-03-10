@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:41:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/05 15:52:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 14:42:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*join_name_and_value(t_env *env)
 char	**make_envp(void)
 {
 	int		idx;
-	int		size;
 	t_env	*env;
 	char	**envp;
 

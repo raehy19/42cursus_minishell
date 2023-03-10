@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/02/25 14:51:55 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/10 14:58:43 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS_DIR := srcs/
 ENV_SRCS_DIR := $(SRCS_DIR)env/
 PARSE_SRCS_DIR := $(SRCS_DIR)parse/
 BUILTIN_SRCS_DIR := $(SRCS_DIR)builtin/
+EXECUTE_SRCS_DIR := $(SRCS_DIR)execute/
 # need to change bonus_srcs/
 BONUS_SRCS_DIR := srcs/
 
@@ -33,10 +34,13 @@ all : $(NAME)
 SRCS := \
 	main.c \
 	envp.c \
+	search.c \
+	error.c \
 
 ENV_SRCS := \
 	env_utils.c \
 	env_utils2.c \
+	env_utils3.c \
 	env_rank.c \
 
 PARSE_SRCS := \
@@ -52,6 +56,13 @@ BUILTIN_SRCS := \
 	env.c \
 	exit.c \
 
+EXECUTE_SRCS := \
+	heredoc.c \
+	redirect.c \
+	redirect_utils.c \
+	command.c \
+	command_utils.c \
+
 BONUS_SRCS := \
 	main.c \
 
@@ -60,12 +71,14 @@ OBJS := \
 	$(addprefix $(ENV_SRCS_DIR), $(ENV_SRCS:.c=.o)) \
 	$(addprefix $(PARSE_SRCS_DIR), $(PARSE_SRCS:.c=.o)) \
 	$(addprefix $(BUILTIN_SRCS_DIR), $(BUILTIN_SRCS:.c=.o)) \
+	$(addprefix $(EXECUTE_SRCS_DIR), $(EXECUTE_SRCS:.c=.o)) \
 
 DEPS := \
 	$(addprefix $(SRCS_DIR), $(SRCS:.c=.d)) \
 	$(addprefix $(ENV_SRCS_DIR), $(ENV_SRCS:.c=.d)) \
 	$(addprefix $(PARSE_SRCS_DIR), $(PARSE_SRCS:.c=.d)) \
 	$(addprefix $(BUILTIN_SRCS_DIR), $(BUILTIN_SRCS:.c=.d)) \
+	$(addprefix $(EXECUTE_SRCS_DIR), $(EXECUTE_SRCS:.c=.d)) \
 
 BONUS_OBJS := $(addprefix $(BONUS_SRCS_DIR), $(BONUS_SRCS:.c=.o))
 

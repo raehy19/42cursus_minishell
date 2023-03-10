@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 14:48:17 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 14:48:18 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 14:37:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ static int	is_large(t_env *largest, t_env *env)
 
 t_env	*get_largest_env(void)
 {
-	int		idx;
 	t_env	*env;
 	t_env	*largest;
 
-	idx = 0;
 	env = g_global.envp;
 	largest = 0;
 	while (env)

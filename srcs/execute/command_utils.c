@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/05 19:53:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 14:39:49 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ char	**get_path(void)
 
 char	*make_command_path(char *path, char *command)
 {
-	int		idx;
 	int		size;
 	char	*command_path;
 
-	idx = 0;
 	size = ft_strlen(path) + ft_strlen(command) + 1;
 	command_path = malloc(sizeof(char) * (size + 1));
 	if (!command_path)
