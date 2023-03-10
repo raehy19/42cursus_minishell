@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 15:55:24 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 16:05:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,14 @@ void	print_command_error(t_node *node, int idx, char *error_message)
 	}
 	ft_putstr_fd(error_message, 2);
 	ft_putstr_fd("\n", 2);
+	exit(g_global.exit_status);
+}
+
+void	print_redirect_error(char *filename)
+{
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(filename, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	g_global.exit_status = 1;
 	exit(g_global.exit_status);
 }
