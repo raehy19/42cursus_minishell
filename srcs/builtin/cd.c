@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 15:56:05 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 16:34:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_cd(t_node *node)
 		if (node->arg_cnt > 1)
 			error_msg = "No such file or directory";
 		g_global.exit_status = 1;
-		print_command_error(node, 0, error_msg);
+		print_command_error(node, (node->arg_cnt > 1), error_msg);
 	}
 	set_pwd();
 	g_global.exit_status = 0;
