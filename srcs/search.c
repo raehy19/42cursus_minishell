@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/05 19:03:16 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 17:18:28 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,10 @@ void	search_tree(t_node *node)
 		open_pipe(pipe[NEW]);
 		node->pid = fork();
 	//	if (node->pid == -1)
-		if (node->pid == 0)
-		{
-			close(pipe[NEW][READ]);
-			close(pipe[OLD][WRITE]);
-			if (cnt)
-				dup2(pipe[OLD][READ], STDIN_FILENO);
-			if (node->right)
-				dup2(pipe[NEW][WRITE], STDOUT_FILENO);
-			close(pipe[OLD][READ]);
-			close(pipe[NEW][WRITE]);
-			search_node(node->left);
-		}
-		if (node->pid > 0)
-		{
-			close(pipe[OLD][READ]);
-			close(pipe[OLD][WRITE]);
-			pipe[OLD][READ] = pipe[NEW][READ];
-			pipe[OLD][WRITE] = pipe[NEW][WRITE];
-			node = node->right;
-			cnt++;
-		}
+		handle_child_process(node, pipe, &cnt);
+		handle_parent_process(node, pipe, &cnt);
 	}
-	close(pipe[OLD][READ]);
-	close(pipe[OLD][WRITE]);
+	close_pipe(pipe[OLD]);
 	while (cnt--)
 		wait(0);
 }

@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/10 16:05:22 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 17:22:17 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ typedef enum e_error_number
 	FAIL_MALLOC,
 	SYNTAX_ERR,
 	INVALID_IDENTIFIER,
-	FAIL_OPEN_PIPE
+	FAIL_FORK,
+	FAIL_OPEN_PIPE,
+	FAIL_DUPLICATE,
+	FAIL_CLOSE_FILE_DESCRIPTOR
 }	t_error_number;
 
 typedef struct s_node	t_node;
@@ -133,6 +136,8 @@ void	rank_envp(void);
 void	search_tree(t_node *node);
 void	search_node(t_node *node);
 void	handle_node(t_node *node);
+void	handle_child_process(t_node *node, int pipe[2][2], int *cnt);
+void	handle_parent_process(t_node *node, int pipe[2][2], int *cnt);
 
 // builtin
 
@@ -149,7 +154,11 @@ void	ft_exit(t_node *node);
 void	handle_redirect(t_node *node);
 void	search_heredoc(t_node *node);
 void	process_heredoc(t_node *node);
+
 void	open_pipe(int fd[2]);
+void	close_pipe(int pipe[2]);
+void	close_fildes(int fd);
+void	duplicate_fildes(int fd1, int fd2);
 
 // command
 
@@ -162,5 +171,6 @@ char	*find_command_path(t_node *node);
 
 void	print_command_error(t_node *node, int idx, char *error_message);
 void	print_redirect_error(char *filename);
+void	print_error_fildes(t_error_number error_number);
 
 #endif
