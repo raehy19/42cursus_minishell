@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:46:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 14:01:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 15:56:57 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	handle_multi_arg(t_node *node)
 		if (g_global.errno == INVALID_IDENTIFIER)
 		{
 			g_global.exit_status = 1;
-			printf("bash: export: `%s': not a valid identifier\n", node->command_arg[idx]);
+			print_command_error(node, idx, "not a valid identifier");
 		}
 	}
 }

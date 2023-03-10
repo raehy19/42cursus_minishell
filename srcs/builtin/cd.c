@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 13:07:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 15:56:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,23 @@ void	set_pwd(void)
 void	ft_cd(t_node *node)
 {
 	int		is_error;
-	char	*path;
+	char	*changed_dir;
+	char	*error_msg;
 	t_env	*home;
 
-	path = node->command_arg[1];
+	changed_dir = node->command_arg[1];
 	home = find_env("HOME");
 	if (node->arg_cnt == 1 && home)
-		path = home->value;
-	is_error = chdir(path);
+		changed_dir = home->value;
+	is_error = chdir(changed_dir);
 	if (is_error)
 	{
 		if (node->arg_cnt == 1)
-			printf("bash: cd: HOME not set\n");
+			error_msg = "HOME not set";
 		if (node->arg_cnt > 1)
-			printf("bash: cd: %s: No such file or directory\n", node->command_arg[1]);
+			error_msg = "No such file or directory";
 		g_global.exit_status = 1;
-		exit(g_global.exit_status); //exit code 1
+		print_command_error(node, 0, error_msg);
 	}
 	set_pwd();
 	g_global.exit_status = 0;

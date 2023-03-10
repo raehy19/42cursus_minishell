@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/10 15:01:25 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 15:55:39 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,6 @@ char	*find_command_path(t_node *node);
 
 // error
 
-void	print_error_message(char *str, char *error_msg);
+void	print_command_error(t_node *node, int idx, char *error_message);
 
 #endif
