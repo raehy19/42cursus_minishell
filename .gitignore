@@ -3,4 +3,5 @@
 *.d
 libft.a
 minishell
+a.out
 .*.swp
