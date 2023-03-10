@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 16:34:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:37:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ extern t_global	g_global;
 void	set_pwd(void)
 {
 	t_env	*pwd;
+	t_env	*oldpwd;
 
 	pwd = find_env("PWD");
-	free(pwd->value);
+	oldpwd = find_env("OLDPWD");
+	free(oldpwd->value);
+	oldpwd->value = pwd->value;
 	pwd->value = getcwd(0, 4096);
 }
 
