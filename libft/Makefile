@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 17:19:28 by rjeong            #+#    #+#              #
-#    Updated: 2023/02/25 10:02:33 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/10 15:23:27 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS := \
 	ft_isascii.c \
 	ft_isprint.c \
 	ft_isspace.c \
+	ft_isnumber.c \
 	ft_strlen.c \
 	ft_memset.c \
 	ft_bzero.c \
