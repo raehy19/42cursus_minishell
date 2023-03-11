@@ -45,7 +45,8 @@ ENV_SRCS := \
 	env_utils.c \
 
 PARSE_SRCS := \
-	tokenize.c \
+	tokenize_1.c \
+	tokenize_2.c \
 	tokenize_utils.c \
 
 BUILTIN_SRCS := \
