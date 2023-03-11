@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:46:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 20:58:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/11 16:13:41 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	handle_duplicated_name(char *src)
 	env = find_env(name);
 	if (!env)
 		return (0);
-	if (index < 1)
+	if (env && index < 1)
 		return (1);
 	free(env->value);
 	env->value = ft_substr(src, index + 1, ft_strlen(src));
@@ -79,6 +79,7 @@ static void	handle_multi_arg(t_node *node)
 		if (g_global.err_num == INVALID_IDENTIFIER)
 			print_invalid_identifier_error(node, idx);
 	}
+	g_global.err_num = NaE;
 }
 
 void	ft_export(t_node *node)
@@ -89,7 +90,6 @@ void	ft_export(t_node *node)
 		handle_single_arg();
 	if (node->arg_cnt > 1)
 		handle_multi_arg(node);
-	if (g_global.err_num == FAIL_MALLOC)
-		g_global.exit_status = 1;
+	handle_error();
 	exit(g_global.exit_status);
 }
