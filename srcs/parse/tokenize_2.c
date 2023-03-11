@@ -48,7 +48,7 @@ void	tokenize_env(char *str, int *idx, t_token_node **lst)
 		lst_add_back_token(lst,
 			lst_new_token(T_STRING, ft_strdup(env->value)));
 	free(env_name);
-	*idx += i;
+	*idx += i + 1;
 }
 
 void	tokenize_string_double(char *str, int *idx, t_token_node **lst)
