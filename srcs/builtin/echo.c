@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:32:44 by yeepark           #+#    #+#             */
-/*   Updated: 2023/02/25 18:01:26 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/11 17:07:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	ft_echo(t_node *node)
 	if (newline)
 		printf("\n");
 	g_global.exit_status = 0;
-	exit(g_global.exit_status);
+	exit_by_global();
 }

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:46:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 16:13:41 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/11 17:06:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	handle_duplicated_name(char *src)
 	env = find_env(name);
 	if (!env)
 		return (0);
-	if (env && index < 1)
+	if (index < 1)
 		return (1);
 	free(env->value);
 	env->value = ft_substr(src, index + 1, ft_strlen(src));
@@ -91,5 +91,5 @@ void	ft_export(t_node *node)
 	if (node->arg_cnt > 1)
 		handle_multi_arg(node);
 	handle_error();
-	exit(g_global.exit_status);
+	exit_by_global();
 }

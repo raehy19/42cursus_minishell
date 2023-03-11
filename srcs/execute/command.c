@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 14:39:13 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/11 17:03:17 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	execve_command(t_node *node)
 {
 	char	**envp;
 
+	if (g_global.is_singlebuiltin)
+		return ;
 	envp = make_envp();
 	handle_error();
 	node->command_path = find_command_path(node);

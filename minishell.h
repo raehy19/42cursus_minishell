@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/11 15:19:39 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/11 17:27:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ typedef enum e_redirect_type
 typedef enum e_error_number
 {
 	NaE,
-	FAIL_MALLOC,
 	SYNTAX_ERR,
 	INVALID_IDENTIFIER,
+	FAIL_MALLOC,
 	FAIL_FORK,
 	FAIL_OPEN_PIPE,
 	FAIL_DUPLICATE_FILDES,
@@ -110,6 +110,7 @@ typedef struct s_global
 	unsigned char	exit_status;
 	t_env			*envp;
 	t_error_number	err_num;
+	int				is_singlebuiltin;
 }	t_global;
 
 // env
@@ -145,6 +146,9 @@ void	handle_parent_process(t_node *node, int pipe[2][2]);
 
 // builtin
 
+int		handle_singlebuiltin(t_node *node);
+void	set_singlebuiltin(t_node *node);
+
 void	ft_echo(t_node *node);
 void	ft_cd(t_node *node);
 void	ft_pwd(void);
@@ -177,5 +181,6 @@ void	print_command_error(t_node *node, int idx, char *error_message);
 void	print_invalid_identifier_error(t_node *node, int idx);
 void	print_redirect_error(char *filename);
 void	handle_error(void);
+void	exit_by_global(void);
 
 #endif

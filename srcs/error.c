@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 14:52:43 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/11 17:24:04 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_command_error(t_node *node, int idx, char *error_message)
 	}
 	ft_putstr_fd(error_message, 2);
 	ft_putstr_fd("\n", 2);
-	exit(g_global.exit_status);
+	exit_by_global();
 }
 
 void	print_invalid_identifier_error(t_node *node, int idx)
@@ -45,7 +45,7 @@ void	print_redirect_error(char *filename)
 	ft_putstr_fd(filename, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
 	g_global.exit_status = 1;
-	exit(g_global.exit_status);
+	exit_by_global();
 }
 
 void	handle_error(void)
@@ -55,9 +55,16 @@ void	handle_error(void)
 	if (g_global.err_num == FAIL_MALLOC)
 	{
 		ft_putstr_fd(strerror(ENOMEM), 2);
-		exit(ENOMEM);
+		g_global.exit_status = ENOMEM;
+		exit_by_global();
 	}
 	perror("");
 	g_global.exit_status = errno;
-	exit(g_global.exit_status);
+	exit_by_global();
+}
+
+void	exit_by_global(void)
+{
+	if (!g_global.is_singlebuiltin)
+		exit(g_global.exit_status);
 }
