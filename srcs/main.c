@@ -26,13 +26,38 @@ int	main(int argc, char **argv, char **envp)
 	{
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 
+		printf("input command : %s\n", input); //debug
+
 		// parsing
 
 		// parse debug
 		t_token_node *temp = ft_tokenize(input);
 		while (temp != NULL)
 		{
-			printf("\ntoken type :\t%d\ntoken str  :\t%s\n", temp->type, temp->string);
+			printf("token type :  ");
+			if (temp->type == 0)
+				printf("whitespace\n");
+			else if (temp->type == 1)
+				printf("left parenthesis : (\n");
+			else if (temp->type == 2)
+				printf("right parenthesis : )\n");
+			else if (temp->type == 3)
+				printf("and : &&\n");
+			else if (temp->type == 4)
+				printf("or : ||\n");
+			else if (temp->type == 5)
+				printf("pipe : |\n");
+			else if (temp->type == 6)
+				printf("redirecting input : <\n");
+			else if (temp->type == 7)
+				printf("here document : <<\n");
+			else if (temp->type == 8)
+				printf("redirecting output : >\n");
+			else if (temp->type == 9)
+				printf("appending redirecting output : >>\n");
+			else if (temp->type == 10)
+				printf("string\n");
+			printf("token str  :  %s\n\n", temp->string);
 			temp = temp->next;
 		}
 
@@ -40,7 +65,6 @@ int	main(int argc, char **argv, char **envp)
 //		search_heredoc(node);
 //		search_tree(node);
 
-		printf("input command : %s\n", input); //debug
 
 		free(input);
 	}
