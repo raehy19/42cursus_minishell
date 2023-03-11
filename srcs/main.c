@@ -17,6 +17,7 @@ t_global	g_global;
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
+	t_token_node	*token_node;
 
 	(void)argc;
 	(void)argv;
@@ -31,7 +32,9 @@ int	main(int argc, char **argv, char **envp)
 		// parsing
 
 		// parse debug
-		t_token_node *temp = ft_tokenize(input);
+		token_node = ft_tokenize(input);
+
+		t_token_node *temp = compress_tokens(&token_node);
 		while (temp != NULL)
 		{
 			printf("\ntoken type :  ");
@@ -60,9 +63,11 @@ int	main(int argc, char **argv, char **envp)
 			else if (temp->type == T_DOUBLE_QUOTE)
 				printf("double quote\n");
 			else if (temp->type == T_STRING)
-				printf("string\n");
-			if (temp->string)
-				printf("token str  :  %s\n", temp->string);
+				printf("str\n");
+			else if (temp->type == T_LUMP_STR)
+				printf("compressed str\n");
+			if (temp->str)
+				printf("token str  :  %s\n", temp->str);
 			temp = temp->next;
 		}
 
