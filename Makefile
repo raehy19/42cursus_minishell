@@ -48,6 +48,8 @@ PARSE_SRCS := \
 	tokenize_1.c \
 	tokenize_2.c \
 	tokenize_utils.c \
+	token_compress.c \
+	token_compress_utils.c \
 #	parse.c \
 
 BUILTIN_SRCS := \
