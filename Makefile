@@ -36,6 +36,7 @@ SRCS := \
 	envp.c \
 	search.c \
 	error.c \
+	process.c \
 
 ENV_SRCS := \
 	env_utils.c \
