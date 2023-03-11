@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.c                                             :+:      :+:    :+:   */
+/*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 16:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/05 15:59:56 by yeepark          ###   ########.fr       */
+/*   Created: 2023/02/16 20:02:18 by yeepark           #+#    #+#             */
+/*   Updated: 2023/03/11 15:21:53 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,90 +14,72 @@
 
 extern t_global	g_global;
 
-int	is_valid_name(char *name)
+int	get_env_size(void)
 {
-	int	idx;
+	int		size;
+	t_env	*env;
 
-	if (!name || !(ft_isalpha(*name) || *name == '_'))
+	size = 0;
+	env = g_global.envp;
+	while (env)
 	{
-		g_global.err_num = INVALID_IDENTIFIER;
-		return (0);
+		size++;
+		env = env->next;
 	}
-	idx = 1;
-	while (ft_isalnum(name[idx]) || name[idx] == '_')
-		idx++;
-	if (name[idx])
-		g_global.err_num = INVALID_IDENTIFIER;
-	return (!name[idx]);
+	return (size);
 }
+// 0개일때(=null), segv 안뜨는지 체크
 
-char	*make_name(char *src, int index)
-{
-	int		idx;
-	char	*des;
-
-	if (index < 1)
-		index = ft_strlen(src);
-	des = malloc(sizeof(char) * (index + 1));
-	if (!des)
-		return (0);
-	idx = 0;
-	while (idx < index)
-	{
-		des[idx] = src[idx];
-		idx++;
-	}
-	des[idx] = 0;
-	return (des);
-}
-
-void	set_env(t_env **env, char *src)
-{
-	int		index;
-	t_env	*tmp;
-
-	tmp = *env;
-	index = ft_stridx(src, '=');
-	tmp->name = make_name(src, index);
-	tmp->value = 0;
-	if (index > 0)
-		tmp->value = ft_substr(src, index + 1, ft_strlen(src));
-	if (!tmp->name || (index > 0 && !tmp->value))
-		g_global.err_num = FAIL_MALLOC;
-	if (g_global.err_num == NaE)
-		tmp->next = 0;
-}
-
-t_env	*make_env(char *src)
-{
-	t_env	*new;
-
-	new = malloc(sizeof(t_env));
-	if (!new)
-	{
-		g_global.err_num = FAIL_MALLOC;
-		return (0);
-	}
-	set_env(&new, src);
-	if (g_global.err_num == NaE && !is_valid_name(new->name))
-	{
-		free(new);
-		new = 0;
-	}
-	return (new);
-}
-
-void	add_env_back(t_env *new)
+t_env	*find_env(char *name)
 {
 	t_env	*env;
 
-	if (!g_global.envp)
-	{
-		g_global.envp = new;
-		return ;
-	}
 	env = g_global.envp;
-	while (env->next)
+	while (env)
+	{
+		if (!ft_strcmp(name, env->name))
+			return (env);
 		env = env->next;
-	env->next = new;
+	}
+	return (0);
+}
+
+void	clear_one_env(t_env **env)
+{
+	free((*env)->name);
+	free((*env)->value);
+	free(*env);
+	*env = 0;
+}
+
+void	remove_env(char *name)
+{
+	t_env	*env;
+	t_env	*prev;
+
+	env = g_global.envp;
+	while (env)
+	{
+		if (!ft_strcmp(name, env->name))
+		{
+			prev->next = env->next;
+			clear_one_env(&env);
+			return ;
+		}
+		prev = env;
+		env = env->next;
+	}
+}
+
+int	clear_env(void)
+{
+	t_env	*tmp;
+
+	while (g_global.envp)
+	{
+		tmp = g_global.envp->next;
+		clear_one_env(&g_global.envp);
+		g_global.envp = tmp;
+	}
+	return (1);
 }
