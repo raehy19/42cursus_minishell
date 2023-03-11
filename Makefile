@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/10 14:58:43 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/11 15:22:25 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ SRCS := \
 	process.c \
 
 ENV_SRCS := \
+	init_env.c \
+	make_envp.c \
+	rank_env.c \
 	env_utils.c \
-	env_utils2.c \
-	env_utils3.c \
-	env_rank.c \
 
 PARSE_SRCS := \
 	tokenize.c \
