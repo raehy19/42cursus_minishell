@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:56:51 by rjeong            #+#    #+#             */
-/*   Updated: 2023/02/24 20:56:53 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/11 14:31:58 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ t_token_node	*lst_new_token(t_token_type type, char *str)
 	return (new);
 }
 
-void	lst_add_front_token(t_token_node **lst, t_token_node *new)
-{
-	new->next = (*(lst));
-	*(lst) = new;
-	return ;
-}
-
 t_token_node	*lst_last_token(t_token_node *lst)
 {
 	t_token_node	*temp;
@@ -43,7 +36,6 @@ t_token_node	*lst_last_token(t_token_node *lst)
 		temp = temp->next;
 	return (temp);
 }
-
 
 void	lst_add_back_token(t_token_node **lst, t_token_node *new)
 {
@@ -64,8 +56,16 @@ void	lst_add_back_token(t_token_node **lst, t_token_node *new)
 int	is_env_allowed_char(const char c)
 {
 	if (ft_isalnum(c))
-		return 1;
+		return (1);
 	if (c == '_')
-		return 1;
-	return 0;
+		return (1);
+	return (0);
+}
+
+int	is_string_char(char c)
+{
+	if (!c || ft_isspace(c) || c == '(' || c == ')' || c == '&' || c == '|'
+		|| c == '<' || c == '>' || c == '\'' || c == '\"')
+		return (0);
+	return (1);
 }
