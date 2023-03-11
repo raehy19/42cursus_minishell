@@ -34,30 +34,35 @@ int	main(int argc, char **argv, char **envp)
 		t_token_node *temp = ft_tokenize(input);
 		while (temp != NULL)
 		{
-			printf("token type :  ");
-			if (temp->type == 0)
+			printf("\ntoken type :  ");
+			if (temp->type == T_WHITESPACE)
 				printf("whitespace\n");
-			else if (temp->type == 1)
-				printf("left parenthesis : (\n");
-			else if (temp->type == 2)
-				printf("right parenthesis : )\n");
-			else if (temp->type == 3)
-				printf("and : &&\n");
-			else if (temp->type == 4)
-				printf("or : ||\n");
-			else if (temp->type == 5)
-				printf("pipe : |\n");
-			else if (temp->type == 6)
-				printf("redirecting input : <\n");
-			else if (temp->type == 7)
-				printf("here document : <<\n");
-			else if (temp->type == 8)
-				printf("redirecting output : >\n");
-			else if (temp->type == 9)
-				printf("appending redirecting output : >>\n");
-			else if (temp->type == 10)
+			else if (temp->type == T_LEFT_PARENTHESIS)
+				printf("(\n");
+			else if (temp->type == T_RIGHT_PARENTHESIS)
+				printf(")\n");
+			else if (temp->type == T_AND)
+				printf("&&\n");
+			else if (temp->type == T_OR)
+				printf("||\n");
+			else if (temp->type == T_PIPE)
+				printf("|\n");
+			else if (temp->type == T_REDIRECTING_INPUT)
+				printf("<\n");
+			else if (temp->type == T_HERE_DOCUMENT)
+				printf("<<\n");
+			else if (temp->type == T_REDIRECTING_OUTPUT)
+				printf(">\n");
+			else if (temp->type == T_APPENDING_REDIRECTED_OUTPUT)
+				printf(">>\n");
+			else if (temp->type == T_SINGLE_QUOTE)
+				printf("single quote\n");
+			else if (temp->type == T_DOUBLE_QUOTE)
+				printf("double quote\n");
+			else if (temp->type == T_STRING)
 				printf("string\n");
-			printf("token str  :  %s\n\n", temp->string);
+			if (temp->string)
+				printf("token str  :  %s\n", temp->string);
 			temp = temp->next;
 		}
 
