@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:41:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 14:42:43 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/11 15:13:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@ char	**make_envp(void)
 		env = env->next;
 	}
 	envp[idx] = 0;
-	if (g_global.err_num == FAIL_MALLOC)
-	{
-//		free_two_dim()
-		envp = 0;
-	}
+	handle_error();
 	return (envp);
 }

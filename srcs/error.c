@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/10 19:29:33 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/11 14:52:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	print_invalid_identifier_error(t_node *node, int idx)
 	ft_putstr_fd(": `", 2);
 	ft_putstr_fd(node->command_arg[idx], 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
+	g_global.exit_status = 1;
 }
 
 void	print_redirect_error(char *filename)
@@ -47,10 +48,16 @@ void	print_redirect_error(char *filename)
 	exit(g_global.exit_status);
 }
 
-void	print_error_fildes(t_error_number error_number)
+void	handle_error(void)
 {
-	g_global.err_num = error_number;
+	if (g_global.err_num == NaE)
+		return ;
+	if (g_global.err_num == FAIL_MALLOC)
+	{
+		ft_putstr_fd(strerror(ENOMEM), 2);
+		exit(ENOMEM);
+	}
 	perror("");
-	g_global.exit_status = 1;
+	g_global.exit_status = errno;
 	exit(g_global.exit_status);
 }
