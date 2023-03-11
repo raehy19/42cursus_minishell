@@ -30,6 +30,7 @@ void	set_singlebuiltin(t_node *node)
 		|| !ft_strcmp(command, "unset")
 		|| !ft_strcmp(command, "env")
 		|| !ft_strcmp(command, "exit"));
+	(void )is_butilin;
 }
 
 int	handle_singlebuiltin(t_node *node)

@@ -48,6 +48,7 @@ PARSE_SRCS := \
 	tokenize_1.c \
 	tokenize_2.c \
 	tokenize_utils.c \
+#	parse.c \
 
 BUILTIN_SRCS := \
 	echo.c \
@@ -64,6 +65,7 @@ EXECUTE_SRCS := \
 	redirect_utils.c \
 	command.c \
 	command_utils.c \
+	single_builtin.c \
 
 BONUS_SRCS := \
 	main.c \
