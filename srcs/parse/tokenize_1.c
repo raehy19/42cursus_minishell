@@ -83,18 +83,18 @@ t_token_node	*ft_tokenize(char *input)
 	{
 		if (g_global.err_num)
 			break ;
-		if (ft_isspace(*(input + idx)))
-			tokenize_whitespace(input, &idx, &token_list);
 		else if (*(input + idx) == '(' || *(input + idx) == ')')
 			tokenize_parenthesis(input, &idx, &token_list);
 		else if (*(input + idx) == '&' || *(input + idx) == '|')
 			tokenize_and_or_pipe(input, &idx, &token_list);
 		else if (*(input + idx) == '<' || *(input + idx) == '>')
 			tokenize_arrows(input, &idx, &token_list);
+		else if (ft_isspace(*(input + idx)))
+			tokenize_whitespace(input, &idx, &token_list);
 		else if (*(input + idx) == '\'')
-			tokenize_string_single(input, &idx, &token_list);
+			tokenize_single_quote(input, &idx, &token_list);
 		else if (*(input + idx) == '\"')
-			tokenize_string_double(input, &idx, &token_list);
+			tokenize_double_quote(input, &idx, &token_list);
 		else
 			tokenize_string(input, &idx, &token_list);
 	}
