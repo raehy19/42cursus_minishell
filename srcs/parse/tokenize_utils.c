@@ -6,11 +6,11 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:56:51 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/11 14:31:58 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/12 04:35:38 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#include "../../minishell.h"
 
 t_token_node	*lst_new_token(t_token_type type, char *str)
 {
@@ -20,8 +20,9 @@ t_token_node	*lst_new_token(t_token_type type, char *str)
 	if (!new)
 		return (NULL);
 	new->type = type;
-	new->string = str;
+	new->str = str;
 	new->next = NULL;
+	new->linked_str = NULL;
 	return (new);
 }
 
@@ -51,15 +52,6 @@ void	lst_add_back_token(t_token_node **lst, t_token_node *new)
 		return ;
 	temp->next = new;
 	return ;
-}
-
-int	is_env_allowed_char(const char c)
-{
-	if (ft_isalnum(c))
-		return (1);
-	if (c == '_')
-		return (1);
-	return (0);
 }
 
 int	is_string_char(char c)

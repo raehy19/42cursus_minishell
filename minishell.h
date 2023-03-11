@@ -23,7 +23,6 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include "libft/libft.h"
-# include "srcs/parse/parse.h"
 
 # define READ 0
 # define WRITE 1
@@ -71,6 +70,69 @@ typedef enum e_error_number
 
 typedef struct s_node	t_node;
 
+// tokenize
+
+typedef enum e_token_type
+{
+	T_LEFT_PARENTHESIS,
+	T_RIGHT_PARENTHESIS,
+	T_AND,
+	T_OR,
+	T_PIPE,
+	T_REDIRECTING_INPUT,
+	T_HERE_DOCUMENT,
+	T_REDIRECTING_OUTPUT,
+	T_APPENDING_REDIRECTED_OUTPUT,
+	T_WHITESPACE,
+	T_SINGLE_QUOTE,
+	T_DOUBLE_QUOTE,
+	T_STRING,
+	T_LUMP_STR,
+}	t_token_type;
+
+typedef struct s_linked_str	t_linked_str;
+
+typedef struct s_linked_str
+{
+	char			*str;
+	t_token_type	str_type;
+	t_linked_str	*next;
+}	t_linked_str;
+
+typedef struct s_token_node	t_token_node;
+
+typedef struct s_token_node
+{
+	t_token_type	type;
+	char			*str;
+	t_token_node	*next;
+	t_linked_str	*linked_str;
+}	t_token_node;
+
+t_token_node	*lst_new_token(t_token_type type, char *str);
+t_token_node	*lst_last_token(t_token_node *lst);
+void			lst_add_back_token(t_token_node **lst, t_token_node *new);
+int				is_string_char(char c);
+
+void			tokenize_whitespace(char *str, int *idx, t_token_node **lst);
+void			tokenize_parenthesis(char *str, int *idx, t_token_node **lst);
+void			tokenize_and_or_pipe(char *str, int *idx, t_token_node **lst);
+void			tokenize_arrows(char *str, int *idx, t_token_node **lst);
+void			tokenize_single_quote(char *str, int *idx, t_token_node **lst);
+void			tokenize_double_quote(char *str, int *idx, t_token_node **lst);
+void			tokenize_string(char *str, int *idx, t_token_node **lst);
+
+t_token_node	*ft_tokenize(char *input);
+
+// compress
+
+int	is_string(t_token_node *token);
+t_linked_str	*new_linked_str(t_token_type type, char *str);
+t_linked_str	*lst_last_linked_str(t_linked_str *lst);
+void	lst_add_back_linked_str(t_linked_str **lst, t_linked_str *new);
+
+t_token_node	*compress_tokens(t_token_node **token_list);
+
 typedef struct s_node
 {
 	t_node_type		type;
@@ -83,11 +145,13 @@ typedef struct s_node
 
 	// node_type == command
 	char			*command_path;
+	t_linked_str	**cmd_arg_str_list;
 	char			**command_arg;
 	int				arg_cnt;
 
 	// node_type == redirect
 	t_redirect_type	redirect_type;
+	t_linked_str	**redirect_str_list;
 	char			*redirect_filename;
 	int				in_fd; // initialize STDIN
 	int				out_fd; // initialize STDOUT
