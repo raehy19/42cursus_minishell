@@ -25,7 +25,7 @@ int	init_envp(char *envp[])
 	while (envp[idx])
 	{
 		new = make_env(envp[idx]);
-		if (g_global.errno != NaE)
+		if (g_global.err_num != NaE)
 			return (1);
 		add_env_back(new);
 		if (!strcmp(new->name, "OLDPWD"))
@@ -35,7 +35,7 @@ int	init_envp(char *envp[])
 	if (is_oldpwd)
 		return (0);
 	new = make_env("OLDPWD");
-	if (g_global.errno != NaE)
+	if (g_global.err_num != NaE)
 		return (1);
 	add_env_back(new);
 	return (0);

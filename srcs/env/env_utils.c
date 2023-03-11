@@ -20,14 +20,14 @@ int	is_valid_name(char *name)
 
 	if (!name || !(ft_isalpha(*name) || *name == '_'))
 	{
-		g_global.errno = INVALID_IDENTIFIER;
+		g_global.err_num = INVALID_IDENTIFIER;
 		return (0);
 	}
 	idx = 1;
 	while (ft_isalnum(name[idx]) || name[idx] == '_')
 		idx++;
 	if (name[idx])
-		g_global.errno = INVALID_IDENTIFIER;
+		g_global.err_num = INVALID_IDENTIFIER;
 	return (!name[idx]);
 }
 
@@ -63,8 +63,8 @@ void	set_env(t_env **env, char *src)
 	if (index > 0)
 		tmp->value = ft_substr(src, index + 1, ft_strlen(src));
 	if (!tmp->name || (index > 0 && !tmp->value))
-		g_global.errno = FAIL_MALLOC;
-	if (g_global.errno == NaE)
+		g_global.err_num = FAIL_MALLOC;
+	if (g_global.err_num == NaE)
 		tmp->next = 0;
 }
 
@@ -75,11 +75,11 @@ t_env	*make_env(char *src)
 	new = malloc(sizeof(t_env));
 	if (!new)
 	{
-		g_global.errno = FAIL_MALLOC;
+		g_global.err_num = FAIL_MALLOC;
 		return (0);
 	}
 	set_env(&new, src);
-	if (g_global.errno == NaE && !is_valid_name(new->name))
+	if (g_global.err_num == NaE && !is_valid_name(new->name))
 	{
 		free(new);
 		new = 0;

@@ -107,7 +107,7 @@ typedef struct s_global
 {
 	unsigned char	exit_status;
 	t_env			*envp;
-	t_error_number	errno;
+	t_error_number	err_num;
 }	t_global;
 
 // env

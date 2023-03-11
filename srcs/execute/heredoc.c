@@ -20,7 +20,7 @@ void	process_heredoc(t_node *node)
 	char	*input;
 
 	if (pipe(fd))
-		g_global.errno = FAIL_OPEN_PIPE;
+		g_global.err_num = FAIL_OPEN_PIPE;
 	input = 0;
 	while (ft_strcmp(input, node->redirect_filename))
 	{

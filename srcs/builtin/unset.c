@@ -24,9 +24,9 @@ void	ft_unset(t_node *node)
 	idx = 0;
 	while (node->command_arg[++idx])
 	{
-		g_global.errno = NaE;
+		g_global.err_num = NaE;
 		is_valid_name(node->command_arg[idx]);
-		if (g_global.errno == INVALID_IDENTIFIER)
+		if (g_global.err_num == INVALID_IDENTIFIER)
 		{
 			print_invalid_identifier_error(node, idx);
 			continue ;

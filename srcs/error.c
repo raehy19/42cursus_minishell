@@ -49,7 +49,7 @@ void	print_redirect_error(char *filename)
 
 void	print_error_fildes(t_error_number error_number)
 {
-	g_global.errno = error_number;
+	g_global.err_num = error_number;
 	perror("");
 	g_global.exit_status = 1;
 	exit(g_global.exit_status);

@@ -48,7 +48,7 @@ void	tokenize_and_or_pipe(char *str, int *idx, t_token_node **lst)
 	{
 		tmp = ft_strndup((str + *idx), 1);
 		if (!tmp)
-			g_global.errno = FAIL_MALLOC;
+			g_global.err_num = FAIL_MALLOC;
 		else
 			lst_add_back_token(lst, lst_new_token(T_STRING, tmp));
 	}
@@ -81,7 +81,7 @@ void	tokenize_string_single(char *str, int *idx, t_token_node **lst)
 		++i;
 	if (!*(str + *idx + i))
 	{
-		g_global.errno = SYNTAX_ERR;
+		g_global.err_num = SYNTAX_ERR;
 		return;
 	}
 	lst_add_back_token(lst,
@@ -108,7 +108,7 @@ void	tokenize_env(char *str, int *idx, t_token_node **lst)
 		++i;
 	env_name = ft_strndup((str + *idx + 1), i);
 	if (!env_name)
-		g_global.errno = FAIL_MALLOC;
+		g_global.err_num = FAIL_MALLOC;
 	env = find_env(env_name);
 	if (env)
 		lst_add_back_token(lst,
@@ -136,7 +136,7 @@ void	tokenize_string_double(char *str, int *idx, t_token_node **lst)
 	}
 	if (!*(str + *idx + i))
 	{
-		g_global.errno = SYNTAX_ERR;
+		g_global.err_num = SYNTAX_ERR;
 		return ;
 	}
 	lst_add_back_token(lst,
@@ -175,7 +175,7 @@ t_token_node	*ft_tokenize(char *input)
 	token_list = NULL;
 	while (*(input + ++idx))
 	{
-		if (g_global.errno)
+		if (g_global.err_num)
 			break ;
 		if (ft_isspace(*(input + idx)))
 			tokenize_whitespace(input, &idx, &token_list);

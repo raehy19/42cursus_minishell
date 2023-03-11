@@ -37,7 +37,7 @@ void	execve_command(t_node *node)
 	char	**envp;
 
 	envp = make_envp();
-	if (g_global.errno == FAIL_MALLOC)
+	if (g_global.err_num == FAIL_MALLOC)
 	{
 //		strerror(ENOMEM);
 //		exit();

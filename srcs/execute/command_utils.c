@@ -24,7 +24,7 @@ char	**get_path(void)
 		return (0);
 	path = ft_split(path_env->value, ':');
 	if (!path)
-		g_global.errno = FAIL_MALLOC;
+		g_global.err_num = FAIL_MALLOC;
 	return (path);
 }
 
@@ -37,7 +37,7 @@ char	*make_command_path(char *path, char *command)
 	command_path = malloc(sizeof(char) * (size + 1));
 	if (!command_path)
 	{
-		g_global.errno = FAIL_MALLOC;
+		g_global.err_num = FAIL_MALLOC;
 		return (0);
 	}
 	ft_strlcpy(command_path, path, ft_strlen(path) + 1);

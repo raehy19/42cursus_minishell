@@ -23,7 +23,7 @@ char	*join_name_and_value(t_env *env)
 	new = malloc(sizeof(char) * (size + 1));
 	if (!new)
 	{
-		g_global.errno = FAIL_MALLOC;
+		g_global.err_num = FAIL_MALLOC;
 		return (0);
 	}
 	ft_strlcpy(new, env->name, ft_strlen(env->name) + 1);
@@ -44,19 +44,19 @@ char	**make_envp(void)
 	envp = malloc(sizeof(char *) * (get_env_size() + 1));
 	if (!envp)
 	{
-		g_global.errno = FAIL_MALLOC;
+		g_global.err_num = FAIL_MALLOC;
 		return (0);
 	}
 	idx = 0;
 	env = g_global.envp;
-	while (g_global.errno == NaE && env)
+	while (g_global.err_num == NaE && env)
 	{
 		envp[idx] = join_name_and_value(env);
 		idx++;
 		env = env->next;
 	}
 	envp[idx] = 0;
-	if (g_global.errno == FAIL_MALLOC)
+	if (g_global.err_num == FAIL_MALLOC)
 	{
 //		free_two_dim()
 		envp = 0;

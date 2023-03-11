@@ -56,7 +56,7 @@ static int	handle_duplicated_name(char *src)
 	free(env->value);
 	env->value = ft_substr(src, index + 1, ft_strlen(src));
 	if (!env->value)
-		g_global.errno = FAIL_MALLOC;
+		g_global.err_num = FAIL_MALLOC;
 	return (1);
 }
 
@@ -68,15 +68,15 @@ static void	handle_multi_arg(t_node *node)
 	idx = 0;
 	while (node->command_arg[++idx])
 	{
-		if (g_global.errno == FAIL_MALLOC)
+		if (g_global.err_num == FAIL_MALLOC)
 			return ;
-		g_global.errno = NaE;
+		g_global.err_num = NaE;
 		if (handle_duplicated_name(node->command_arg[idx]))
 			continue ;
 		new = make_env(node->command_arg[idx]);
-		if (g_global.errno == NaE)
+		if (g_global.err_num == NaE)
 			add_env_back(new);
-		if (g_global.errno == INVALID_IDENTIFIER)
+		if (g_global.err_num == INVALID_IDENTIFIER)
 			print_invalid_identifier_error(node, idx);
 	}
 }
@@ -84,12 +84,12 @@ static void	handle_multi_arg(t_node *node)
 void	ft_export(t_node *node)
 {
 	g_global.exit_status = 0;
-	g_global.errno = NaE;
+	g_global.err_num = NaE;
 	if (node->arg_cnt == 1)
 		handle_single_arg();
 	if (node->arg_cnt > 1)
 		handle_multi_arg(node);
-	if (g_global.errno == FAIL_MALLOC)
+	if (g_global.err_num == FAIL_MALLOC)
 		g_global.exit_status = 1;
 	exit(g_global.exit_status);
 }
