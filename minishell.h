@@ -141,6 +141,15 @@ void	lst_unshift_token(t_node **lst, t_node *new);
 t_node	*ft_parse(t_token_node **token_list);
 
 
+typedef struct s_linked_arg t_linked_arg;
+
+typedef struct s_linked_arg
+{
+	t_linked_str	*arg_str;
+	t_linked_arg	*next;
+}	t_linked_arg;
+
+void	lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
 
 typedef struct s_node
 {
@@ -154,7 +163,7 @@ typedef struct s_node
 
 	// node_type == command
 	char			*command_path;
-	t_linked_str	**cmd_arg_linked_str;
+	t_linked_arg	*cmd_arg_linked_str;
 	char			**command_arg;
 	int				arg_cnt;
 

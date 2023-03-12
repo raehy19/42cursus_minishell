@@ -44,3 +44,23 @@ void	lst_unshift_token(t_node **lst, t_node *new)
 	*lst = new;
 }
 
+void	lst_push_cmd(t_linked_arg **lst, t_linked_str *arg)
+{
+	t_linked_arg	*temp;
+	t_linked_arg	*new;
+
+	new = (t_linked_arg *) malloc(sizeof(t_linked_arg));
+	if (!new)
+		return ;
+	new->arg_str = arg;
+	new->next = NULL;
+	if (!(*(lst)))
+	{
+		*lst = new;
+		return ;
+	}
+	temp = *lst;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+}

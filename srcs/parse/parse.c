@@ -62,20 +62,37 @@ void	parse_arrow(t_node **arrow, t_token_node *temp, t_token_node **token_list)
 	lst_unshift_token(arrow, new);
 }
 
+void	parse_cmd(t_linked_arg **cmd_args, t_token_node *temp)
+{
+	lst_push_cmd(cmd_args, temp->linked_str);
+	free(temp);
+}
+
 void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 {
 	t_token_node	*temp;
 	t_node			*arrow;
+	t_linked_arg	*cmd_args;
 
 	temp = token_shift(token_list);
 	arrow = NULL;
+	cmd_args = NULL;
 	while (temp && !is_logical(temp))
 	{
 		if (is_arrow(temp))
 			parse_arrow(&arrow, temp, token_list);
+		else if (temp->type == T_LUMP_STR)
+			parse_cmd(&cmd_args, temp);
 		temp = token_shift(token_list);
 	}
-	(void )head;
+	if (cmd_args)
+	{
+		(*head)->left = new_node(COMMAND, NaL);
+		(*head)->left->cmd_arg_linked_str = cmd_args;
+		(*head)->left->left = arrow;
+	}
+	else
+		(*head)->pre_redirect = arrow;
 }
 
 t_node	*ft_parse(t_token_node **token_list)
