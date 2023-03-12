@@ -35,6 +35,9 @@ int	main(int argc, char **argv, char **envp)
 		token_node = ft_tokenize(input);
 
 		t_token_node *temp = compress_tokens(&token_node);
+		t_node *tree = ft_parse(&temp);
+
+		(void )tree;
 		while (temp != NULL)
 		{
 			printf("\ntoken type :  ");
