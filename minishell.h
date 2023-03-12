@@ -133,6 +133,15 @@ void	lst_add_back_linked_str(t_linked_str **lst, t_linked_str *new);
 
 t_token_node	*compress_tokens(t_token_node **token_list);
 
+
+// parse
+
+t_node	*new_node(t_node_type type, t_logical_type logical_type);
+void	lst_unshift_token(t_node **lst, t_node *new);
+t_node	*ft_parse(t_token_node **token_list);
+
+
+
 typedef struct s_node
 {
 	t_node_type		type;
@@ -145,13 +154,13 @@ typedef struct s_node
 
 	// node_type == command
 	char			*command_path;
-	t_linked_str	**cmd_arg_str_list;
+	t_linked_str	**cmd_arg_linked_str;
 	char			**command_arg;
 	int				arg_cnt;
 
 	// node_type == redirect
 	t_redirect_type	redirect_type;
-	t_linked_str	**redirect_str_list;
+	t_linked_str	*redirect_linked_str;
 	char			*redirect_filename;
 	int				in_fd; // initialize STDIN
 	int				out_fd; // initialize STDOUT

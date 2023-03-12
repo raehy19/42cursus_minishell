@@ -50,7 +50,8 @@ PARSE_SRCS := \
 	tokenize_utils.c \
 	token_compress.c \
 	token_compress_utils.c \
-#	parse.c \
+	parse.c \
+	parse_utils.c \
 
 BUILTIN_SRCS := \
 	echo.c \
