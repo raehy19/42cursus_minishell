@@ -39,10 +39,10 @@ void	compress_str_node(t_token_node *temp,
 	linked_str = NULL;
 	lst_add_back_linked_str(&linked_str,
 		new_linked_str(temp->type, temp->str));
-	new = lst_new_token(T_LUMP_STR, NULL);
+	new = new_token(T_LUMP_STR, NULL);
 	ft_combine_str(temp->next, &linked_str, token_list);
 	new->linked_str = linked_str;
-	lst_add_back_token(compressed_token_list, new);
+	lst_push_token(compressed_token_list, new);
 	free(temp);
 }
 
@@ -63,7 +63,7 @@ t_token_node	*compress_tokens(t_token_node **token_list)
 		else
 		{
 			temp->next = NULL;
-			lst_add_back_token(&compressed_token_list, temp);
+			lst_push_token(&compressed_token_list, temp);
 		}
 		temp = *token_list;
 	}

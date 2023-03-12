@@ -109,9 +109,9 @@ typedef struct s_token_node
 	t_linked_str	*linked_str;
 }	t_token_node;
 
-t_token_node	*lst_new_token(t_token_type type, char *str);
+t_token_node	*new_token(t_token_type type, char *str);
 t_token_node	*lst_last_token(t_token_node *lst);
-void			lst_add_back_token(t_token_node **lst, t_token_node *new);
+void			lst_push_token(t_token_node **lst, t_token_node *new);
 int				is_string_char(char c);
 
 void			tokenize_whitespace(char *str, int *idx, t_token_node **lst);

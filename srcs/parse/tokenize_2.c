@@ -26,8 +26,9 @@ void	tokenize_single_quote(char *str, int *idx, t_token_node **lst)
 		g_global.err_num = SYNTAX_ERR;
 		return ;
 	}
-	lst_add_back_token(lst,
-		lst_new_token(T_SINGLE_QUOTE, ft_strndup((str + *idx + 1), i - 1)));
+	lst_push_token(lst,
+		new_token(T_SINGLE_QUOTE,
+			ft_strndup((str + *idx + 1), i - 1)));
 	*idx += i;
 }
 
@@ -43,8 +44,9 @@ void	tokenize_double_quote(char *str, int *idx, t_token_node **lst)
 		g_global.err_num = SYNTAX_ERR;
 		return ;
 	}
-	lst_add_back_token(lst,
-		lst_new_token(T_DOUBLE_QUOTE, ft_strndup((str + *idx + 1), i - 1)));
+	lst_push_token(lst,
+		new_token(T_DOUBLE_QUOTE,
+			ft_strndup((str + *idx + 1), i - 1)));
 	*idx += i;
 }
 
@@ -55,7 +57,7 @@ void	tokenize_string(char *str, int *idx, t_token_node **lst)
 	i = 0;
 	while (is_string_char(*(str + *idx + i)))
 		++i;
-	lst_add_back_token(lst,
-		lst_new_token(T_STRING, ft_strndup((str + *idx), i)));
+	lst_push_token(lst,
+		new_token(T_STRING, ft_strndup((str + *idx), i)));
 	*idx += i - 1;
 }

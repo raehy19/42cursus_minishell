@@ -18,15 +18,15 @@ void	tokenize_whitespace(char *str, int *idx, t_token_node **lst)
 {
 	while (*(str + *idx + 1) && ft_isspace(*(str + *idx + 1)))
 		++(*idx);
-	lst_add_back_token(lst, lst_new_token(T_WHITESPACE, NULL));
+	lst_push_token(lst, new_token(T_WHITESPACE, NULL));
 }
 
 void	tokenize_parenthesis(char *str, int *idx, t_token_node **lst)
 {
 	if (*(str + *idx) == '(')
-		lst_add_back_token(lst, lst_new_token(T_LEFT_PARENTHESIS, NULL));
+		lst_push_token(lst, new_token(T_LEFT_PARENTHESIS, NULL));
 	else if (*(str + *idx) == ')')
-		lst_add_back_token(lst, lst_new_token(T_RIGHT_PARENTHESIS, NULL));
+		lst_push_token(lst, new_token(T_RIGHT_PARENTHESIS, NULL));
 }
 
 void	tokenize_and_or_pipe(char *str, int *idx, t_token_node **lst)
@@ -37,20 +37,20 @@ void	tokenize_and_or_pipe(char *str, int *idx, t_token_node **lst)
 		&& (*(str + *idx + 1) == '|' || *(str + *idx + 1) == '&'))
 	{
 		if (*(str + *idx) == '&' && *(str + *idx + 1) == '&')
-			lst_add_back_token(lst, lst_new_token(T_AND, NULL));
+			lst_push_token(lst, new_token(T_AND, NULL));
 		else if (*(str + *idx) == '|' && *(str + *idx + 1) == '|')
-			lst_add_back_token(lst, lst_new_token(T_OR, NULL));
+			lst_push_token(lst, new_token(T_OR, NULL));
 		++*idx;
 	}
 	else if (*(str + *idx) == '|')
-		lst_add_back_token(lst, lst_new_token(T_PIPE, NULL));
+		lst_push_token(lst, new_token(T_PIPE, NULL));
 	else
 	{
 		tmp = ft_strndup((str + *idx), 1);
 		if (!tmp)
 			g_global.err_num = FAIL_MALLOC;
 		else
-			lst_add_back_token(lst, lst_new_token(T_STRING, tmp));
+			lst_push_token(lst, new_token(T_STRING, tmp));
 	}
 }
 
@@ -60,16 +60,16 @@ void	tokenize_arrows(char *str, int *idx, t_token_node **lst)
 		&& (*(str + *idx + 1) == '<' || *(str + *idx + 1) == '>' ))
 	{
 		if (*(str + *idx) == '<' && *(str + *idx + 1) == '<')
-			lst_add_back_token(lst, lst_new_token(T_HERE_DOCUMENT, NULL));
+			lst_push_token(lst, new_token(T_HERE_DOCUMENT, NULL));
 		else if (*(str + *idx) == '>' && *(str + *idx + 1) == '>')
-			lst_add_back_token(lst,
-				lst_new_token(T_APPENDING_REDIRECTED_OUTPUT, NULL));
+			lst_push_token(lst,
+						   new_token(T_APPENDING_REDIRECTED_OUTPUT, NULL));
 		++*idx;
 	}
 	else if (*(str + *idx) == '<')
-		lst_add_back_token(lst, lst_new_token(T_REDIRECTING_INPUT, NULL));
+		lst_push_token(lst, new_token(T_REDIRECTING_INPUT, NULL));
 	else if (*(str + *idx) == '>')
-		lst_add_back_token(lst, lst_new_token(T_REDIRECTING_OUTPUT, NULL));
+		lst_push_token(lst, new_token(T_REDIRECTING_OUTPUT, NULL));
 }
 
 t_token_node	*ft_tokenize(char *input)

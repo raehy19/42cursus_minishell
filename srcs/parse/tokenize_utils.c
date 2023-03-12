@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-t_token_node	*lst_new_token(t_token_type type, char *str)
+t_token_node	*new_token(t_token_type type, char *str)
 {
 	t_token_node	*new;
 
@@ -38,7 +38,7 @@ t_token_node	*lst_last_token(t_token_node *lst)
 	return (temp);
 }
 
-void	lst_add_back_token(t_token_node **lst, t_token_node *new)
+void	lst_push_token(t_token_node **lst, t_token_node *new)
 {
 	t_token_node	*temp;
 
@@ -51,7 +51,6 @@ void	lst_add_back_token(t_token_node **lst, t_token_node *new)
 	if (!temp)
 		return ;
 	temp->next = new;
-	return ;
 }
 
 int	is_string_char(char c)
