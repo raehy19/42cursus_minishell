@@ -41,9 +41,9 @@ typedef enum e_logical_type
 {
 	NaL,
 	ROOT,
-	PIPE,
 	AND,
-	OR
+	OR,
+	PIPE
 }	t_logical_type;
 
 typedef enum e_redirect_type
@@ -139,7 +139,7 @@ t_token_node	*compress_tokens(t_token_node **token_list);
 t_node	*new_node(t_node_type type, t_logical_type logical_type);
 void	lst_unshift_token(t_node **lst, t_node *new);
 t_node	*ft_parse(t_token_node **token_list);
-
+void	ft_parse_token_list(t_node **head, t_token_node **token_list);
 
 typedef struct s_linked_arg t_linked_arg;
 

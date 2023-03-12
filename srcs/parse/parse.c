@@ -54,7 +54,7 @@ void	parse_arrow(t_node **arrow, t_token_node *temp, t_token_node **token_list)
 		return ;
 	}
 	new = new_node(REDIRECT, NaL);
-	new->redirect_type = temp->type - 4;
+	new->redirect_type = (t_redirect_type) (temp->type - 4);
 	free(temp);
 	temp = token_shift(token_list);
 	new->redirect_linked_str = temp->linked_str;
@@ -66,6 +66,13 @@ void	parse_cmd(t_linked_arg **cmd_args, t_token_node *temp)
 {
 	lst_push_cmd(cmd_args, temp->linked_str);
 	free(temp);
+}
+
+void	add_new_logical(t_node **head, t_token_node *temp, t_token_node **token_list)
+{
+	(*head)->right = new_node(LOGICAL, (t_logical_type) temp->type);
+	free(temp);
+	ft_parse_token_list(&(*head)->right, token_list);
 }
 
 void	ft_parse_token_list(t_node **head, t_token_node **token_list)
@@ -93,6 +100,10 @@ void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 	}
 	else
 		(*head)->pre_redirect = arrow;
+	if (!temp)
+		return;
+	if (is_logical(temp))
+		add_new_logical(head, temp, token_list);
 }
 
 t_node	*ft_parse(t_token_node **token_list)
