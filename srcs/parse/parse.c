@@ -75,6 +75,19 @@ void	add_new_logical(t_node **head, t_token_node *temp, t_token_node **token_lis
 	ft_parse_token_list(&(*head)->right, token_list);
 }
 
+void	ft_check_cmd(t_node **head, t_linked_arg *cmd_args, t_node *arrow)
+{
+	(*head)->left = new_node(COMMAND, NaL);
+	if ((*head)->left)
+	{
+		if (cmd_args)
+			(*head)->left->cmd_arg_linked_str = cmd_args;
+		(*head)->left->left = arrow;
+	}
+	else
+		g_global.err_num = FAIL_MALLOC;
+}
+
 void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 {
 	t_token_node	*temp;
@@ -92,16 +105,11 @@ void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 			parse_cmd(&cmd_args, temp);
 		temp = token_shift(token_list);
 	}
-	if (cmd_args)
-	{
-		(*head)->left = new_node(COMMAND, NaL);
-		(*head)->left->cmd_arg_linked_str = cmd_args;
-		(*head)->left->left = arrow;
-	}
-	else
-		(*head)->pre_redirect = arrow;
+	ft_check_cmd(head, cmd_args, arrow);
 	if (!temp)
 		return;
+	if (temp->type == T_RIGHT_PARENTHESIS)
+		;
 	if (is_logical(temp))
 		add_new_logical(head, temp, token_list);
 }
