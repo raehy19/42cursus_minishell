@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 17:03:17 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:31:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	execve_command(t_node *node)
 
 void	handle_command(t_node *node)
 {
+	if (!node->command_arg)
+		exit_by_global();
 	handle_builtin(node);
 	execve_command(node);
 }

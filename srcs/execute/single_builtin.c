@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:17:35 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 17:26:16 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/15 17:15:33 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ extern t_global	g_global;
 void	set_singlebuiltin(t_node *node)
 {
 	char	*command;
-	int		is_butilin;
 
-	if (node->right != NULL || node->left->type != COMMAND)
+	if (node->right != NULL || !node->left->command_arg)
+	{
 		g_global.is_singlebuiltin = 0;
+		return ;
+	}
 	command = node->left->command_arg[0];
 	g_global.is_singlebuiltin = 1 
 		&& (!ft_strcmp(command, "echo")
@@ -30,7 +32,6 @@ void	set_singlebuiltin(t_node *node)
 		|| !ft_strcmp(command, "unset")
 		|| !ft_strcmp(command, "env")
 		|| !ft_strcmp(command, "exit"));
-	(void )is_butilin;
 }
 
 int	handle_singlebuiltin(t_node *node)

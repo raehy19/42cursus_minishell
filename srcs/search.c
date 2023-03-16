@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 17:24:48 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/15 17:18:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	search_node(t_node *node)
 	handle_node(node);
 }
 
-// pipe == 0 && builtin 일 때 예외처리
 void	search_tree(t_node *node)
 {
 	int	pipe[2][2];

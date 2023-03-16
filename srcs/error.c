@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 17:24:04 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/15 17:05:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,22 @@ void	handle_error(void)
 {
 	if (g_global.err_num == NaE)
 		return ;
+	g_global.exit_status = 1;
 	if (g_global.err_num == FAIL_MALLOC)
 	{
 		ft_putstr_fd(strerror(ENOMEM), 2);
 		g_global.exit_status = ENOMEM;
-		exit_by_global();
 	}
-	perror("");
-	g_global.exit_status = errno;
+	if (g_global.err_num == FAIL_OPEN_PIPE)
+		ft_putstr_fd("fail open pipe", 2);
+	if (g_global.err_num == FAIL_CLOSE_FILDES)
+		ft_putstr_fd("fail close fildes", 2);
+	if (g_global.err_num == FAIL_EXECUTE)
+		ft_putstr_fd("fail execve", 2);
+	if (g_global.err_num == FAIL_FORK)
+		ft_putstr_fd("fail fork", 2);
+	if (g_global.err_num == FAIL_DUPLICATE_FILDES)
+		ft_putstr_fd("fail duplicate fildes", 2);
 	exit_by_global();
 }
 
