@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/11 15:22:25 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/17 20:04:53 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,11 @@ all : $(NAME)
 
 SRCS := \
 	main.c \
-	envp.c \
-	search.c \
+	global.c \
 	error.c \
+	search.c \
 	process.c \
+
 
 ENV_SRCS := \
 	init_env.c \
@@ -69,7 +70,7 @@ EXECUTE_SRCS := \
 	redirect_utils.c \
 	command.c \
 	command_utils.c \
-	single_builtin.c \
+	builtin.c \
 
 BONUS_SRCS := \
 	main.c \

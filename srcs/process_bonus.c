@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 17:38:52 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 20:01:53 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	handle_parent_process(t_node *node, int pipe[2][2], int *cnt)
 int	handle_process(t_node *node, int pipe[2][2], int *cnt)
 {
 	if (!node->left->is_child)
+	{
+		search_node(node->left);
 		return (0);
+	}
 	open_pipe(pipe[NEW]);
 	node->pid = fork();
 	if (node->pid == -1)

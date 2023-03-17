@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:20:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 19:20:12 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 19:54:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	set_builtin_type(t_node *node)
 
 int	handle_singlebuiltin(t_node *node)
 {
+	if (node->right || node->left->type != COMMAND)
+		return (0);
 	set_builtin_type(node->left);
-	if (node->right || !node->left->builtin_type)
+	if (!node->left->builtin_type)
 		return (0);
 	node->left->is_child = 0;
 	search_node(node->left);

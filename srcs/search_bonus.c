@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 19:26:47 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 20:03:04 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	set_(t_node *node)
 
 	is_pipe = 0;
 	set_builtin_type(node->left);
-	if (!node->builtin_type)
+	if (!node->left->builtin_type)
 		return (1);
 	if (node->right)
 		is_pipe = (node->right->logical_type == PIPE);
