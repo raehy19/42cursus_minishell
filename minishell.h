@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 18:17:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 21:34:29 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 
 # define OLD 0
 # define NEW 1
+
+# define STDIN 0
+# define STDOUT 1
 
 typedef enum e_node_type
 {
@@ -212,6 +215,7 @@ typedef struct s_global
 	t_env			*envp;
 	t_error_number	err_num;
 	void			(*builtin_function[8])(t_node *);
+	int				standard_fildes[2];
 }	t_global;
 
 

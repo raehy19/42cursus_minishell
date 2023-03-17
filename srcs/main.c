@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 18:08:48 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 21:33:54 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,15 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_builtin_functions();
 	if (init_envp(envp))
-		return (clear_env()); 
+		return (clear_env());
+	g_global.standard_fildes[STDIN] = STDIN_FILENO;
+	g_global.standard_fildes[STDOUT] = STDOUT_FILENO;
 	while (1)
 	{
 		g_global.err_num = NaE;
+		dup2(g_global.standard_fildes[STDIN], STDIN);
+		dup2(g_global.standard_fildes[STDOUT], STDOUT);
+		
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 
 	//	printf("input command : %s\n", input); //debug
