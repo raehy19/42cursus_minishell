@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:41 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:01:35 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 17:53:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 extern t_global	g_global;
 
-void	ft_pwd(void)
+void	ft_pwd(t_node *node)
 {
 	char	*buf;
 
+	(void)node;
 	buf = getcwd(0, 4096);
 	if (!buf)
 	{

@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 17:38:32 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 19:26:47 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,12 @@ void	search_node(t_node *node)
 //builtlin x or pipe와 연결 => fork
 int	set_(t_node *node)
 {
-	t_node	*cmd_node;
 	int		is_pipe;
 
-	cmd_node = node->left;
-	cmd_node->command_arg
-		= ft_combine_arg(cmd_node->cmd_arg_linked_str, &cmd_node->arg_cnt);
-	if (!is_builtin(cmd_node))
-		return (1);
 	is_pipe = 0;
+	set_builtin_type(node->left);
+	if (!node->builtin_type)
+		return (1);
 	if (node->right)
 		is_pipe = (node->right->logical_type == PIPE);
 	is_pipe = (is_pipe || (node->logical_type == PIPE));

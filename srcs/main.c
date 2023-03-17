@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 14:57:16 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 18:08:48 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ t_global	g_global;
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	char			*input;
 	t_token_node	*token_node;
 
 	(void)argc;
 	(void)argv;
+	init_builtin_functions();
 	if (init_envp(envp))
 		return (clear_env()); 
 	while (1)
 	{
+		g_global.err_num = NaE;
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 
 	//	printf("input command : %s\n", input); //debug

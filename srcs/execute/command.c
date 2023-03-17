@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 16:02:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 18:23:16 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,7 @@ extern t_global	g_global;
 
 void	handle_builtin(t_node *node)
 {
-	if (!ft_strcmp(node->command_arg[0], "echo"))
-		ft_echo(node);
-	if (!ft_strcmp(node->command_arg[0], "cd"))
-		ft_cd(node);
-	if (!ft_strcmp(node->command_arg[0], "pwd"))
-		ft_pwd();
-	if (!ft_strcmp(node->command_arg[0], "export"))
-		ft_export(node);
-	if (!ft_strcmp(node->command_arg[0], "unset"))
-		ft_unset(node);
-	if (!ft_strcmp(node->command_arg[0], "env"))
-		ft_env();
-	if (!ft_strcmp(node->command_arg[0], "exit"))
-		ft_exit(node);
+	g_global.builtin_function[node->builtin_type](node);
 	if (node->is_child)
 		exit(g_global.exit_status);
 }
@@ -57,11 +44,10 @@ void	execve_command(t_node *node)
 
 void	handle_command(t_node *node)
 {
-	if (!node->command_arg)
-		node->command_arg = ft_combine_arg(node->cmd_arg_linked_str, &node->arg_cnt);
+	set_builtin_type(node);
 	if (!node->command_arg)
 		exit(g_global.exit_status);
-	if (is_builtin(node))
+	if (node->builtin_type)
 		handle_builtin(node);
 	else
 		execve_command(node);

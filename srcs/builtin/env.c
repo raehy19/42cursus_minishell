@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:29 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:00:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 17:54:04 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 extern t_global	g_global;
 
-void	ft_env(void)
+void	ft_env(t_node *node)
 {
 	t_env	*env;
 
+	(void)node;
 	env = g_global.envp;
 	while (env)
 	{

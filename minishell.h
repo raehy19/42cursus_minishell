@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 16:22:36 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 18:17:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ typedef enum e_logical_type
 	OR,
 	PIPE
 }	t_logical_type;
+
+typedef enum e_builtin_type
+{
+	NaB,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT
+}	t_builtin_type;
 
 typedef enum e_redirect_type
 {
@@ -171,6 +183,7 @@ typedef struct s_node
 	t_linked_arg	*cmd_arg_linked_str;
 	char			**command_arg;
 	int				arg_cnt;
+	t_builtin_type	builtin_type;
 	int				is_child;
 
 	// node_type == redirect
@@ -198,7 +211,9 @@ typedef struct s_global
 	unsigned char	exit_status;
 	t_env			*envp;
 	t_error_number	err_num;
+	void			(*builtin_function[8])(t_node *);
 }	t_global;
+
 
 // env
 
@@ -234,16 +249,16 @@ void	wait_process(pid_t pid, int cnt);
 
 // builtin
 
-int		is_builtin(t_node *node);
+void	init_builtin_functions(void);
 int		handle_singlebuiltin(t_node *node);
-void	set_singlebuiltin(t_node *node);
+void	set_builtin_type(t_node *node);
 
 void	ft_echo(t_node *node);
 void	ft_cd(t_node *node);
-void	ft_pwd(void);
+void	ft_pwd(t_node *node);
 void	ft_export(t_node *node);
 void	ft_unset(t_node *node);
-void	ft_env(void);
+void	ft_env(t_node *node);
 void	ft_exit(t_node *node);
 
 // redirect
