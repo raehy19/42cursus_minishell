@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 14:14:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 15:05:31 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void	wait_process(pid_t pid, int cnt);
 
 // builtin
 
-int		is_builtin(char **command_arg);
+int		is_builtin(t_node *node);
 int		handle_singlebuiltin(t_node *node);
 void	set_singlebuiltin(t_node *node);
 

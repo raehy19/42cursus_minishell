@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:17:35 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:37:18 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 15:06:25 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 extern t_global	g_global;
 
-int	is_builtin(char **command_arg)
+int	is_builtin(t_node *node)
 {
 	char	*command;
-
-	if (!command_arg)
+	
+	node->command_arg = ft_combine_arg(node->cmd_arg_linked_str, &node->arg_cnt);
+	if (!node->command_arg)
 		return (0);
-	command = command_arg[0];
+	command = node->command_arg[0];
 	return (!ft_strcmp(command, "echo")
 		|| !ft_strcmp(command, "cd")
 		|| !ft_strcmp(command, "pwd")
@@ -32,7 +33,7 @@ int	is_builtin(char **command_arg)
 
 int	handle_singlebuiltin(t_node *node)
 {
-	if (node->right || !is_builtin(node->left->command_arg))
+	if (node->right || !is_builtin(node->left))
 		return (0);
 	node->left->is_child = 0;
 	search_node(node->left);
