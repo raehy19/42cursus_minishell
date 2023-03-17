@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:32:44 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:00:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 10:57:04 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	is_option(char *str)
 	int	idx;
 
 	idx = 0;
-	if (str[idx] != '-')
+	if (!str)
 		return (0);
-	idx++;
+	if (str[idx] != '-' || !str[++idx])
+		return (0);
 	while (str[idx] == 'n')
 		idx++;
 	return (!str[idx]);
