@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:00:25 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 10:49:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,27 @@ void	set_pwd(void)
 {
 	t_env	*pwd;
 	t_env	*oldpwd;
+	char	*new_value;
 
 	pwd = find_env("PWD");
 	oldpwd = find_env("OLDPWD");
+	if (!pwd)
+	{
+		pwd = make_env("PWD=");
+		if (g_global.err_num == NaE)
+			add_env_back(pwd);
+	}
+	if (g_global.err_num == NaE && !oldpwd)
+	{
+		oldpwd = make_env("OLDPWD=");
+		if (g_global.err_num == NaE)
+			add_env_back(oldpwd);
+	}
+	if (g_global.err_num != NaE)
+		handle_error();
 	free(oldpwd->value);
 	oldpwd->value = pwd->value;
-	pwd->value = getcwd(0, 4096);
+	pwd->value = getcwd(0, 0);
 }
 
 void	ft_cd(t_node *node)
