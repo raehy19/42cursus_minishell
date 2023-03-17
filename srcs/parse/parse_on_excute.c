@@ -22,6 +22,26 @@ int	is_env_allowed_char(const char c)
 		return (1);
 	return (0);
 }
+
+char	*ft_combine_lump(t_linked_str *head)
+{
+	t_linked_str	*temp;
+	char			*res;
+	char			*temp_str;
+
+	res = head->str;
+	temp = head;
+	while (temp->next)
+	{
+		temp_str = ft_strjoin(res, temp->next->str);
+		free(res);
+		free(temp->next->str);
+		res = temp_str;
+		temp = temp->next;
+	}
+	return (res);
+}
+
 //
 //void	tokenize_env(char *str, int *idx, t_token_node **lst)
 //{

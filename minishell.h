@@ -141,6 +141,9 @@ void	lst_unshift_token(t_node **lst, t_node *new);
 t_node	*ft_parse(t_token_node **token_list);
 void	ft_parse_token_list(t_node **head, t_token_node **token_list);
 
+
+char	*ft_combine_lump(t_linked_str *head);
+
 typedef struct s_linked_arg t_linked_arg;
 
 typedef struct s_linked_arg
