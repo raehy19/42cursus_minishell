@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 13:27:26 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 14:14:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,14 @@ typedef struct s_linked_str
 	t_linked_str	*next;
 }	t_linked_str;
 
+typedef struct s_linked_arg t_linked_arg;
+
+typedef struct s_linked_arg
+{
+	t_linked_str	*arg_str;
+	t_linked_arg	*next;
+}	t_linked_arg;
+
 typedef struct s_token_node	t_token_node;
 
 typedef struct s_token_node
@@ -143,14 +151,8 @@ void	ft_parse_token_list(t_node **head, t_token_node **token_list);
 
 
 char	*ft_combine_lump(t_linked_str *head);
+char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt);
 
-typedef struct s_linked_arg t_linked_arg;
-
-typedef struct s_linked_arg
-{
-	t_linked_str	*arg_str;
-	t_linked_arg	*next;
-}	t_linked_arg;
 
 void	lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
 
