@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 16:07:52 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:40:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,18 @@ void	handle_parent_process(t_node *node, int pipe[2][2])
 		pipe[OLD][READ] = pipe[NEW][READ];
 		pipe[OLD][WRITE] = pipe[NEW][WRITE];
 	}
+}
+
+void	handle_process(t_node *node, int pipe[2][2], int cnt)
+{
+	open_pipe(pipe[NEW]);
+	node->pid = fork();
+	if (node->pid == -1)
+	{
+		g_global.err_num = FAIL_FORK;
+		handle_error();
+	}
+	node->left->is_child = 1;
+	handle_child_process(node, pipe, cnt);
+	handle_parent_process(node, pipe);
 }

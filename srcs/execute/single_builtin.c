@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:17:35 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:27:18 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:37:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern t_global	g_global;
 
 int	is_builtin(char **command_arg)
 {
-	char *command;
+	char	*command;
 
 	if (!command_arg)
 		return (0);
