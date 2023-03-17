@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 10:49:08 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 12:53:49 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	set_pwd(void)
 {
 	t_env	*pwd;
 	t_env	*oldpwd;
-	char	*new_value;
 
 	pwd = find_env("PWD");
 	oldpwd = find_env("OLDPWD");

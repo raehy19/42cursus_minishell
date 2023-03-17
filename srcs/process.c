@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:40:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 13:27:40 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handle_parent_process(t_node *node, int pipe[2][2])
 	}
 }
 
-void	handle_process(t_node *node, int pipe[2][2], int cnt)
+int	handle_process(t_node *node, int pipe[2][2], int cnt)
 {
 	open_pipe(pipe[NEW]);
 	node->pid = fork();
@@ -52,4 +52,18 @@ void	handle_process(t_node *node, int pipe[2][2], int cnt)
 	node->left->is_child = 1;
 	handle_child_process(node, pipe, cnt);
 	handle_parent_process(node, pipe);
+	return (node->pid);
+}
+
+void	wait_process(pid_t pid, int cnt)
+{
+	int	res;
+	int	status;
+
+	while (cnt--)
+	{
+		res = wait(&status);
+		if (res == pid)
+			g_global.exit_status = status >> 8;
+	}
 }

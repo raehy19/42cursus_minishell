@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 09:41:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 13:27:26 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,6 @@ void	remove_env(char *name);
 void	clear_one_env(t_env **env);
 int		clear_env(void);
 
-
 void	init_env_order(void);
 t_env	*get_largest_env(void);
 void	rank_envp(void);
@@ -223,9 +222,10 @@ void	rank_envp(void);
 void	search_tree(t_node *node);
 void	search_node(t_node *node);
 void	handle_node(t_node *node);
-void	handle_process(t_node *node, int pipe[2][2], int cnt);
+int		handle_process(t_node *node, int pipe[2][2], int cnt);
 void	handle_child_process(t_node *node, int pipe[2][2], int cnt);
 void	handle_parent_process(t_node *node, int pipe[2][2]);
+void	wait_process(pid_t pid, int cnt);
 
 // builtin
 
