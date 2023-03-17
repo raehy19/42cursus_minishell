@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 15:05:54 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 16:02:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	execve_command(t_node *node)
 
 void	handle_command(t_node *node)
 {
-	node->command_arg = ft_combine_arg(node->cmd_arg_linked_str, &node->arg_cnt);
+	if (!node->command_arg)
+		node->command_arg = ft_combine_arg(node->cmd_arg_linked_str, &node->arg_cnt);
 	if (!node->command_arg)
 		exit(g_global.exit_status);
 	if (is_builtin(node))

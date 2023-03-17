@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 15:05:31 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 16:22:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,9 +227,9 @@ void	rank_envp(void);
 void	search_tree(t_node *node);
 void	search_node(t_node *node);
 void	handle_node(t_node *node);
-int		handle_process(t_node *node, int pipe[2][2], int cnt);
+int		handle_process(t_node *node, int pipe[2][2], int *cnt);
 void	handle_child_process(t_node *node, int pipe[2][2], int cnt);
-void	handle_parent_process(t_node *node, int pipe[2][2]);
+void	handle_parent_process(t_node *node, int pipe[2][2], int *cnt);
 void	wait_process(pid_t pid, int cnt);
 
 // builtin

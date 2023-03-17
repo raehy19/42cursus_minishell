@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 16:23:17 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 17:38:52 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	handle_child_process(t_node *node, int pipe[2][2], int cnt)
 		close_fildes(pipe[OLD][WRITE]);
 		if (cnt)
 			duplicate_fildes(pipe[OLD][READ], STDIN_FILENO);
-		if (node->right)
+		if (node->right && node->right->logical_type == PIPE)
 			duplicate_fildes(pipe[NEW][WRITE], STDOUT_FILENO);
 		close_fildes(pipe[OLD][READ]);
 		close_fildes(pipe[NEW][WRITE]);
@@ -43,6 +43,8 @@ void	handle_parent_process(t_node *node, int pipe[2][2], int *cnt)
 
 int	handle_process(t_node *node, int pipe[2][2], int *cnt)
 {
+	if (!node->left->is_child)
+		return (0);
 	open_pipe(pipe[NEW]);
 	node->pid = fork();
 	if (node->pid == -1)
@@ -50,7 +52,6 @@ int	handle_process(t_node *node, int pipe[2][2], int *cnt)
 		g_global.err_num = FAIL_FORK;
 		handle_error();
 	}
-	node->left->is_child = 1;
 	handle_child_process(node, pipe, *cnt);
 	handle_parent_process(node, pipe, cnt);
 	return (node->pid);
