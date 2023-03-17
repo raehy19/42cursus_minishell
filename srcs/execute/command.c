@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:30:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 11:19:08 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	execve_command(t_node *node)
 	if (!node->command_path)
 	{
 		g_global.exit_status = 127;
+		if (!find_env("PATH"))
+			print_command_error(node, 0, "No such file or directory");
 		print_command_error(node, 0, "command not found");
 	}
 	if (execve(node->command_path, node->command_arg, envp) == -1)
