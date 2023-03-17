@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:17:35 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/15 17:15:33 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:27:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 
 extern t_global	g_global;
 
-void	set_singlebuiltin(t_node *node)
+int	is_builtin(char **command_arg)
 {
-	char	*command;
+	char *command;
 
-	if (node->right != NULL || !node->left->command_arg)
-	{
-		g_global.is_singlebuiltin = 0;
-		return ;
-	}
-	command = node->left->command_arg[0];
-	g_global.is_singlebuiltin = 1 
-		&& (!ft_strcmp(command, "echo")
+	if (!command_arg)
+		return (0);
+	command = command_arg[0];
+	return (!ft_strcmp(command, "echo")
 		|| !ft_strcmp(command, "cd")
 		|| !ft_strcmp(command, "pwd")
 		|| !ft_strcmp(command, "export")
@@ -36,8 +32,9 @@ void	set_singlebuiltin(t_node *node)
 
 int	handle_singlebuiltin(t_node *node)
 {
-	set_singlebuiltin(node);
-	if (g_global.is_singlebuiltin)
-		search_node(node->left);
-	return (g_global.is_singlebuiltin);
+	if (node->right || !is_builtin(node->left->command_arg))
+		return (0);
+	node->left->is_child = 0;
+	search_node(node->left);
+	return (1);
 }

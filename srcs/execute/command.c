@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/15 16:31:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:30:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	handle_builtin(t_node *node)
 		ft_env();
 	if (!ft_strcmp(node->command_arg[0], "exit"))
 		ft_exit(node);
+	if (node->is_child)
+		exit(g_global.exit_status);
 }
 
 void	execve_command(t_node *node)
 {
 	char	**envp;
 
-	if (g_global.is_singlebuiltin)
-		return ;
 	envp = make_envp();
 	handle_error();
 	node->command_path = find_command_path(node);
@@ -56,7 +56,9 @@ void	execve_command(t_node *node)
 void	handle_command(t_node *node)
 {
 	if (!node->command_arg)
-		exit_by_global();
-	handle_builtin(node);
-	execve_command(node);
+		exit(g_global.exit_status);
+	if (is_builtin(node->command_arg))
+		handle_builtin(node);
+	else
+		execve_command(node);
 }

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 11:03:19 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 17:05:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:00:49 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern t_global	g_global;
 void	ft_exit(t_node *node)
 {
 	if (node->arg_cnt == 1)
-		exit_by_global();
+		exit(g_global.exit_status);
 	if (node->arg_cnt > 2)
 	{
 		print_command_error(node, 0, "too many arguments");
@@ -27,7 +27,8 @@ void	ft_exit(t_node *node)
 	{
 		g_global.exit_status = 1;
 		print_command_error(node, 1, "numberic argument required");
+		exit(g_global.exit_status);
 	}
 	g_global.exit_status = ft_atoi(node->command_arg[1]);
-	exit_by_global();
+	exit(g_global.exit_status);
 }

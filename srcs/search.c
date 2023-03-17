@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/15 17:18:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:31:20 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	search_tree(t_node *node)
 			g_global.err_num = FAIL_FORK;
 			handle_error();
 		}
+		node->left->is_child = 1;
 		handle_child_process(node, pipe, cnt);
 		handle_parent_process(node, pipe);
 		node = node->right;

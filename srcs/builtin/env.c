@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:29 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 17:06:36 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:00:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_env(void)
 		env = env->next;
 	}
 	g_global.exit_status = 0;
-	exit_by_global();
 }
 
 // 마지막 줄 _ 다름 

@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/11 17:27:43 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:30:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct s_node
 	t_linked_arg	*cmd_arg_linked_str;
 	char			**command_arg;
 	int				arg_cnt;
+	int				is_child;
 
 	// node_type == redirect
 	t_redirect_type	redirect_type;
@@ -192,7 +193,6 @@ typedef struct s_global
 	unsigned char	exit_status;
 	t_env			*envp;
 	t_error_number	err_num;
-	int				is_singlebuiltin;
 }	t_global;
 
 // env
@@ -228,6 +228,7 @@ void	handle_parent_process(t_node *node, int pipe[2][2]);
 
 // builtin
 
+int		is_builtin(char **command_arg);
 int		handle_singlebuiltin(t_node *node);
 void	set_singlebuiltin(t_node *node);
 
@@ -263,6 +264,5 @@ void	print_command_error(t_node *node, int idx, char *error_message);
 void	print_invalid_identifier_error(t_node *node, int idx);
 void	print_redirect_error(char *filename);
 void	handle_error(void);
-void	exit_by_global(void);
 
 #endif

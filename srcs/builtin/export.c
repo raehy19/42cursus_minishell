@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:46:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 17:06:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:25:44 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,4 @@ void	ft_export(t_node *node)
 	if (node->arg_cnt > 1)
 		handle_multi_arg(node);
 	handle_error();
-	exit_by_global();
 }

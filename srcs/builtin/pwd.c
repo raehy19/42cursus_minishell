@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:41 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/11 17:06:50 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/17 09:01:35 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,4 @@ void	ft_pwd(void)
 	printf("%s\n", buf);
 	free(buf);
 	g_global.exit_status = 0;
-	exit_by_global();
 }
