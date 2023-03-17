@@ -42,6 +42,40 @@ char	*ft_combine_lump(t_linked_str *head)
 	return (res);
 }
 
+int	ft_count_arg(t_linked_arg *head)
+{
+	int	i;
+
+	i = 0;
+	while (head && head->next)
+	{
+		head = head->next;
+		++i;
+	}
+	return (i);
+}
+
+char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
+{
+	char	**res;
+	int		i;
+
+	*arg_cnt = ft_count_arg(head);
+	if (*arg_cnt == 0)
+		return (NULL);
+	res = (char **) malloc(sizeof(char *) * (*arg_cnt + 1));
+	if (!res)
+		return (NULL);
+	i = -1;
+	while (++i < *arg_cnt)
+	{
+		*(res + i) = ft_combine_lump(head->arg_str);
+		head = head->next;
+	}
+	*(res + i) = NULL;
+	return res;
+}
+
 //
 //void	tokenize_env(char *str, int *idx, t_token_node **lst)
 //{
