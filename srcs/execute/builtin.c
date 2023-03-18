@@ -23,6 +23,7 @@ void	set_builtin_type(t_node *node)
 	if (!node->command_arg)
 		return ;
 	command = node->command_arg[0];
+	(void )command;
 	node->builtin_type = NaB;
 	if (!ft_strcmp(node->command_arg[0], "echo"))
 		node->builtin_type = ECHO;
