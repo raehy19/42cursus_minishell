@@ -46,6 +46,8 @@ int	ft_count_arg(t_linked_arg *head)
 {
 	int	i;
 
+	if (!head)
+		return (0);
 	i = 1;
 	while (head && head->next)
 	{
