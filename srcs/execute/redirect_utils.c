@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:43:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 21:10:17 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:35:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ void	close_fildes(int fd)
 
 void	duplicate_fildes(int exist_fd, int new_fd)
 {
-	if (new_fd == STDIN || new_fd == STDOUT)
-		g_global.standard_fildes[new_fd] = dup(new_fd);
-	if (g_global.standard_fildes[new_fd] == -1)
-	{
-		g_global.err_num = FAIL_DUPLICATE_FILDES;
-		handle_error();
-	}
 	if (dup2(exist_fd, new_fd) != -1)
 		return ;
 	g_global.err_num = FAIL_DUPLICATE_FILDES;

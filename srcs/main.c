@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/17 21:33:54 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:49:57 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,34 @@
 
 t_global	g_global;
 
+void	init(char **envp, int dup_stdfildes[2])
+{
+	init_builtin_functions();
+	if (init_envp(envp))
+		exit(clear_env());
+	dup_stdfildes[0] = dup(STDIN_FILENO);
+	dup_stdfildes[1] = dup(STDOUT_FILENO);
+	if (dup_stdfildes[0] == -1 || dup_stdfildes[0] == -1)
+	{
+		g_global.err_num = FAIL_DUPLICATE_FILDES;
+		handle_error();
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char			*input;
 	t_token_node	*token_node;
+	int				dup_stdfildes[2];
 
 	(void)argc;
 	(void)argv;
-	init_builtin_functions();
-	if (init_envp(envp))
-		return (clear_env());
-	g_global.standard_fildes[STDIN] = STDIN_FILENO;
-	g_global.standard_fildes[STDOUT] = STDOUT_FILENO;
+	init(envp, dup_stdfildes);
 	while (1)
 	{
 		g_global.err_num = NaE;
-		dup2(g_global.standard_fildes[STDIN], STDIN);
-		dup2(g_global.standard_fildes[STDOUT], STDOUT);
+		duplicate_fildes(dup_stdfildes[0], STDIN_FILENO);
+		duplicate_fildes(dup_stdfildes[1], STDOUT_FILENO);
 		
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 
