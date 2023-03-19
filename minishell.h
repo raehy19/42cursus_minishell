@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/19 14:39:19 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:58:40 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,10 @@ typedef enum e_error_number
 	INVALID_IDENTIFIER,
 	FAIL_MALLOC,
 	FAIL_FORK,
+	FAIL_OPEN_FILDES,
+	FAIL_CLOSE_FILDES,
 	FAIL_OPEN_PIPE,
 	FAIL_DUPLICATE_FILDES,
-	FAIL_CLOSE_FILDES,
 	FAIL_EXECUTE
 }	t_error_number;
 
@@ -272,6 +273,7 @@ void	process_heredoc(t_node *node);
 
 void	open_pipe(int fd[2]);
 void	close_pipe(int pipe[2]);
+int		open_fildes(char *file_name, int oflag, int mode);
 void	close_fildes(int fd);
 void	duplicate_fildes(int fd1, int fd2);
 

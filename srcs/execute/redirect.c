@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:38 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 14:29:09 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:59:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handle_in_redirect(t_node *node)
 	{
 		if (access(node->redirect_filename, F_OK | R_OK) == -1)
 			print_redirect_error(node->redirect_filename);
-		node->in_fd = open(node->redirect_filename, O_RDWR);
+		node->in_fd = open_fildes(node->redirect_filename, O_RDWR, 0);
 	}
 	duplicate_fildes(node->in_fd, STDIN_FILENO);
 	close_fildes(node->in_fd);
@@ -39,13 +39,13 @@ void	handle_in_redirect(t_node *node)
 
 void	handle_out_redirect(t_node *node)
 {
-	int	mode;
+	int	oflag;
 
 	if (node->redirect_type == REDIRECTING_OUTPUT)
-		mode = O_RDWR | O_CREAT | O_TRUNC;
+		oflag = O_RDWR | O_CREAT | O_TRUNC;
 	if (node->redirect_type == APPENDING_REDIRECTED_OUTPUT)
-		mode = O_RDWR | O_CREAT | O_APPEND;
-	node->out_fd = open(node->redirect_filename, mode, 0644);
+		oflag = O_RDWR | O_CREAT | O_APPEND;
+	node->out_fd = open_fildes(node->redirect_filename, oflag, 0644);
 	duplicate_fildes(node->out_fd, STDOUT_FILENO);
 	close_fildes(node->out_fd);
 }

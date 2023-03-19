@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:31 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 14:02:33 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:52:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	process_heredoc(t_node *node)
 	char	*input;
 
 	node->redirect_filename = ft_combine_lump(node->redirect_linked_str);
-	if (pipe(fd))
-		g_global.err_num = FAIL_OPEN_PIPE;
+	open_pipe(fd);
 	input = 0;
 	while (ft_strcmp(input, node->redirect_filename))
 	{

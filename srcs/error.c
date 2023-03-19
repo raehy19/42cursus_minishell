@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 08:59:15 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:57:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	handle_error(void)
 	}
 	if (g_global.err_num == FAIL_OPEN_PIPE)
 		ft_putstr_fd("fail open pipe", 2);
+	if (g_global.err_num == FAIL_OPEN_FILDES)
+		ft_putstr_fd("fail open fildes", 2);
 	if (g_global.err_num == FAIL_CLOSE_FILDES)
 		ft_putstr_fd("fail close fildes", 2);
 	if (g_global.err_num == FAIL_EXECUTE)
