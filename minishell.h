@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/19 15:47:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 19:50:25 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,5 +296,13 @@ void	print_command_error(t_node *node, int idx, char *error_message);
 void	print_invalid_identifier_error(t_node *node, int idx);
 void	print_redirect_error(char *filename);
 void	handle_error(void);
+
+// utils
+
+void	free_two_dim(char **array);
+void	free_command_node(t_node *node);
+void	free_redirect_node(t_node *node);
+void	free_node(t_node *node);
+void	free_tree(t_node *node);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/19 16:14:18 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/19 19:52:30 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,11 @@ SRCS := \
 	main.c \
 	global.c \
 	error.c \
-	search.c \
-	process.c \
-#	search_bonus.c \
+	free.c \
+	search_bonus.c \
 	process_bonus.c \
+#	search.c \
+	process.c \
 
 
 ENV_SRCS := \

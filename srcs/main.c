@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/19 15:46:31 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 19:57:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ int	main(int argc, char **argv, char **envp)
 		search_heredoc(tree);
 		search_tree(tree);
 
+		free_tree(tree);
+		
 		add_history(input);
 		free(input);
+		input = 0;
 	}
 	return (0);
 }
