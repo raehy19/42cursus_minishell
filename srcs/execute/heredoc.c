@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:31 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 14:52:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 15:21:46 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	process_heredoc(t_node *node)
 		input = readline("> ");
 	}
 	free(input);
-	close(fd[WRITE]);
+	close_fildes(fd[WRITE]);
 	node->in_fd = fd[READ];
 }
 

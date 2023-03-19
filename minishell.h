@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/19 14:58:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 15:47:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,12 +216,17 @@ typedef struct s_global
 	t_env			*envp;
 	t_error_number	err_num;
 	void			(*builtin_function[8])(t_node *);
+	int				standard_fildes[2];
 }	t_global;
 
 
-// env
+//global
 
+void	init_global(char **envp);
 int		init_envp(char *envp[]);
+void	init_builtin_functions(void);
+
+// env
 
 int		is_valid_name(char *str);
 char	*make_name(char *src, int index);
@@ -253,7 +258,6 @@ void	wait_process(pid_t pid, int cnt);
 
 // builtin
 
-void	init_builtin_functions(void);
 int		handle_singlebuiltin(t_node *node);
 void	set_builtin_type(t_node *node);
 
@@ -275,6 +279,8 @@ void	open_pipe(int fd[2]);
 void	close_pipe(int pipe[2]);
 int		open_fildes(char *file_name, int oflag, int mode);
 void	close_fildes(int fd);
+void	init_standard_fildes(void);
+void	duplicate_standard_fildes(int fd);
 void	duplicate_fildes(int fd1, int fd2);
 
 // command
