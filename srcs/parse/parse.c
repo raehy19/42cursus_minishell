@@ -88,6 +88,13 @@ void	ft_check_cmd(t_node **head, t_linked_arg *cmd_args, t_node *arrow)
 		g_global.err_num = FAIL_MALLOC;
 }
 
+void	parse_l_parenthesis(t_node **head, t_token_node *temp, t_token_node **token_list)
+{
+	(*head)->left = new_node(LOGICAL, ROOT);
+	free(temp);
+	ft_parse_token_list(&(*head)->left, token_list);
+}
+
 void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 {
 	t_token_node	*temp;
@@ -108,6 +115,8 @@ void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 	ft_check_cmd(head, cmd_args, arrow);
 	if (!temp)
 		return;
+	if (temp->type == T_LEFT_PARENTHESIS)
+		parse_l_parenthesis(head, temp, token_list);
 	if (temp->type == T_RIGHT_PARENTHESIS)
 		;
 	if (is_logical(temp))
