@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:43:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 15:32:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 15:57:38 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,14 @@ void	close_fildes(int fd)
 	if (close(fd) != -1)
 		return ;
 	g_global.err_num = FAIL_CLOSE_FILDES;
+	handle_error();
+}
+
+void	duplicate_fildes(int exist_fd, int new_fd)
+{
+	duplicate_standard_fildes(new_fd);
+	if (dup2(exist_fd, new_fd) != -1)
+		return ;
+	g_global.err_num = FAIL_DUPLICATE_FILDES;
 	handle_error();
 }

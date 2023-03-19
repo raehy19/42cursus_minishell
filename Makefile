@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/17 20:04:53 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/19 16:14:18 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ SRCS := \
 	error.c \
 	search.c \
 	process.c \
+#	search_bonus.c \
+	process_bonus.c \
 
 
 ENV_SRCS := \
@@ -68,6 +70,7 @@ EXECUTE_SRCS := \
 	heredoc.c \
 	redirect.c \
 	redirect_utils.c \
+	standard_fildes.c \
 	command.c \
 	command_utils.c \
 	builtin.c \
