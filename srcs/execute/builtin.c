@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:20:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 19:54:06 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:04:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,11 @@ extern t_global	g_global;
 
 void	set_builtin_type(t_node *node)
 {
-	char	*command;
-
 	if (!node->command_arg)
-		node->command_arg = ft_combine_arg(node->cmd_arg_linked_str, &node->arg_cnt);
+		node->command_arg
+			= ft_combine_arg(node->cmd_arg_linked_str, &node->arg_cnt);
 	if (!node->command_arg)
 		return ;
-	command = node->command_arg[0];
-	(void )command;
 	node->builtin_type = NaB;
 	if (!ft_strcmp(node->command_arg[0], "echo"))
 		node->builtin_type = ECHO;
