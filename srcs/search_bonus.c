@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/20 16:57:05 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 17:12:32 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ void	search_tree(t_node *node)
 	while (node)
 	{
 		g_global.err_num = NaE;
+		if (node->logical_type == AND || node->logical_type == OR)
+		{		
+			wait_process(pid, cnt);
+			if (check_exit_status(node))
+				return ;
+			init_standard_fildes();
+		}
 		if (node->left->logical_type == ROOT)
 		{
 			pid = fork();
@@ -81,13 +88,6 @@ void	search_tree(t_node *node)
 				cnt++;
 			}
 			continue ;
-		}
-		if (node->logical_type == AND || node->logical_type == OR)
-		{		
-			wait_process(pid, cnt);
-			if (check_exit_status(node))
-				return ;
-			init_standard_fildes();
 		}
 		node->left->is_child = set_(node);
 		pid = handle_process(node, pipe, &cnt);
