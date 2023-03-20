@@ -39,6 +39,7 @@ char	*ft_combine_lump(t_linked_str *head)
 		res = temp_str;
 		temp = temp->next;
 	}
+	free(temp);
 	return (res);
 }
 
@@ -59,6 +60,7 @@ int	ft_count_arg(t_linked_arg *head)
 
 char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
 {
+	t_linked_arg	*temp;
 	char	**res;
 	int		i;
 
@@ -72,7 +74,9 @@ char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
 	while (++i < *arg_cnt)
 	{
 		*(res + i) = ft_combine_lump(head->arg_str);
+		temp = head;
 		head = head->next;
+		free(temp);
 	}
 	*(res + i) = NULL;
 	return res;

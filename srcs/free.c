@@ -46,6 +46,7 @@ void	free_node(t_node *node)
 		free_command_node(node);
 	if (node->type == REDIRECT)
 		free_redirect_node(node);
+	free(node);
 }
 
 void	free_tree(t_node *node)

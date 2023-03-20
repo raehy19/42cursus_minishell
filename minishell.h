@@ -160,6 +160,7 @@ t_token	*compress_tokens(t_token **token_list);
 
 // parse
 
+t_token	*token_shift(t_token **token_list);
 t_node	*new_node(t_node_type type, t_logical_type logical_type);
 void	node_unshift(t_node **lst, t_node *new);
 t_node	*ft_parse(t_token **token_list);

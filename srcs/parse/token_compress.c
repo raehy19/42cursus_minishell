@@ -52,10 +52,9 @@ t_token	*compress_tokens(t_token **token_list)
 	t_token	*temp;
 
 	compressed_token_list = NULL;
-	temp = *token_list;
+	temp = token_shift(token_list);
 	while (temp)
 	{
-		*token_list = (*token_list)->next;
 		if (is_string(temp))
 			compress_str_node(temp, &compressed_token_list, token_list);
 		else if (temp->type == T_WHITESPACE)
@@ -65,7 +64,7 @@ t_token	*compress_tokens(t_token **token_list)
 			temp->next = NULL;
 			lst_push_token(&compressed_token_list, temp);
 		}
-		temp = *token_list;
+		temp = token_shift(token_list);
 	}
 	return (compressed_token_list);
 }
