@@ -24,14 +24,29 @@ t_token_node	*token_shift(t_token_node **token_list)
 	return (temp);
 }
 
-int	is_logical(t_token_node *temp)
+int	is_and_or_pipe(t_token_node *temp)
 {
-	if (temp->type == T_LEFT_PARENTHESIS
-		|| temp->type == T_RIGHT_PARENTHESIS
-		||temp->type == T_AND ||temp->type == T_OR
+	if (!temp)
+		return (0);
+	if (temp->type == T_AND ||temp->type == T_OR
 		||temp->type == T_PIPE )
 		return (1);
 	return (0);
+}
+
+int	is_parenthesis(t_token_node *temp)
+{
+	if (!temp)
+		return (0);
+	if (temp->type == T_LEFT_PARENTHESIS
+		|| temp->type == T_RIGHT_PARENTHESIS)
+		return (1);
+	return (0);
+}
+
+int	is_logical(t_token_node *temp)
+{
+	return (is_and_or_pipe(temp) || is_parenthesis(temp));
 }
 
 int	is_arrow(t_token_node *temp)
@@ -77,6 +92,8 @@ void	add_new_logical(t_node **head, t_token_node *temp, t_token_node **token_lis
 
 void	ft_check_cmd(t_node **head, t_linked_arg *cmd_args, t_node *arrow)
 {
+	if ((*head)->left)
+		return;
 	(*head)->left = new_node(COMMAND, NaL);
 	if ((*head)->left)
 	{
@@ -88,11 +105,36 @@ void	ft_check_cmd(t_node **head, t_linked_arg *cmd_args, t_node *arrow)
 		g_global.err_num = FAIL_MALLOC;
 }
 
-void	parse_l_parenthesis(t_node **head, t_token_node *temp, t_token_node **token_list)
+t_token_node	*parse_l_parenthesis(t_node **head, t_token_node *temp, t_token_node **token_list)
 {
 	(*head)->left = new_node(LOGICAL, ROOT);
 	free(temp);
 	ft_parse_token_list(&(*head)->left, token_list);
+	return (token_shift(token_list));
+}
+
+t_token_node	*parse_r_parenthesis(t_node **head, t_token_node *temp, t_token_node **token_list)
+{
+	t_node			*arrow;
+
+	free(temp);
+	arrow = NULL;
+	temp = token_shift(token_list);
+	if (is_arrow(temp))
+		parse_arrow(&arrow, temp, token_list);
+	(*head)->pre_redirect = arrow;
+	return (token_shift(token_list));
+}
+
+void	parse_parenthesis(t_node **head, t_token_node **temp, t_token_node **token_list)
+{
+	if (*temp && (*temp)->type == T_LEFT_PARENTHESIS)
+		*temp = parse_l_parenthesis(head, *temp, token_list);
+	if (*temp && (*temp)->type == T_RIGHT_PARENTHESIS)
+		*temp = parse_r_parenthesis(head, *temp, token_list);
+	else
+		g_global.err_num = SYNTAX_ERR;
+
 }
 
 void	ft_parse_token_list(t_node **head, t_token_node **token_list)
@@ -102,6 +144,12 @@ void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 	t_linked_arg	*cmd_args;
 
 	temp = token_shift(token_list);
+	if (!temp)
+		return;
+	if (is_parenthesis(temp))
+		parse_parenthesis(head, &temp, token_list);
+	if (!temp)
+		return;
 	arrow = NULL;
 	cmd_args = NULL;
 	while (temp && !is_logical(temp))
@@ -113,13 +161,7 @@ void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 		temp = token_shift(token_list);
 	}
 	ft_check_cmd(head, cmd_args, arrow);
-	if (!temp)
-		return;
-	if (temp->type == T_LEFT_PARENTHESIS)
-		parse_l_parenthesis(head, temp, token_list);
-	if (temp->type == T_RIGHT_PARENTHESIS)
-		;
-	if (is_logical(temp))
+	if (is_and_or_pipe(temp))
 		add_new_logical(head, temp, token_list);
 }
 
