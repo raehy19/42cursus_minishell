@@ -159,12 +159,8 @@ void	ft_parse_token_list(t_node **head, t_token **token_list)
 	t_linked_arg	*cmd_args;
 
 	temp = token_shift(token_list);
-	if (!temp)
-		return;
 	if (is_parenthesis(temp))
 		parse_parenthesis(head, &temp, token_list);
-	if (!temp)
-		return;
 	arrow = NULL;
 	cmd_args = NULL;
 	while (temp && !is_logical(temp))
@@ -178,7 +174,7 @@ void	ft_parse_token_list(t_node **head, t_token **token_list)
 	ft_check_cmd(head, cmd_args, arrow);
 	if (is_and_or_pipe(temp))
 		add_new_logical(head, temp, token_list);
-	if (temp->type == T_RIGHT_PARENTHESIS)
+	if (temp && temp->type == T_RIGHT_PARENTHESIS)
 		token_unshift(token_list, temp);
 }
 
