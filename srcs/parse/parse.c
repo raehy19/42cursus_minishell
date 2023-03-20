@@ -182,6 +182,8 @@ t_node	*ft_parse(t_token **token_list)
 {
 	t_node	*tree;
 
+	if (!(*token_list))
+		return (NULL);
 	tree = new_node(LOGICAL, ROOT);
 	ft_parse_token_list(&tree, token_list);
 	if( !tree->left && !tree->right)
