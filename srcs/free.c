@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 19:38:48 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 19:52:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 15:49:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_two_dim(char **array)
 	int	idx;
 
 	idx = 0;
+	if (!array)
+		return ;
 	while (array[idx])
 	{
 		free(array[idx]);
