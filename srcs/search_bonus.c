@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 19:07:14 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 16:57:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	search_tree(t_node *node)
 {
 	int		pipe[2][2];
 	int		cnt;
+	int		is_main;
 	pid_t	pid;
 
 	cnt = 0;
+	is_main = 1;
 	if (handle_singlebuiltin(node))
 		return ;
 	open_pipe(pipe[OLD]);
@@ -69,7 +71,10 @@ void	search_tree(t_node *node)
 		{
 			pid = fork();
 			if (pid == 0)
+			{
 				node = node->left;
+				is_main = 0;
+			}
 			if (pid > 0)
 			{
 				node = node->right;
@@ -90,4 +95,6 @@ void	search_tree(t_node *node)
 	}
 	close_pipe(pipe[OLD]);
 	wait_process(pid, cnt);
+	if (!is_main)
+		exit(g_global.exit_status);
 }
