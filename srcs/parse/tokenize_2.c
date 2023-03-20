@@ -14,7 +14,7 @@
 
 extern t_global	g_global;
 
-void	tokenize_single_quote(char *str, int *idx, t_token_node **lst)
+void	tokenize_single_quote(char *str, int *idx, t_token **lst)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ void	tokenize_single_quote(char *str, int *idx, t_token_node **lst)
 	*idx += i;
 }
 
-void	tokenize_double_quote(char *str, int *idx, t_token_node **lst)
+void	tokenize_double_quote(char *str, int *idx, t_token **lst)
 {
 	int		i;
 
@@ -50,7 +50,7 @@ void	tokenize_double_quote(char *str, int *idx, t_token_node **lst)
 	*idx += i;
 }
 
-void	tokenize_string(char *str, int *idx, t_token_node **lst)
+void	tokenize_string(char *str, int *idx, t_token **lst)
 {
 	int		i;
 

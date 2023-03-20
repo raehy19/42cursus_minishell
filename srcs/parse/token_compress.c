@@ -14,10 +14,10 @@
 
 extern t_global	g_global;
 
-void	ft_combine_str(t_token_node *temp, t_linked_str **linked_str,
-	t_token_node **token_list)
+void	ft_combine_str(t_token *temp, t_linked_str **linked_str,
+					   t_token **token_list)
 {
-	t_token_node	*to_free;
+	t_token	*to_free;
 
 	while (is_string(temp))
 	{
@@ -30,11 +30,11 @@ void	ft_combine_str(t_token_node *temp, t_linked_str **linked_str,
 	*token_list = temp;
 }
 
-void	compress_str_node(t_token_node *temp,
-	t_token_node **compressed_token_list, t_token_node **token_list)
+void	compress_str_node(t_token *temp,
+						  t_token **compressed_token_list, t_token **token_list)
 {
 	t_linked_str	*linked_str;
-	t_token_node	*new;
+	t_token	*new;
 
 	linked_str = NULL;
 	lst_add_back_linked_str(&linked_str,
@@ -46,10 +46,10 @@ void	compress_str_node(t_token_node *temp,
 	free(temp);
 }
 
-t_token_node	*compress_tokens(t_token_node **token_list)
+t_token	*compress_tokens(t_token **token_list)
 {
-	t_token_node	*compressed_token_list;
-	t_token_node	*temp;
+	t_token	*compressed_token_list;
+	t_token	*temp;
 
 	compressed_token_list = NULL;
 	temp = *token_list;

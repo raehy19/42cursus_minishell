@@ -79,7 +79,7 @@ char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
 }
 
 //
-//void	tokenize_env(char *str, int *idx, t_token_node **lst)
+//void	tokenize_env(char *str, int *idx, t_token **lst)
 //{
 //	int		i;
 //	char	*env_name;

@@ -12,11 +12,11 @@
 
 #include "../../minishell.h"
 
-t_token_node	*new_token(t_token_type type, char *str)
+t_token	*new_token(t_token_type type, char *str)
 {
-	t_token_node	*new;
+	t_token	*new;
 
-	new = (t_token_node *) malloc(sizeof(t_token_node));
+	new = (t_token *) malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
 	new->type = type;
@@ -26,9 +26,9 @@ t_token_node	*new_token(t_token_type type, char *str)
 	return (new);
 }
 
-t_token_node	*lst_last_token(t_token_node *lst)
+t_token	*lst_last_token(t_token *lst)
 {
-	t_token_node	*temp;
+	t_token	*temp;
 
 	if (!lst)
 		return (NULL);
@@ -38,9 +38,9 @@ t_token_node	*lst_last_token(t_token_node *lst)
 	return (temp);
 }
 
-void	lst_push_token(t_token_node **lst, t_token_node *new)
+void	lst_push_token(t_token **lst, t_token *new)
 {
-	t_token_node	*temp;
+	t_token	*temp;
 
 	if (!(*(lst)))
 	{

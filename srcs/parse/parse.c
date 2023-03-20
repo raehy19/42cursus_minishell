@@ -14,9 +14,9 @@
 
 extern t_global	g_global;
 
-t_token_node	*token_shift(t_token_node **token_list)
+t_token	*token_shift(t_token **token_list)
 {
-	t_token_node	*temp;
+	t_token	*temp;
 
 	temp = *token_list;
 	if (temp)
@@ -24,14 +24,14 @@ t_token_node	*token_shift(t_token_node **token_list)
 	return (temp);
 }
 
-void	token_unshift(t_token_node **lst, t_token_node *new)
+void	token_unshift(t_token **lst, t_token *new)
 {
 	if ((*lst))
 		new->next = *lst;
 	*lst = new;
 }
 
-int	is_and_or_pipe(t_token_node *temp)
+int	is_and_or_pipe(t_token *temp)
 {
 	if (!temp)
 		return (0);
@@ -41,7 +41,7 @@ int	is_and_or_pipe(t_token_node *temp)
 	return (0);
 }
 
-int	is_parenthesis(t_token_node *temp)
+int	is_parenthesis(t_token *temp)
 {
 	if (!temp)
 		return (0);
@@ -51,12 +51,12 @@ int	is_parenthesis(t_token_node *temp)
 	return (0);
 }
 
-int	is_logical(t_token_node *temp)
+int	is_logical(t_token *temp)
 {
 	return (is_and_or_pipe(temp) || is_parenthesis(temp));
 }
 
-int	is_arrow(t_token_node *temp)
+int	is_arrow(t_token *temp)
 {
 	if (!temp)
 		return (0);
@@ -68,7 +68,7 @@ int	is_arrow(t_token_node *temp)
 	return (0);
 }
 
-void	parse_arrow(t_node **arrow, t_token_node *temp, t_token_node **token_list)
+void	parse_arrow(t_node **arrow, t_token *temp, t_token **token_list)
 {
 	t_node	*new;
 
@@ -88,13 +88,13 @@ void	parse_arrow(t_node **arrow, t_token_node *temp, t_token_node **token_list)
 	node_unshift(arrow, new);
 }
 
-void	parse_cmd(t_linked_arg **cmd_args, t_token_node *temp)
+void	parse_cmd(t_linked_arg **cmd_args, t_token *temp)
 {
 	lst_push_cmd(cmd_args, temp->linked_str);
 	free(temp);
 }
 
-void	add_new_logical(t_node **head, t_token_node *temp, t_token_node **token_list)
+void	add_new_logical(t_node **head, t_token *temp, t_token **token_list)
 {
 	(*head)->right = new_node(LOGICAL, (t_logical_type) temp->type);
 	free(temp);
@@ -116,7 +116,7 @@ void	ft_check_cmd(t_node **head, t_linked_arg *cmd_args, t_node *arrow)
 		g_global.err_num = FAIL_MALLOC;
 }
 
-t_token_node	*parse_l_parenthesis(t_node **head, t_token_node *temp, t_token_node **token_list)
+t_token	*parse_l_parenthesis(t_node **head, t_token *temp, t_token **token_list)
 {
 	(*head)->left = new_node(LOGICAL, ROOT);
 	free(temp);
@@ -124,7 +124,7 @@ t_token_node	*parse_l_parenthesis(t_node **head, t_token_node *temp, t_token_nod
 	return (token_shift(token_list));
 }
 
-t_token_node	*parse_r_parenthesis(t_node **head, t_token_node *temp, t_token_node **token_list)
+t_token	*parse_r_parenthesis(t_node **head, t_token *temp, t_token **token_list)
 {
 	t_node			*arrow;
 
@@ -140,7 +140,7 @@ t_token_node	*parse_r_parenthesis(t_node **head, t_token_node *temp, t_token_nod
 	return (temp);
 }
 
-void	parse_parenthesis(t_node **head, t_token_node **temp, t_token_node **token_list)
+void	parse_parenthesis(t_node **head, t_token **temp, t_token **token_list)
 {
 	if (*temp && (*temp)->type == T_LEFT_PARENTHESIS)
 		*temp = parse_l_parenthesis(head, *temp, token_list);
@@ -152,9 +152,9 @@ void	parse_parenthesis(t_node **head, t_token_node **temp, t_token_node **token_
 		g_global.err_num = SYNTAX_ERR;
 }
 
-void	ft_parse_token_list(t_node **head, t_token_node **token_list)
+void	ft_parse_token_list(t_node **head, t_token **token_list)
 {
-	t_token_node	*temp;
+	t_token	*temp;
 	t_node			*arrow;
 	t_linked_arg	*cmd_args;
 
@@ -182,7 +182,7 @@ void	ft_parse_token_list(t_node **head, t_token_node **token_list)
 		token_unshift(token_list, temp);
 }
 
-t_node	*ft_parse(t_token_node **token_list)
+t_node	*ft_parse(t_token **token_list)
 {
 	t_node	*tree;
 

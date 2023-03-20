@@ -17,7 +17,7 @@ t_global	g_global;
 int	main(int argc, char **argv, char **envp)
 {
 	char			*input;
-	t_token_node	*token_node;
+	t_token	*token_node;
 
 	(void)argc;
 	(void)argv;
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 		// parse debug
 		token_node = ft_tokenize(input);
 
-		t_token_node *temp = compress_tokens(&token_node);
+		t_token *temp = compress_tokens(&token_node);
 		t_node *tree = ft_parse(&temp);
 		if (!tree)
 			continue;

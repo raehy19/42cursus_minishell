@@ -14,14 +14,14 @@
 
 extern t_global	g_global;
 
-void	tokenize_whitespace(char *str, int *idx, t_token_node **lst)
+void	tokenize_whitespace(char *str, int *idx, t_token **lst)
 {
 	while (*(str + *idx + 1) && ft_isspace(*(str + *idx + 1)))
 		++(*idx);
 	lst_push_token(lst, new_token(T_WHITESPACE, NULL));
 }
 
-void	tokenize_parenthesis(char *str, int *idx, t_token_node **lst)
+void	tokenize_parenthesis(char *str, int *idx, t_token **lst)
 {
 	if (*(str + *idx) == '(')
 		lst_push_token(lst, new_token(T_LEFT_PARENTHESIS, NULL));
@@ -29,7 +29,7 @@ void	tokenize_parenthesis(char *str, int *idx, t_token_node **lst)
 		lst_push_token(lst, new_token(T_RIGHT_PARENTHESIS, NULL));
 }
 
-void	tokenize_and_or_pipe(char *str, int *idx, t_token_node **lst)
+void	tokenize_and_or_pipe(char *str, int *idx, t_token **lst)
 {
 	char	*tmp;
 
@@ -54,7 +54,7 @@ void	tokenize_and_or_pipe(char *str, int *idx, t_token_node **lst)
 	}
 }
 
-void	tokenize_arrows(char *str, int *idx, t_token_node **lst)
+void	tokenize_arrows(char *str, int *idx, t_token **lst)
 {
 	if (*(str + *idx + 1)
 		&& (*(str + *idx + 1) == '<' || *(str + *idx + 1) == '>' ))
@@ -72,10 +72,10 @@ void	tokenize_arrows(char *str, int *idx, t_token_node **lst)
 		lst_push_token(lst, new_token(T_REDIRECTING_OUTPUT, NULL));
 }
 
-t_token_node	*ft_tokenize(char *input)
+t_token	*ft_tokenize(char *input)
 {
 	int				idx;
-	t_token_node	*token_list;
+	t_token	*token_list;
 
 	idx = -1;
 	token_list = NULL;

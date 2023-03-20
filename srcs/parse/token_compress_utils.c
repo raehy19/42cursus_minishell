@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-int	is_string(t_token_node *token)
+int	is_string(t_token *token)
 {
 	if (!token)
 		return (0);
