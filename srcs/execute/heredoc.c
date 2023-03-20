@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:31 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 15:21:46 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 21:14:39 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	process_heredoc(t_node *node)
 
 void	search_heredoc(t_node *node)
 {
+	if (node->pre_redirect)
+		search_heredoc(node->pre_redirect);
 	if (node->left)
 		search_heredoc(node->left);
 	if (node->right)
