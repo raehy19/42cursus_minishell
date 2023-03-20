@@ -37,6 +37,8 @@ int	main(int argc, char **argv, char **envp)
 
 		t_token_node *temp = compress_tokens(&token_node);
 		t_node *tree = ft_parse(&temp);
+		if (!tree)
+			continue;
 		
 		// executing
 		search_heredoc(tree);

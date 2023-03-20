@@ -171,5 +171,10 @@ t_node	*ft_parse(t_token_node **token_list)
 
 	tree = new_node(LOGICAL, ROOT);
 	ft_parse_token_list(&tree, token_list);
+	if( !tree->left && !tree->right)
+	{
+		free(tree);
+		tree = NULL;
+	}
 	return (tree);
 }
