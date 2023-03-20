@@ -136,7 +136,7 @@ t_token	*parse_r_parenthesis(t_node **head, t_token *temp, t_token **token_list)
 		parse_arrow(&arrow, temp, token_list);
 		temp = token_shift(token_list);
 	}
-	(*head)->pre_redirect = arrow;
+	(*head)->left->pre_redirect = arrow;
 	return (temp);
 }
 
