@@ -161,7 +161,7 @@ t_token_node	*compress_tokens(t_token_node **token_list);
 // parse
 
 t_node	*new_node(t_node_type type, t_logical_type logical_type);
-void	lst_unshift_token(t_node **lst, t_node *new);
+void	node_unshift(t_node **lst, t_node *new);
 t_node	*ft_parse(t_token_node **token_list);
 void	ft_parse_token_list(t_node **head, t_token_node **token_list);
 

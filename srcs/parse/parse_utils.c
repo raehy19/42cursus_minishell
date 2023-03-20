@@ -37,7 +37,7 @@ t_node	*new_node(t_node_type type, t_logical_type logical_type)
 	return (new);
 }
 
-void	lst_unshift_token(t_node **lst, t_node *new)
+void	node_unshift(t_node **lst, t_node *new)
 {
 	if ((*lst))
 		new->left = *lst;
