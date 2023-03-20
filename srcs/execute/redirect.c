@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:38 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 14:59:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 21:44:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handle_in_redirect(t_node *node)
 	{
 		if (access(node->redirect_filename, F_OK | R_OK) == -1)
 			print_redirect_error(node->redirect_filename);
-		node->in_fd = open_fildes(node->redirect_filename, O_RDWR, 0);
+		node->in_fd = open_fildes(node->redirect_filename, O_RDONLY, 0);
 	}
 	duplicate_fildes(node->in_fd, STDIN_FILENO);
 	close_fildes(node->in_fd);

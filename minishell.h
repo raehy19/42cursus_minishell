@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/20 17:53:17 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 20:49:36 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,7 +310,7 @@ void	free_tree(t_node *node);
 
 int	check_fork(t_node *node);
 int	check_exit_status(t_node *node);
-int	handle_and_or(t_node *node, pid_t pid, int *cnt);
-int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main);
+int	handle_and_or(t_node *node, pid_t pid, int *cnt, int pre_redir);
+int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main, int *pre_redir);
 
 #endif

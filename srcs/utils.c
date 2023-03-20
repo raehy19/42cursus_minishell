@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/20 19:46:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 21:44:04 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,20 @@ int	check_exit_status(t_node *node)
 		|| (node->logical_type == OR && !g_global.exit_status));
 }
 
-int	handle_and_or(t_node *node, pid_t pid, int *cnt)
+int	handle_and_or(t_node *node, pid_t pid, int *cnt, int pre_redir)
 {
 	if (node->logical_type == AND || node->logical_type == OR)
 	{		
 		wait_process(pid, *cnt);
 		if (check_exit_status(node))
 			return (1);
-		init_standard_fildes();
+		if (!pre_redir)
+			init_standard_fildes();
 	}
 	return (0);
 }
 
-int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main)
+int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main, int *pre_redir)
 {
 	if ((*node)->left->logical_type != ROOT)
 		return (1);
@@ -56,7 +57,10 @@ int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main)
 	{
 		*node = (*node)->left;
 		if ((*node)->pre_redirect)
+		{
 			search_node((*node)->pre_redirect);
+			*pre_redir = 1;
+		}
 		*is_main = 0;
 	}
 	if (pid > 0)
