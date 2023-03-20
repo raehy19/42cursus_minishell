@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/19 19:50:25 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 17:53:17 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,5 +304,12 @@ void	free_command_node(t_node *node);
 void	free_redirect_node(t_node *node);
 void	free_node(t_node *node);
 void	free_tree(t_node *node);
+
+// bonus
+
+int	check_fork(t_node *node);
+int	check_exit_status(t_node *node);
+int	handle_and_or(t_node *node, pid_t pid, int *cnt);
+int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main);
 
 #endif
