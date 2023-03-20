@@ -145,7 +145,10 @@ void	parse_parenthesis(t_node **head, t_token **temp, t_token **token_list)
 	if (*temp && (*temp)->type == T_LEFT_PARENTHESIS)
 		*temp = parse_l_parenthesis(head, *temp, token_list);
 	else
+	{
 		g_global.err_num = SYNTAX_ERR;
+		return;
+	}
 	if (*temp && (*temp)->type == T_RIGHT_PARENTHESIS)
 		*temp = parse_r_parenthesis(head, *temp, token_list);
 	else
