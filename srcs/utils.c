@@ -51,7 +51,6 @@ int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main)
 {
 	if ((*node)->left->logical_type == ROOT)
 	{
-		printf("asdf\n");
 		pid = fork();
 		if (pid == 0)
 		{

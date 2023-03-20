@@ -51,6 +51,8 @@ int	is_logical(t_token_node *temp)
 
 int	is_arrow(t_token_node *temp)
 {
+	if (!temp)
+		return (0);
 	if (temp->type == T_REDIRECTING_INPUT
 		|| temp->type == T_HERE_DOCUMENT
 		||temp->type == T_REDIRECTING_OUTPUT
@@ -120,10 +122,14 @@ t_token_node	*parse_r_parenthesis(t_node **head, t_token_node *temp, t_token_nod
 	free(temp);
 	arrow = NULL;
 	temp = token_shift(token_list);
-	if (is_arrow(temp))
+	while (is_arrow(temp))
+	{
 		parse_arrow(&arrow, temp, token_list);
+		free(temp);
+		temp = token_shift(token_list);
+	}
 	(*head)->pre_redirect = arrow;
-	return (token_shift(token_list));
+	return (temp);
 }
 
 void	parse_parenthesis(t_node **head, t_token_node **temp, t_token_node **token_list)
@@ -134,7 +140,6 @@ void	parse_parenthesis(t_node **head, t_token_node **temp, t_token_node **token_
 		*temp = parse_r_parenthesis(head, *temp, token_list);
 	else
 		g_global.err_num = SYNTAX_ERR;
-
 }
 
 void	ft_parse_token_list(t_node **head, t_token_node **token_list)
