@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:28 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/20 19:46:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,20 @@ int	handle_and_or(t_node *node, pid_t pid, int *cnt)
 
 int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main)
 {
-	if ((*node)->left->logical_type == ROOT)
+	if ((*node)->left->logical_type != ROOT)
+		return (1);
+	pid = fork();
+	if (pid == 0)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			*node = (*node)->left;
-			*is_main = 0;
-		}
-		if (pid > 0)
-		{
-			*node = (*node)->right;
-			(*cnt)++;
-		}
-		return (0);
+		*node = (*node)->left;
+		if ((*node)->pre_redirect)
+			search_node((*node)->pre_redirect);
+		*is_main = 0;
 	}
-	return (1);
-
+	if (pid > 0)
+	{
+		*node = (*node)->right;
+		(*cnt)++;
+	}
+	return (0);
 }
