@@ -28,7 +28,7 @@ int	init_envp(char *envp[])
 		if (g_global.err_num != NaE)
 			return (1);
 		add_env_back(new);
-		if (!strcmp(new->name, "OLDPWD"))
+		if (!ft_strcmp(new->name, "OLDPWD"))
 			is_oldpwd = 1;
 		idx++;
 	}
