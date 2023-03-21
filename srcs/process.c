@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 20:01:53 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:01:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,63 @@
 
 extern t_global	g_global;
 
-void	handle_child_process(t_node *node, int pipe[2][2], int cnt)
+void	handle_child_process(t_node *node, t_execute *execute)
 {
 	if (node->pid == 0)
 	{
-		close_fildes(pipe[NEW][READ]);
-		close_fildes(pipe[OLD][WRITE]);
-		if (cnt)
-			duplicate_fildes(pipe[OLD][READ], STDIN_FILENO);
+		close_fildes(execute->pipe[NEW][READ]);
+		close_fildes(execute->pipe[OLD][WRITE]);
+		if (execute->cnt)
+			duplicate_fildes(execute->pipe[OLD][READ], STDIN_FILENO);
 		if (node->right && node->right->logical_type == PIPE)
-			duplicate_fildes(pipe[NEW][WRITE], STDOUT_FILENO);
-		close_fildes(pipe[OLD][READ]);
-		close_fildes(pipe[NEW][WRITE]);
+			duplicate_fildes(execute->pipe[NEW][WRITE], STDOUT_FILENO);
+		close_fildes(execute->pipe[OLD][READ]);
+		close_fildes(execute->pipe[NEW][WRITE]);
 		search_node(node->left);
 	}
 }
 
-void	handle_parent_process(t_node *node, int pipe[2][2], int *cnt)
+void	handle_parent_process(t_node *node, t_execute *execute)
 {
 	if (node->pid > 0)
 	{
-		close_pipe(pipe[OLD]);
-		pipe[OLD][READ] = pipe[NEW][READ];
-		pipe[OLD][WRITE] = pipe[NEW][WRITE];
-		(*cnt)++;
+		close_pipe(execute->pipe[OLD]);
+		execute->pipe[OLD][READ] = execute->pipe[NEW][READ];
+		execute->pipe[OLD][WRITE] = execute->pipe[NEW][WRITE];
+		execute->cnt += 1;
 	}
 }
 
-int	handle_process(t_node *node, int pipe[2][2], int *cnt)
+void	handle_process(t_node *node, t_execute *execute)
 {
 	if (!node->left->is_child)
 	{
 		search_node(node->left);
-		return (0);
+		node->pid = 0;
+		return ;
 	}
-	open_pipe(pipe[NEW]);
+	open_pipe(execute->pipe[NEW]);
 	node->pid = fork();
 	if (node->pid == -1)
 	{
 		g_global.err_num = FAIL_FORK;
 		handle_error();
 	}
-	handle_child_process(node, pipe, *cnt);
-	handle_parent_process(node, pipe, cnt);
-	return (node->pid);
+	handle_child_process(node, execute);
+	handle_parent_process(node, execute);
+	execute->pid = node->pid;
 }
 
-void	wait_process(pid_t pid, int cnt)
+void	wait_process(t_execute *execute)
 {
 	int	res;
 	int	status;
 
-	while (cnt--)
+	while (execute->cnt)
 	{
+		execute->cnt -= 1;
 		res = wait(&status);
-		if (res == pid)
+		if (res == execute->pid)
 			g_global.exit_status = status >> 8;
 	}
 }

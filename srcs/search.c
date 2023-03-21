@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/20 20:26:18 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:00:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,27 @@ void	search_node(t_node *node)
 
 void	search_tree(t_node *node)
 {
-	int		pipe[2][2];
-	int		cnt;
-	int		is_main;
-	int		pre_redir;
-	pid_t	pid;
-
-	cnt = 0;
-	is_main = 1;
-	pre_redir = 0;
+	t_execute	execute;
+	
+	execute.cnt = 0;
+	execute.in_subshell = 0;
+	execute.pre_redirect = 0;
 	if (handle_singlebuiltin(node))
 		return ;
-	open_pipe(pipe[OLD]);
+	open_pipe(execute.pipe[OLD]);
 	while (node)
 	{
 		g_global.err_num = NaE;
-		if (handle_and_or(node, pid, &cnt, pre_redir))
+		if (handle_and_or(node, &execute))
 			return ;
-		if (!handle_parenthesis(&node, pid, &cnt, &is_main, &pre_redir))
+		if (!handle_parenthesis(&node, &execute))
 			continue ;
 		node->left->is_child = check_fork(node);
-		pid = handle_process(node, pipe, &cnt);
+		handle_process(node, &execute);
 		node = node->right;
 	}
-	close_pipe(pipe[OLD]);
-	wait_process(pid, cnt);
-	if (!is_main)
+	close_pipe(execute.pipe[OLD]);
+	wait_process(&execute);
+	if (execute.in_subshell)
 		exit(g_global.exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/20 20:49:36 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:00:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,15 @@ char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt);
 
 void	lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
 
+typedef struct s_execute
+{
+	int		cnt;
+	int		in_subshell;
+	int		pre_redirect;
+	int		pipe[2][2];
+	pid_t	pid;
+}	t_execute;
+
 typedef struct s_node
 {
 	t_node_type		type;
@@ -220,7 +229,6 @@ typedef struct s_global
 	int				standard_fildes[2];
 }	t_global;
 
-
 //global
 
 void	init_global(char **envp);
@@ -252,10 +260,10 @@ void	rank_envp(void);
 void	search_tree(t_node *node);
 void	search_node(t_node *node);
 void	handle_node(t_node *node);
-int		handle_process(t_node *node, int pipe[2][2], int *cnt);
-void	handle_child_process(t_node *node, int pipe[2][2], int cnt);
-void	handle_parent_process(t_node *node, int pipe[2][2], int *cnt);
-void	wait_process(pid_t pid, int cnt);
+void	handle_process(t_node *node, t_execute *execute);
+void	handle_child_process(t_node *node, t_execute *execute);
+void	handle_parent_process(t_node *node, t_execute *execute);
+void	wait_process(t_execute *execute);
 
 // builtin
 
@@ -310,7 +318,7 @@ void	free_tree(t_node *node);
 
 int	check_fork(t_node *node);
 int	check_exit_status(t_node *node);
-int	handle_and_or(t_node *node, pid_t pid, int *cnt, int pre_redir);
-int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main, int *pre_redir);
+int	handle_and_or(t_node *node, t_execute *execute);
+int	handle_parenthesis(t_node **node, t_execute *execute);
 
 #endif
