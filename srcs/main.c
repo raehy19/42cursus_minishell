@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/19 19:57:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/21 14:22:29 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(input);
 		free(input);
 		input = 0;
-		system("leaks --list minishell");
+	//	system("leaks --list minishell");
 	}
 	return (0);
 }
