@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/21 15:00:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:08:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	search_node(t_node *node)
 void	search_tree(t_node *node)
 {
 	t_execute	execute;
-	
+
 	execute.cnt = 0;
 	execute.in_subshell = 0;
 	execute.pre_redirect = 0;
