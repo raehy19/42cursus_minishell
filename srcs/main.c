@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/21 14:22:29 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/22 21:36:32 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	main(int argc, char **argv, char **envp)
 		g_global.err_num = NaE;
 		init_standard_fildes();
 		input = readline("\033[34mminishell-1.0$ \033[0m");
-
+		if (input == NULL)
+			ft_exit(g_global.exit_status);
 	//	printf("input command : %s\n", input); //debug
 
 		// parsing
