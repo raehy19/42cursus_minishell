@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 15:46:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/21 14:42:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	init_envp(char *envp[])
 		if (g_global.err_num != NaE)
 			return (1);
 		add_env_back(new);
-		if (!strcmp(new->name, "OLDPWD"))
+		if (!ft_strcmp(new->name, "OLDPWD"))
 			is_oldpwd = 1;
 		idx++;
 	}
@@ -60,4 +60,3 @@ void	init_global(char **envp)
 	g_global.standard_fildes[0] = STDIN_FILENO;
 	g_global.standard_fildes[1] = STDOUT_FILENO;
 }
-

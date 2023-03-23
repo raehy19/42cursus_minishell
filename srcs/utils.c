@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/20 21:44:04 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/21 14:58:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,41 @@ int	check_exit_status(t_node *node)
 		|| (node->logical_type == OR && !g_global.exit_status));
 }
 
-int	handle_and_or(t_node *node, pid_t pid, int *cnt, int pre_redir)
+int	handle_and_or(t_node *node, t_execute *execute)
 {
 	if (node->logical_type == AND || node->logical_type == OR)
 	{		
-		wait_process(pid, *cnt);
+		wait_process(execute);
 		if (check_exit_status(node))
 			return (1);
-		if (!pre_redir)
+		if (!execute->pre_redirect)
 			init_standard_fildes();
 	}
 	return (0);
 }
 
-int	handle_parenthesis(t_node **node, pid_t pid, int *cnt, int *is_main, int *pre_redir)
+int	handle_parenthesis(t_node **node, t_execute *execute)
 {
 	if ((*node)->left->logical_type != ROOT)
 		return (1);
-	pid = fork();
-	if (pid == 0)
+	execute->pid = fork();
+	if (execute->pid == -1)
 	{
-		*node = (*node)->left;
-		if ((*node)->pre_redirect)
-		{
-			search_node((*node)->pre_redirect);
-			*pre_redir = 1;
-		}
-		*is_main = 0;
+		g_global.err_num = FAIL_FORK;
+		handle_error();
 	}
-	if (pid > 0)
+	if (execute->pid > 0)
 	{
 		*node = (*node)->right;
-		(*cnt)++;
+		execute->cnt += 1;
+		return (0);
 	}
+	*node = (*node)->left;
+	if ((*node)->pre_redirect)
+	{
+		search_node((*node)->pre_redirect);
+		execute->pre_redirect = 1;
+	}
+	execute->in_subshell = 1;
 	return (0);
 }

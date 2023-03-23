@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 19:38:48 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/20 15:49:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:51:55 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	free_node(t_node *node)
 
 void	free_tree(t_node *node)
 {
+	if (node->pre_redirect)
+		free_tree(node->pre_redirect);
 	if (node->left)
 		free_tree(node->left);
 	if (node->right)
