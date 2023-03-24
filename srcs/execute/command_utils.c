@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 18:58:19 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 19:15:01 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,13 @@ char	*make_command_path(char *path, char *command)
 
 int	is_regular_file(mode_t st_mode)
 {
-	return ((st_mode & S_IFMT));
+	return (st_mode & S_IFMT);
+}
+
+int	is_path(char *command)
+{
+	return (*command == '.' || *command == '/'
+		|| !ft_strncmp(command, "..", 2));
 }
 
 int	handle_special_case(t_node *node, char **command_path)
@@ -60,7 +66,8 @@ int	handle_special_case(t_node *node, char **command_path)
 		*command_path = 0;
 		return (1);
 	}
-	if (access(node->command_arg[0], F_OK | X_OK) != 0)
+	if (!is_path(node->command_arg[0])
+		|| access(node->command_arg[0], F_OK | X_OK) == -1)
 		return (0);
 	if (stat(node->command_arg[0], &stat_info) == -1)
 	{
