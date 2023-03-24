@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/24 19:55:44 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:06:03 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,6 @@ typedef struct s_node
 	char			**command_arg;
 	int				arg_cnt;
 	t_builtin_type	builtin_type;
-	int				is_child;
 
 	// node_type == redirect
 	t_redirect_type	redirect_type;
@@ -267,6 +266,7 @@ typedef struct s_global
 	t_error_number	err_num;
 	void			(*builtin_function[8])(t_node *);
 	int				standard_fildes[2];
+	int				is_child;
 }	t_global;
 
 //global

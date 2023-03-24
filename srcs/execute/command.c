@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 19:54:59 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:05:57 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern t_global	g_global;
 void	handle_builtin(t_node *node)
 {
 	g_global.builtin_function[node->builtin_type](node);
-	if (node->is_child)
+	if (g_global.is_child)
 		exit(g_global.exit_status);
 }
 

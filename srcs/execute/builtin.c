@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:20:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 16:17:44 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:07:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	handle_singlebuiltin(t_node *node)
 	set_builtin_type(node->left);
 	if (!node->left->builtin_type)
 		return (0);
-	node->left->is_child = 0;
+	g_global.is_child = 0;
 	search_node(node->left);
 	return (1);
 }

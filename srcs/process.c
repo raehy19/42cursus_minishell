@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/21 15:01:59 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:07:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_parent_process(t_node *node, t_execute *execute)
 
 void	handle_process(t_node *node, t_execute *execute)
 {
-	if (!node->left->is_child)
+	if (!g_global.is_child)
 	{
 		search_node(node->left);
 		node->pid = 0;

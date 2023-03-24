@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 19:55:50 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:07:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	print_command_error(t_node *node, int idx, char *error_message)
 	}
 	ft_putstr_fd(error_message, 2);
 	ft_putstr_fd("\n", 2);
-	exit(g_global.exit_status);
+	if (g_global.is_child)
+		exit(g_global.exit_status);
 }
 
 void	print_invalid_identifier_error(t_node *node, int idx)
@@ -46,7 +47,8 @@ void	print_redirect_error(char *filename, char *error_message)
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error_message, 2);
 	g_global.exit_status = 1;
-	exit(g_global.exit_status);
+	if (g_global.is_child)
+		exit(g_global.exit_status);
 }
 
 void	handle_error(void)
@@ -73,5 +75,6 @@ void	handle_error(void)
 		ft_putstr_fd("fail duplicate fildes\n", 2);
 	if (g_global.err_num == FAIL_OPEN_DIR)
 		ft_putstr_fd("fail open directory\n", 2);
-	exit(g_global.exit_status);
+	if (g_global.is_child)
+		exit(g_global.exit_status);
 }

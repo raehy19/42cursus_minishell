@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/21 15:08:05 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:06:34 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	search_tree(t_node *node)
 			return ;
 		if (!handle_parenthesis(&node, &execute))
 			continue ;
-		node->left->is_child = check_fork(node);
+		g_global.is_child = check_fork(node);
 		handle_process(node, &execute);
 		node = node->right;
 	}
