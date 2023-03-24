@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   parse_utils_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 05:46:40 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/12 05:46:41 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:46:33 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+extern t_global	g_global;
 
 t_node	*new_node(t_node_type type, t_logical_type logical_type)
 {
@@ -63,12 +65,4 @@ void	lst_push_cmd(t_linked_arg **lst, t_linked_str *arg)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
-}
-
-int	is_string_char(char c)
-{
-	if (!c || ft_isspace(c) || c == '(' || c == ')' || c == '&' || c == '|'
-		|| c == '<' || c == '>' || c == '\'' || c == '\"')
-		return (0);
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/21 15:00:14 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 15:51:35 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,16 @@ typedef struct s_token_node
 	t_linked_str	*linked_str;
 }	t_token;
 
+
+// tokenize utils
+
 t_token			*new_token(t_token_type type, char *str);
 t_token			*lst_last_token(t_token *lst);
 void			lst_push_token(t_token **lst, t_token *new);
 t_token			*token_shift(t_token **token_list);
 void			token_unshift(t_token **lst, t_token *new);
+
+// tokenize
 
 void			tokenize_whitespace(char *str, int *idx, t_token **lst);
 void			tokenize_parenthesis(char *str, int *idx, t_token **lst);
@@ -150,31 +155,55 @@ void			tokenize_string(char *str, int *idx, t_token **lst);
 int				is_string_char(char c);
 t_token			*ft_tokenize(char *input);
 
+// token compress utils
 
-// compress
-
-int	is_string(t_token *token);
+int				is_string(t_token *token);
 t_linked_str	*new_linked_str(t_token_type type, char *str);
 t_linked_str	*lst_last_linked_str(t_linked_str *lst);
-void	lst_add_back_linked_str(t_linked_str **lst, t_linked_str *new);
+void			lst_add_back_linked_str(t_linked_str **lst, t_linked_str *new);
 
-t_token	*compress_tokens(t_token **token_list);
+// token compress
 
+void			ft_combine_str(t_token *temp, t_linked_str **linked_str, t_token **token_list);
+void			compress_str_node(t_token *temp, t_token **compressed_token_list, t_token **token_list);
+t_token			*compress_tokens(t_token **token_list);
 
 // parse
 
-t_token	*token_shift(t_token **token_list);
-t_node	*new_node(t_node_type type, t_logical_type logical_type);
-void	node_unshift(t_node **lst, t_node *new);
-t_node	*parse(t_token **token_list);
-void	parse_token_list(t_node **head, t_token **token_list);
+t_node			*parse(t_token **token_list);
+
+// parse_utils
+
+t_node			*new_node(t_node_type type, t_logical_type logical_type);
+void			node_unshift(t_node **lst, t_node *new);
+void			lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
+int				is_string_char(char c);
+int				is_and_or_pipe(t_token *temp);
+int				is_parenthesis(t_token *temp);
+int				is_logical(t_token *temp);
+int				is_arrow(t_token *temp);
+
+// parse_token
+
+t_token			*parse_l_parenthesis(t_node **head, t_token *temp, t_token **token_list);
+t_token			*parse_r_parenthesis(t_node **head, t_token *temp, t_token **token_list);
+void			parse_parenthesis(t_node **head, t_token **temp, t_token **token_list);
+void			parse_arrow(t_node **arrow, t_token *temp, t_token **token_list);
+void			parse_cmd(t_linked_arg **cmd_args, t_token *temp);
+void			add_new_logical(t_node **head, t_token *temp, t_token **token_list);
+void			ft_check_cmd(t_node **head, t_linked_arg *cmd_args, t_node *arrow);
+void			parse_token_list(t_node **head, t_token **token_list);
+
+t_token			*token_shift(t_token **token_list);
+void			node_unshift(t_node **lst, t_node *new);
+t_node			*parse(t_token **token_list);
+void			parse_token_list(t_node **head, t_token **token_list);
+
+char			*ft_combine_lump(t_linked_str *head);
+char			**ft_combine_arg(t_linked_arg *head, int *arg_cnt);
 
 
-char	*ft_combine_lump(t_linked_str *head);
-char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt);
-
-
-void	lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
+void			lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
 
 typedef struct s_execute
 {

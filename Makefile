@@ -54,7 +54,10 @@ PARSE_SRCS := \
 	token_compress.c \
 	token_compress_utils.c \
 	parse.c \
-	parse_utils.c \
+	parse_token_1.c \
+	parse_token_2.c \
+	parse_utils_1.c \
+	parse_utils_2.c \
 	parse_on_excute.c \
 
 BUILTIN_SRCS := \

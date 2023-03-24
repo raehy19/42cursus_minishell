@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 23:52:29 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/12 04:35:52 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:46:37 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	ft_count_arg(t_linked_arg *head)
 char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
 {
 	t_linked_arg	*temp;
-	char	**res;
-	int		i;
+	char			**res;
+	int				i;
 
 	*arg_cnt = ft_count_arg(head);
 	if (*arg_cnt == 0)
@@ -79,7 +79,7 @@ char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
 		free(temp);
 	}
 	*(res + i) = NULL;
-	return res;
+	return (res);
 }
 
 //

@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:56:51 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/12 04:35:38 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:48:06 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,3 @@ void	token_unshift(t_token **lst, t_token *new)
 		new->next = *lst;
 	*lst = new;
 }
-

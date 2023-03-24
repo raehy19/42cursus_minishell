@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:24:33 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/11 14:34:23 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:47:42 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	tokenize_arrows(char *str, int *idx, t_token **lst)
 			lst_push_token(lst, new_token(T_HERE_DOCUMENT, NULL));
 		else if (*(str + *idx) == '>' && *(str + *idx + 1) == '>')
 			lst_push_token(lst,
-						   new_token(T_APPENDING_REDIRECTED_OUTPUT, NULL));
+				new_token(T_APPENDING_REDIRECTED_OUTPUT, NULL));
 		++*idx;
 	}
 	else if (*(str + *idx) == '<')
@@ -74,7 +74,7 @@ void	tokenize_arrows(char *str, int *idx, t_token **lst)
 
 t_token	*ft_tokenize(char *input)
 {
-	int				idx;
+	int		idx;
 	t_token	*token_list;
 
 	idx = -1;

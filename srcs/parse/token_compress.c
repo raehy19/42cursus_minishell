@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 01:43:14 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/12 04:35:19 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:47:05 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern t_global	g_global;
 
 void	ft_combine_str(t_token *temp, t_linked_str **linked_str,
-					   t_token **token_list)
+		t_token **token_list)
 {
 	t_token	*to_free;
 
@@ -31,10 +31,10 @@ void	ft_combine_str(t_token *temp, t_linked_str **linked_str,
 }
 
 void	compress_str_node(t_token *temp,
-						  t_token **compressed_token_list, t_token **token_list)
+		t_token **compressed_token_list, t_token **token_list)
 {
 	t_linked_str	*linked_str;
-	t_token	*new;
+	t_token			*new;
 
 	linked_str = NULL;
 	lst_add_back_linked_str(&linked_str,
