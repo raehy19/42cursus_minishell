@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		g_global.err_num = NaE;
 		init_standard_fildes();
+		set_sigaction();
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 		if (input == NULL)
 			exit(g_global.exit_status);

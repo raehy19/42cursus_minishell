@@ -204,8 +204,10 @@ void			parse_token_list(t_node **head, t_token **token_list);
 char			*ft_combine_lump(t_linked_str *head);
 char			**ft_combine_arg(t_linked_arg *head, int *arg_cnt);
 
-
 void			lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
+
+//signal
+void	set_sigaction(void);
 
 typedef struct s_execute
 {
