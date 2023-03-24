@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 18:41:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 18:58:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ char	*make_command_path(char *path, char *command)
 	return (command_path);
 }
 
-int	is_regular_file(struct stat stat_info)
+int	is_regular_file(mode_t st_mode)
 {
-	return (stat_info.st_mode == 0100000);
+	return ((st_mode & S_IFMT));
 }
 
 int	handle_special_case(t_node *node, char **command_path)
@@ -60,10 +60,14 @@ int	handle_special_case(t_node *node, char **command_path)
 		*command_path = 0;
 		return (1);
 	}
-	if (access(node->command_arg[0], X_OK) != 0)
+	if (access(node->command_arg[0], F_OK | X_OK) != 0)
 		return (0);
-	stat(node->command_arg[0], &stat_info);
-	if (is_regular_file(stat_info))
+	if (stat(node->command_arg[0], &stat_info) == -1)
+	{
+		g_global.err_num = FAIL_STAT;
+		handle_error();
+	}
+	if (is_regular_file(stat_info.st_mode))
 	{
 		*command_path = node->command_arg[0];
 		return (1);
