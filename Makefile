@@ -41,6 +41,7 @@ SRCS := \
 	process.c \
 	wildcard.c \
 	wildcard_utils.c \
+	signal.c \
 
 ENV_SRCS := \
 	init_env.c \
