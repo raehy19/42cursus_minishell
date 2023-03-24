@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 19:49:16 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 17:32:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*find_command_path(t_node *node)
 	idx = -1;
 	is_executable = 0;
 	command_path = 0;
+	if (!ft_strcmp(node->command_arg[0], ""))
+		return (0);
 	if (access(node->command_arg[0], X_OK) == 0)
 		return (node->command_arg[0]);
 	path = get_path();
