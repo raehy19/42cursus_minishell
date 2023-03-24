@@ -64,3 +64,11 @@ void	lst_push_cmd(t_linked_arg **lst, t_linked_str *arg)
 		temp = temp->next;
 	temp->next = new;
 }
+
+int	is_string_char(char c)
+{
+	if (!c || ft_isspace(c) || c == '(' || c == ')' || c == '&' || c == '|'
+		|| c == '<' || c == '>' || c == '\'' || c == '\"')
+		return (0);
+	return (1);
+}

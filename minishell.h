@@ -133,10 +133,11 @@ typedef struct s_token_node
 	t_linked_str	*linked_str;
 }	t_token;
 
-t_token	*new_token(t_token_type type, char *str);
-t_token	*lst_last_token(t_token *lst);
+t_token			*new_token(t_token_type type, char *str);
+t_token			*lst_last_token(t_token *lst);
 void			lst_push_token(t_token **lst, t_token *new);
-int				is_string_char(char c);
+t_token			*token_shift(t_token **token_list);
+void			token_unshift(t_token **lst, t_token *new);
 
 void			tokenize_whitespace(char *str, int *idx, t_token **lst);
 void			tokenize_parenthesis(char *str, int *idx, t_token **lst);
@@ -146,7 +147,9 @@ void			tokenize_single_quote(char *str, int *idx, t_token **lst);
 void			tokenize_double_quote(char *str, int *idx, t_token **lst);
 void			tokenize_string(char *str, int *idx, t_token **lst);
 
-t_token	*ft_tokenize(char *input);
+int				is_string_char(char c);
+t_token			*ft_tokenize(char *input);
+
 
 // compress
 
@@ -163,8 +166,8 @@ t_token	*compress_tokens(t_token **token_list);
 t_token	*token_shift(t_token **token_list);
 t_node	*new_node(t_node_type type, t_logical_type logical_type);
 void	node_unshift(t_node **lst, t_node *new);
-t_node	*ft_parse(t_token **token_list);
-void	ft_parse_token_list(t_node **head, t_token **token_list);
+t_node	*parse(t_token **token_list);
+void	parse_token_list(t_node **head, t_token **token_list);
 
 
 char	*ft_combine_lump(t_linked_str *head);

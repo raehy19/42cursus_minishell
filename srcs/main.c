@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 		token_node = ft_tokenize(input);
 
 		t_token *temp = compress_tokens(&token_node);
-		t_node *tree = ft_parse(&temp);
+		t_node *tree = parse(&temp);
 		if (!tree)
 			continue;
 		

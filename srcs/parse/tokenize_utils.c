@@ -53,10 +53,20 @@ void	lst_push_token(t_token **lst, t_token *new)
 	temp->next = new;
 }
 
-int	is_string_char(char c)
+t_token	*token_shift(t_token **token_list)
 {
-	if (!c || ft_isspace(c) || c == '(' || c == ')' || c == '&' || c == '|'
-		|| c == '<' || c == '>' || c == '\'' || c == '\"')
-		return (0);
-	return (1);
+	t_token	*temp;
+
+	temp = *token_list;
+	if (temp)
+		*token_list = (*token_list)->next;
+	return (temp);
 }
+
+void	token_unshift(t_token **lst, t_token *new)
+{
+	if ((*lst))
+		new->next = *lst;
+	*lst = new;
+}
+
