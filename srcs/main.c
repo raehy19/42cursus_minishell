@@ -6,13 +6,30 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/22 21:53:22 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 21:40:38 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_global	g_global;
+
+void	signal_handler(int signo)
+{
+	if (signo == SIGINT)
+	{
+		rl_replace_line("", 0);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		rl_on_new_line();
+		rl_redisplay();
+		g_global.exit_status = 1;
+	}
+	if (signo == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -26,7 +43,8 @@ int	main(int argc, char **argv, char **envp)
 	{
 		g_global.err_num = NaE;
 		init_standard_fildes();
-		set_sigaction();
+		signal(SIGINT, signal_handler);
+		signal(SIGQUIT, signal_handler);
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 		if (input == NULL)
 			exit(g_global.exit_status);

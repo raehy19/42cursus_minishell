@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/24 16:08:24 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/24 21:38:24 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ LIBFT_DIR := libft
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -MMD -MP -g
 READLINE_FLAG := -lreadline
+LDFLAGS := -L/Users/yeepark/.brew/opt/readline/lib 
+CPPFLAGS := -I/Users/yeepark/.brew/opt/readline/include 
 RM := rm -f
 
 all : $(NAME)
@@ -122,12 +124,12 @@ $(LIBFT) :
 	make -C $(LIBFT_DIR) all
 
 $(NAME) : $(LIBFT) $(OBJS)
-	$(CC) $^ -o $@ $(READLINE_FLAG)
+	$(CC) $^ -o $@ $(READLINE_FLAG) $(CPPFLAGS) $(LDFLAGS) 
 
 $(BONUS_NAME) : $(BONUS_OBJS)
 	$(CC) $^ -o $@
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ $(CPPFLAGS) 
 
 .PHONY : all bonus clean fclean re

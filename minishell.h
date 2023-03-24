@@ -1,4 +1,3 @@
-/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
@@ -17,7 +16,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/wait.h>
@@ -25,6 +23,8 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <dirent.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "libft/libft.h"
 
 # define READ 0
