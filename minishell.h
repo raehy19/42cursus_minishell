@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/24 15:51:35 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/24 16:10:01 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <dirent.h>
 # include "libft/libft.h"
 
 # define READ 0
@@ -81,7 +82,8 @@ typedef enum e_error_number
 	FAIL_CLOSE_FILDES,
 	FAIL_OPEN_PIPE,
 	FAIL_DUPLICATE_FILDES,
-	FAIL_EXECUTE
+	FAIL_EXECUTE,
+	FAIL_OPEN_DIR
 }	t_error_number;
 
 typedef struct s_node	t_node;
@@ -340,7 +342,7 @@ void	handle_error(void);
 
 // utils
 
-void	free_two_dim(char **array);
+int		free_two_dim(char **array);
 void	free_command_node(t_node *node);
 void	free_redirect_node(t_node *node);
 void	free_node(t_node *node);
@@ -348,9 +350,16 @@ void	free_tree(t_node *node);
 
 // bonus
 
-int	check_fork(t_node *node);
-int	check_exit_status(t_node *node);
-int	handle_and_or(t_node *node, t_execute *execute);
-int	handle_parenthesis(t_node **node, t_execute *execute);
+int		check_fork(t_node *node);
+int		check_exit_status(t_node *node);
+int		handle_and_or(t_node *node, t_execute *execute);
+int		handle_parenthesis(t_node **node, t_execute *execute);
 
+// wildcard
+
+void	handle_wildcard(t_node *node);
+int		is_wildcard_format(char *name, char *format);
+int		is_wildcard(char c);
+void	add_new_list(t_list **command_lst, char *name);
+char	**make_command_arg(t_list *command_lst);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 14:57:59 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/22 19:12:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,18 @@ void	handle_error(void)
 		g_global.exit_status = ENOMEM;
 	}
 	if (g_global.err_num == FAIL_OPEN_PIPE)
-		ft_putstr_fd("fail open pipe", 2);
+		ft_putstr_fd("fail open pipe\n", 2);
 	if (g_global.err_num == FAIL_OPEN_FILDES)
-		ft_putstr_fd("fail open fildes", 2);
+		ft_putstr_fd("fail open fildes\n", 2);
 	if (g_global.err_num == FAIL_CLOSE_FILDES)
-		ft_putstr_fd("fail close fildes", 2);
+		ft_putstr_fd("fail close fildes\n", 2);
 	if (g_global.err_num == FAIL_EXECUTE)
-		ft_putstr_fd("fail execve", 2);
+		ft_putstr_fd("fail execve\n", 2);
 	if (g_global.err_num == FAIL_FORK)
-		ft_putstr_fd("fail fork", 2);
+		ft_putstr_fd("fail fork\n", 2);
 	if (g_global.err_num == FAIL_DUPLICATE_FILDES)
-		ft_putstr_fd("fail duplicate fildes", 2);
+		ft_putstr_fd("fail duplicate fildes\n", 2);
+	if (g_global.err_num == FAIL_OPEN_DIR)
+		ft_putstr_fd("fail open directory\n", 2);
 	exit(g_global.exit_status);
 }

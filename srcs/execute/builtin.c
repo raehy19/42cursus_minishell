@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:20:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 14:04:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 15:49:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	set_builtin_type(t_node *node)
 			= ft_combine_arg(node->cmd_arg_linked_str, &node->arg_cnt);
 	if (!node->command_arg)
 		return ;
+	handle_wildcard(node);
 	node->builtin_type = NaB;
 	if (!ft_strcmp(node->command_arg[0], "echo"))
 		node->builtin_type = ECHO;

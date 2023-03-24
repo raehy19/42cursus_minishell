@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:14:45 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/21 14:42:19 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/22 21:36:49 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_global(char **envp)
 	init_builtin_functions();
 	if (init_envp(envp))
 		exit(clear_env());
+	g_global.exit_status = 0;
 	g_global.standard_fildes[0] = STDIN_FILENO;
 	g_global.standard_fildes[1] = STDOUT_FILENO;
 }

@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/21 14:58:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 16:05:47 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 extern t_global	g_global;
 
-//builtlin x or pipe와 연결 => fork
 int	check_fork(t_node *node)
 {
 	int		is_pipe;
