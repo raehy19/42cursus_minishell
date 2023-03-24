@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 16:56:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 18:46:50 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ void	handle_error(void)
 		ft_putstr_fd("fail duplicate fildes\n", 2);
 	if (g_global.err_num == FAIL_OPEN_DIR)
 		ft_putstr_fd("fail open directory\n", 2);
+	if (g_global.err_num == FAIL_STAT)
+		ft_putstr_fd("fail get file status\n", 2);
 	exit(g_global.exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/24 18:35:07 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 18:46:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ typedef enum e_error_number
 	FAIL_OPEN_PIPE,
 	FAIL_DUPLICATE_FILDES,
 	FAIL_EXECUTE,
-	FAIL_OPEN_DIR
+	FAIL_OPEN_DIR,
+	FAIL_STAT
 }	t_error_number;
 
 typedef struct s_node	t_node;
