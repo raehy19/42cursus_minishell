@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/24 16:10:01 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 17:12:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,7 +339,7 @@ char	*find_command_path(t_node *node);
 
 void	print_command_error(t_node *node, int idx, char *error_message);
 void	print_invalid_identifier_error(t_node *node, int idx);
-void	print_redirect_error(char *filename);
+void	print_redirect_error(char *filename, char *error_message);
 void	handle_error(void);
 
 // utils
@@ -359,9 +359,11 @@ int		handle_parenthesis(t_node **node, t_execute *execute);
 
 // wildcard
 
-void	handle_wildcard(t_node *node);
+void	handle_redirect_wildcard(t_node *node);
+void	handle_command_wildcard(t_node *node);
 int		is_wildcard_format(char *name, char *format);
 int		is_wildcard(char c);
 void	add_new_list(t_list **command_lst, char *name);
 char	**make_command_arg(t_list *command_lst);
+void	handle_wildcard_error(t_node *node, char *new_filename, int cnt);
 #endif

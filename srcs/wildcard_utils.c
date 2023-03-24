@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:07:12 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 16:12:45 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 17:25:02 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,43 @@ char	**make_command_arg(t_list *command_lst)
 {
 	int		idx;
 	int		is_error;
-	char	*content;
 	char	**command_arg;
 
 	idx = 0;
 	is_error = 0;
 	command_arg = malloc(sizeof(char *) * (ft_lstsize(command_lst) + 1));
 	if (!command_arg)
-	{
-		g_global.err_num = FAIL_MALLOC;
-		handle_error();
-	}
+		return (0);
 	while (!is_error && command_lst)
 	{
-		content = (char *)command_lst->content;
-		command_arg[idx] = ft_strdup(content);
-		is_error = (command_arg[idx] == NULL);
+		command_arg[idx] = ft_strdup((char *)command_lst->content);
+		is_error = (command_arg[idx++] == NULL);
 		command_lst = command_lst->next;
-		idx++;
 	}
-	command_arg[idx] = 0;
 	if (is_error)
-	{
 		g_global.err_num = FAIL_MALLOC;
+	command_arg[idx] = 0;
+	if (g_global.err_num !=NaE)
+	{
 		free_two_dim(command_arg);
-		handle_error();
+		command_arg = 0;
 	}
 	return (command_arg);
+}
+
+void	handle_wildcard_error(t_node *node, char *new_filename, int cnt)
+{
+	char	*error_message;
+
+	if (cnt == 1)
+	{
+		free(node->redirect_filename);
+		node->redirect_filename = new_filename;
+		return ;
+	}
+	if (cnt)
+		error_message = "ambiguous redirect\n";
+	if (!cnt)
+		error_message = "No such file or directory\n";
+	print_redirect_error(node->redirect_filename, error_message);
 }

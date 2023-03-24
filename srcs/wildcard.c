@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:27:57 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 16:07:39 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 17:14:40 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	handle_directory(t_list **command_lst, char *format)
 	struct dirent	*dir_entry;
 
 	dir_info = opendir(".");
-	if (!dir_info) 
+	if (!dir_info)
 	{
 		g_global.err_num = FAIL_OPEN_DIR;
 		handle_error();
@@ -82,7 +82,7 @@ void	handle_directory(t_list **command_lst, char *format)
 	closedir(dir_info);
 }
 
-void	handle_wildcard(t_node *node)
+void	handle_command_wildcard(t_node *node)
 {
 	int		idx;
 	t_list	*command_lst;
@@ -99,5 +99,35 @@ void	handle_wildcard(t_node *node)
 	}
 	free_two_dim(node->command_arg);
 	node->command_arg = make_command_arg(command_lst);
+	if (g_global.err_num != NaE)
+		handle_error();
 	ft_lstclear(&command_lst, free);
+}
+
+void	handle_redirect_wildcard(t_node *node)
+{
+	int				cnt;
+	DIR				*dir_info;
+	struct dirent	*dir_entry;
+	char			*new_filename;
+
+	cnt = 0;
+	dir_info = opendir(".");
+	if (!dir_info)
+	{
+		g_global.err_num = FAIL_OPEN_DIR;
+		handle_error();
+	}
+	dir_entry = readdir(dir_info);
+	while (cnt <= 1 && dir_entry)
+	{
+		if (is_wildcard_format(dir_entry->d_name, node->redirect_filename))
+		{
+			new_filename = ft_strdup(dir_entry->d_name);
+			cnt++;
+		}
+		dir_entry = readdir(dir_info);
+	}
+	closedir(dir_info);
+	handle_wildcard_error(node, new_filename, cnt);
 }

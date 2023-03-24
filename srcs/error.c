@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/22 19:12:30 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 16:56:21 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	print_invalid_identifier_error(t_node *node, int idx)
 	g_global.exit_status = 1;
 }
 
-void	print_redirect_error(char *filename)
+void	print_redirect_error(char *filename, char *error_message)
 {
 	ft_putstr_fd("bash: ", 2);
 	ft_putstr_fd(filename, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error_message, 2);
 	g_global.exit_status = 1;
 	exit(g_global.exit_status);
 }

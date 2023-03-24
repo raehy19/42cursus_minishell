@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:38 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/20 21:44:43 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 16:56:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ int	is_out(t_redirect_type type)
 
 void	handle_in_redirect(t_node *node)
 {
+	char	*error_message;
+
 	if (node->redirect_type == REDIRECTING_INPUT)
 	{
 		if (access(node->redirect_filename, F_OK | R_OK) == -1)
-			print_redirect_error(node->redirect_filename);
+		{
+			error_message = "No such file or directory\n";
+			print_redirect_error(node->redirect_filename, error_message);
+		}
 		node->in_fd = open_fildes(node->redirect_filename, O_RDONLY, 0);
 	}
 	duplicate_fildes(node->in_fd, STDIN_FILENO);
@@ -53,7 +58,10 @@ void	handle_out_redirect(t_node *node)
 void	handle_redirect(t_node *node)
 {
 	if (node->redirect_type != HERE_DOCUMENT)
+	{
 		node->redirect_filename = ft_combine_lump(node->redirect_linked_str);
+		handle_redirect_wildcard(node);
+	}
 	if (is_in(node->redirect_type))
 		handle_in_redirect(node);
 	if (is_out(node->redirect_type))
