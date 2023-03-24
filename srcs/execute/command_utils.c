@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 17:32:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 18:41:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,31 @@ char	*make_command_path(char *path, char *command)
 	return (command_path);
 }
 
+int	is_regular_file(struct stat stat_info)
+{
+	return (stat_info.st_mode == 0100000);
+}
+
+int	handle_special_case(t_node *node, char **command_path)
+{
+	struct stat	stat_info;
+
+	if (!ft_strcmp(node->command_arg[0], ""))
+	{
+		*command_path = 0;
+		return (1);
+	}
+	if (access(node->command_arg[0], X_OK) != 0)
+		return (0);
+	stat(node->command_arg[0], &stat_info);
+	if (is_regular_file(stat_info))
+	{
+		*command_path = node->command_arg[0];
+		return (1);
+	}
+	return (0);
+}
+
 char	*find_command_path(t_node *node)
 {
 	int		idx;
@@ -56,10 +81,8 @@ char	*find_command_path(t_node *node)
 	idx = -1;
 	is_executable = 0;
 	command_path = 0;
-	if (!ft_strcmp(node->command_arg[0], ""))
-		return (0);
-	if (access(node->command_arg[0], X_OK) == 0)
-		return (node->command_arg[0]);
+	if (handle_special_case(node, &command_path))
+		return (command_path);
 	path = get_path();
 	if (!path)
 		return (0);
