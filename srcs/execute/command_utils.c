@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 19:15:01 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:00:27 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,21 @@ int	handle_special_case(t_node *node, char **command_path)
 		*command_path = 0;
 		return (1);
 	}
-	if (!is_path(node->command_arg[0])
-		|| access(node->command_arg[0], F_OK | X_OK) == -1)
+	if (!is_path(node->command_arg[0]))
 		return (0);
-	if (stat(node->command_arg[0], &stat_info) == -1)
+	if (access(node->command_arg[0], F_OK | X_OK) == -1)
 	{
-		g_global.err_num = FAIL_STAT;
-		handle_error();
+		g_global.err_num = COMMAND_NOT_FOUND;
+		return (1);
 	}
+	stat(node->command_arg[0], &stat_info);
 	if (is_regular_file(stat_info.st_mode))
 	{
 		*command_path = node->command_arg[0];
 		return (1);
 	}
-	return (0);
+	g_global.err_num = NO_SUCH_FILE;
+	return (is_path(node->command_arg[0]));
 }
 
 char	*find_command_path(t_node *node)
@@ -107,5 +108,6 @@ char	*find_command_path(t_node *node)
 	if (is_executable)
 		return (command_path);
 	free(command_path);
+	g_global.err_num = COMMAND_NOT_FOUND;
 	return (0);
 }
