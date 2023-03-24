@@ -23,6 +23,67 @@ int	is_env_allowed_char(const char c)
 	return (0);
 }
 
+void	make_env_linked_str(char *str, int *idx, t_linked_str **lst)
+{
+	int		i;
+	char	*env_name;
+	t_env	*env;
+
+	i = 0;
+	while(is_env_allowed_char(*(str + *idx + i + 1)))
+		++i;
+	env_name = ft_strndup((str + *idx + 1), i);
+	if (!env_name)
+		g_global.err_num = FAIL_MALLOC;
+	env = find_env(env_name);
+	if (env)
+		lst_add_back_linked_str(lst, new_linked_str(T_SINGLE_QUOTE,
+			strndup(str + *idx, i)));
+	*idx += i + 1;
+}
+
+void	check_env(char **str)
+{
+	int				idx;
+	int				i;
+	t_linked_str	*temp;
+
+	idx = 0;
+	i = 0;
+	temp = NULL;
+	while (*((*str) + idx + i))
+	{
+		if (*((*str) + idx + i) == '$')
+		{
+			if (!((*str) + idx + i + 1)
+				|| !is_env_allowed_char(*(((*str) + idx + i +  1))))
+			{
+				g_global.err_num = SYNTAX_ERR;
+				return ;
+			}
+			if ((*(((*str) + idx + i + 1))) == '?')
+			{
+				lst_add_back_linked_str(&temp,
+						new_linked_str(T_SINGLE_QUOTE,
+							ft_itoa(g_global.exit_status)));
+				idx += i;
+				i = 0;
+			}
+			else
+			{
+				lst_add_back_linked_str(&temp,
+					new_linked_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
+				make_env_linked_str(*str, &idx, &temp);
+			}
+		}
+		++i;
+	}
+	lst_add_back_linked_str(&temp,
+		new_linked_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
+	free(*str);
+	*str = ft_combine_lump(temp);
+}
+
 char	*ft_combine_lump(t_linked_str *head)
 {
 	t_linked_str	*temp;
@@ -31,8 +92,12 @@ char	*ft_combine_lump(t_linked_str *head)
 
 	res = head->str;
 	temp = head;
+	if (temp->str_type == T_DOUBLE_QUOTE || temp->str_type == T_STRING)
+		check_env(&(temp->str));
 	while (temp->next)
 	{
+		if (temp->str_type == T_DOUBLE_QUOTE || temp->str_type == T_STRING)
+			check_env(&(temp->str));
 		temp_str = ft_strjoin(res, temp->next->str);
 		free(res);
 		free(temp->next->str);
@@ -81,23 +146,3 @@ char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
 	*(res + i) = NULL;
 	return (res);
 }
-
-//
-//void	tokenize_env(char *str, int *idx, t_token **lst)
-//{
-//	int		i;
-//	char	*env_name;
-//	t_env	*env;
-//
-//	i = 0;
-//	while (is_env_allowed_char(*(str + *idx + i + 1)))
-//		++i;
-//	env_name = ft_strndup((str + *idx + 1), i);
-//	if (!env_name)
-//		g_global.err_num = FAIL_MALLOC;
-//	env = find_env(env_name);
-//	if (env)
-//		lst_add_back_token(lst,lst_new_token(T_STRING, ft_strdup(env->value)));
-//	free(env_name);
-//	*idx += i + 1;
-//}
