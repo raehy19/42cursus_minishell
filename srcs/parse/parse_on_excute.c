@@ -23,7 +23,7 @@ int	is_env_allowed_char(const char c)
 	return (0);
 }
 
-void	make_env_linked_str(char *str, t_linked_str **lst, int *idx)
+void	make_env_linked_str(char *str, t_link_str **lst, int *idx)
 {
 	int		i;
 	char	*env_name;
@@ -37,14 +37,14 @@ void	make_env_linked_str(char *str, t_linked_str **lst, int *idx)
 		g_global.err_num = FAIL_MALLOC;
 	env = find_env(env_name);
 	if (env)
-		linked_str_add_back(lst, new_linked_str(T_SINGLE_QUOTE, strdup(env->value)));
+		link_str_add_back(lst, new_link_str(T_SINGLE_QUOTE, strdup(env->value)));
 	free(env_name);
 	*idx += i + 1;
 }
 
 void	check_env(char **str)
 {
-	t_linked_str	*temp;
+	t_link_str	*temp;
 	int				idx;
 	int				i;
 
@@ -64,25 +64,25 @@ void	check_env(char **str)
 			}
 			if (*((*str) + idx + i + 1) == '?')
 			{
-				linked_str_add_back(&temp,new_linked_str(T_SINGLE_QUOTE, ft_itoa(g_global.exit_status)));
+				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, ft_itoa(g_global.exit_status)));
 				idx += 2;
 			}
 			else
 			{
-				linked_str_add_back(&temp, new_linked_str(T_SINGLE_QUOTE, strndup(((*str) + idx), i)));
+				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, strndup(((*str) + idx), i)));
 				make_env_linked_str((*str + idx + i + 1), &temp, &idx);
 			}
 			i = -1;
 		}
 	}
-	linked_str_add_back(&temp,new_linked_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
+	link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
 	free(*str);
 	*str = ft_combine_lump(temp);
 }
 
-char	*ft_combine_lump(t_linked_str *head)
+char	*ft_combine_lump(t_link_str *head)
 {
-	t_linked_str	*temp;
+	t_link_str		*temp;
 	char			*res;
 	char			*temp_str;
 

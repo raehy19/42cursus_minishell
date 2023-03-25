@@ -112,20 +112,20 @@ typedef enum e_token_type
 	T_LUMP_STR,
 }	t_token_type;
 
-typedef struct s_linked_str	t_linked_str;
+typedef struct s_link_str	t_link_str;
 
-typedef struct s_linked_str
+typedef struct s_link_str
 {
 	char			*str;
 	t_token_type	str_type;
-	t_linked_str	*next;
-}	t_linked_str;
+	t_link_str	*next;
+}	t_link_str;
 
 typedef struct s_linked_arg t_linked_arg;
 
 typedef struct s_linked_arg
 {
-	t_linked_str	*arg_str;
+	t_link_str		*arg_str;
 	t_linked_arg	*next;
 }	t_linked_arg;
 
@@ -136,7 +136,7 @@ typedef struct s_token_node
 	t_token_type	type;
 	char			*str;
 	t_token	*next;
-	t_linked_str	*linked_str;
+	t_link_str	*link_str;
 }	t_token;
 
 
@@ -164,25 +164,25 @@ t_token			*ft_tokenize(char *input);
 // token compress utils
 
 int				is_string(t_token *token);
-t_linked_str	*new_linked_str(t_token_type type, char *str);
-t_linked_str	*lst_last_linked_str(t_linked_str *lst);
-void			linked_str_add_back(t_linked_str **lst, t_linked_str *new);
+t_link_str		*new_link_str(t_token_type type, char *str);
+t_link_str		*link_str_last(t_link_str *lst);
+void			link_str_add_back(t_link_str **lst, t_link_str *new);
 
 // token compress
 
-void			ft_combine_str(t_token *temp, t_linked_str **linked_str, t_token **token_list);
+void			ft_combine_str(t_token *temp, t_link_str **linked_str, t_token **token_list);
 void			compress_str_node(t_token *temp, t_token **compressed_token_list, t_token **token_list);
 t_token			*compress_tokens(t_token **token_list);
 
 // parse
 
-t_node			*parse(t_token **token_list);
+t_node			*make_tree(t_token **token_list);
 
 // parse_utils
 
 t_node			*new_node(t_node_type type, t_logical_type logical_type);
 void			node_unshift(t_node **lst, t_node *new);
-void			lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
+void			lst_push_cmd(t_linked_arg **lst, t_link_str *arg);
 int				is_string_char(char c);
 int				is_and_or_pipe(t_token *temp);
 int				is_parenthesis(t_token *temp);
@@ -202,13 +202,12 @@ void			parse_token_list(t_node **head, t_token **token_list);
 
 t_token			*token_shift(t_token **token_list);
 void			node_unshift(t_node **lst, t_node *new);
-t_node			*parse(t_token **token_list);
 void			parse_token_list(t_node **head, t_token **token_list);
 
-char			*ft_combine_lump(t_linked_str *head);
+char			*ft_combine_lump(t_link_str *head);
 char			**ft_combine_arg(t_linked_arg *head, int *arg_cnt);
 
-void			lst_push_cmd(t_linked_arg **lst, t_linked_str *arg);
+void			lst_push_cmd(t_linked_arg **lst, t_link_str *arg);
 
 //signal
 void	set_sigaction(void);
@@ -241,7 +240,7 @@ typedef struct s_node
 
 	// node_type == redirect
 	t_redirect_type	redirect_type;
-	t_linked_str	*redirect_linked_str;
+	t_link_str	*redirect_linked_str;
 	char			*redirect_filename;
 	int				in_fd; // initialize STDIN
 	int				out_fd; // initialize STDOUT

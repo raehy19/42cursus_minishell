@@ -22,7 +22,7 @@ t_token	*new_token(t_token_type type, char *str)
 	new->type = type;
 	new->str = str;
 	new->next = NULL;
-	new->linked_str = NULL;
+	new->link_str = NULL;
 	return (new);
 }
 

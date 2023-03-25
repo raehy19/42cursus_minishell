@@ -29,14 +29,14 @@ void	parse_arrow(t_node **arrow, t_token *temp, t_token **token_list)
 	temp = token_shift(token_list);
 	if (temp->type != T_LUMP_STR)
 		g_global.err_num = SYNTAX_ERR;
-	new->redirect_linked_str = temp->linked_str;
+	new->redirect_linked_str = temp->link_str;
 	free(temp);
 	node_unshift(arrow, new);
 }
 
 void	parse_cmd(t_linked_arg **cmd_args, t_token *temp)
 {
-	lst_push_cmd(cmd_args, temp->linked_str);
+	lst_push_cmd(cmd_args, temp->link_str);
 	free(temp);
 }
 

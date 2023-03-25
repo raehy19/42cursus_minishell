@@ -46,7 +46,7 @@ void	node_unshift(t_node **lst, t_node *new)
 	*lst = new;
 }
 
-void	lst_push_cmd(t_linked_arg **lst, t_linked_str *arg)
+void	lst_push_cmd(t_linked_arg **lst, t_link_str *arg)
 {
 	t_linked_arg	*temp;
 	t_linked_arg	*new;

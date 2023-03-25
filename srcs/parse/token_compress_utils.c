@@ -22,11 +22,11 @@ int	is_string(t_token *token)
 	return (0);
 }
 
-t_linked_str	*new_linked_str(t_token_type type, char *str)
+t_link_str	*new_link_str(t_token_type type, char *str)
 {
-	t_linked_str	*new;
+	t_link_str	*new;
 
-	new = (t_linked_str *) malloc(sizeof(t_linked_str));
+	new = (t_link_str *) malloc(sizeof(t_link_str));
 	if (!new)
 		return (NULL);
 	new->str = str;
@@ -35,9 +35,9 @@ t_linked_str	*new_linked_str(t_token_type type, char *str)
 	return (new);
 }
 
-t_linked_str	*lst_last_linked_str(t_linked_str *lst)
+t_link_str	*link_str_last(t_link_str *lst)
 {
-	t_linked_str	*temp;
+	t_link_str	*temp;
 
 	if (!lst)
 		return (NULL);
@@ -47,16 +47,16 @@ t_linked_str	*lst_last_linked_str(t_linked_str *lst)
 	return (temp);
 }
 
-void	linked_str_add_back(t_linked_str **lst, t_linked_str *new)
+void	link_str_add_back(t_link_str **lst, t_link_str *new)
 {
-	t_linked_str	*temp;
+	t_link_str	*temp;
 
 	if (!(*(lst)))
 	{
 		*lst = new;
 		return ;
 	}
-	temp = lst_last_linked_str(*(lst));
+	temp = link_str_last(*(lst));
 	if (!temp)
 		return ;
 	temp->next = new;

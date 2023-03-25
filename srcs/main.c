@@ -52,11 +52,11 @@ int	main(int argc, char **argv, char **envp)
 
 		// parsing
 
-		// parse debug
+		// make_tree debug
 		token_node = ft_tokenize(input);
 
 		t_token *temp = compress_tokens(&token_node);
-		t_node *tree = parse(&temp);
+		t_node *tree = make_tree(&temp);
 		if (!tree)
 			continue;
 		

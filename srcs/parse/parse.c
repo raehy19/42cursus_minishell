@@ -14,7 +14,7 @@
 
 extern t_global	g_global;
 
-t_node	*parse(t_token **token_list)
+t_node	*make_tree(t_token **token_list)
 {
 	t_node	*tree;
 
