@@ -166,7 +166,7 @@ t_token			*ft_tokenize(char *input);
 int				is_string(t_token *token);
 t_linked_str	*new_linked_str(t_token_type type, char *str);
 t_linked_str	*lst_last_linked_str(t_linked_str *lst);
-void			lst_add_back_linked_str(t_linked_str **lst, t_linked_str *new);
+void			linked_str_add_back(t_linked_str **lst, t_linked_str *new);
 
 // token compress
 

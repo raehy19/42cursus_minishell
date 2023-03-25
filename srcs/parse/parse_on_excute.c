@@ -23,63 +23,59 @@ int	is_env_allowed_char(const char c)
 	return (0);
 }
 
-void	make_env_linked_str(char *str, int *idx, t_linked_str **lst)
+void	make_env_linked_str(char *str, t_linked_str **lst, int *idx)
 {
 	int		i;
 	char	*env_name;
 	t_env	*env;
 
 	i = 0;
-	while(is_env_allowed_char(*(str + *idx + i + 1)))
+	while(is_env_allowed_char(*(str + i)))
 		++i;
-	env_name = ft_strndup((str + *idx + 1), i);
+	env_name = ft_strndup((str), i);
 	if (!env_name)
 		g_global.err_num = FAIL_MALLOC;
 	env = find_env(env_name);
 	if (env)
-		lst_add_back_linked_str(lst, new_linked_str(T_SINGLE_QUOTE,
-			strndup(str + *idx, i)));
+		linked_str_add_back(lst, new_linked_str(T_SINGLE_QUOTE, strdup(env->value)));
+	free(env_name);
 	*idx += i + 1;
 }
 
 void	check_env(char **str)
 {
+	t_linked_str	*temp;
 	int				idx;
 	int				i;
-	t_linked_str	*temp;
 
-	idx = 0;
-	i = 0;
 	temp = NULL;
-	while (*((*str) + idx + i))
+	idx = 0;
+	i = -1;
+	while (*((*str) + idx + ++i))
 	{
 		if (*((*str) + idx + i) == '$')
 		{
-			if (!((*str) + idx + i + 1)
-				|| !is_env_allowed_char(*(((*str) + idx + i +  1))))
+
+			if (!((*str) + idx + i + 1) || (*((*str) + idx + i + 1) != '?'
+				&& !is_env_allowed_char(*((*str) + idx + i + 1))))
 			{
 				g_global.err_num = SYNTAX_ERR;
 				return ;
 			}
-			if ((*(((*str) + idx + i + 1))) == '?')
+			if (*((*str) + idx + i + 1) == '?')
 			{
-				lst_add_back_linked_str(&temp,
-						new_linked_str(T_SINGLE_QUOTE,
-							ft_itoa(g_global.exit_status)));
-				idx += i;
-				i = 0;
+				linked_str_add_back(&temp,new_linked_str(T_SINGLE_QUOTE, ft_itoa(g_global.exit_status)));
+				idx += 2;
 			}
 			else
 			{
-				lst_add_back_linked_str(&temp,
-					new_linked_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
-				make_env_linked_str(*str, &idx, &temp);
+				linked_str_add_back(&temp, new_linked_str(T_SINGLE_QUOTE, strndup(((*str) + idx), i)));
+				make_env_linked_str((*str + idx + i + 1), &temp, &idx);
 			}
+			i = -1;
 		}
-		++i;
 	}
-	lst_add_back_linked_str(&temp,
-		new_linked_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
+	linked_str_add_back(&temp,new_linked_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
 	free(*str);
 	*str = ft_combine_lump(temp);
 }
@@ -92,12 +88,12 @@ char	*ft_combine_lump(t_linked_str *head)
 
 	res = head->str;
 	temp = head;
-	if (temp->str_type == T_DOUBLE_QUOTE || temp->str_type == T_STRING)
-		check_env(&(temp->str));
+	if (temp->str_type != T_SINGLE_QUOTE)
+		check_env(&res);
 	while (temp->next)
 	{
-		if (temp->str_type == T_DOUBLE_QUOTE || temp->str_type == T_STRING)
-			check_env(&(temp->str));
+		if (temp->next->str_type != T_SINGLE_QUOTE)
+			check_env(&(temp->next->str));
 		temp_str = ft_strjoin(res, temp->next->str);
 		free(res);
 		free(temp->next->str);

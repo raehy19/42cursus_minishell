@@ -47,7 +47,7 @@ t_linked_str	*lst_last_linked_str(t_linked_str *lst)
 	return (temp);
 }
 
-void	lst_add_back_linked_str(t_linked_str **lst, t_linked_str *new)
+void	linked_str_add_back(t_linked_str **lst, t_linked_str *new)
 {
 	t_linked_str	*temp;
 

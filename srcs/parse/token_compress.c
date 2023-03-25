@@ -21,7 +21,7 @@ void	ft_combine_str(t_token *temp, t_linked_str **linked_str,
 
 	while (is_string(temp))
 	{
-		lst_add_back_linked_str(linked_str,
+		linked_str_add_back(linked_str,
 			new_linked_str(temp->type, temp->str));
 		to_free = temp;
 		temp = temp->next;
@@ -37,7 +37,7 @@ void	compress_str_node(t_token *temp,
 	t_token			*new;
 
 	linked_str = NULL;
-	lst_add_back_linked_str(&linked_str,
+	linked_str_add_back(&linked_str,
 		new_linked_str(temp->type, temp->str));
 	new = new_token(T_LUMP_STR, NULL);
 	ft_combine_str(temp->next, &linked_str, token_list);
