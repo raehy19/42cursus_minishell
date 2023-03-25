@@ -59,6 +59,7 @@ PARSE_SRCS := \
 	tokenize_utils.c \
 	token_compress.c \
 	token_compress_utils.c \
+	check_token_list.c \
 	parse.c \
 	parse_token_1.c \
 	parse_token_2.c \
