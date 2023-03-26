@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 16:32:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 16:49:57 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,9 @@ char			**ft_combine_arg(t_linked_arg **head, int *arg_cnt);
 void			lst_push_cmd(t_linked_arg **lst, t_link_str *arg);
 
 //signal
-void			set_sigaction(void);
+
+void			signal_handler(int signo);
+void			handle_signal(void);
 
 typedef struct s_execute
 {

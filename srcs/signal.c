@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:04:01 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/24 16:04:02 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/26 16:48:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,25 @@
 
 extern t_global	g_global;
 
-void	handler(int sig, siginfo_t *siginfo, ucontext_t *uap)
+void	signal_handler(int signo)
 {
-	(void)uap;
-	(void)siginfo;
-	if (sig == SIGINT)
+	if (signo == SIGINT)
 	{
-		printf("sigint !\n");
+		rl_replace_line("", 0);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		rl_on_new_line();
+		rl_redisplay();
+		g_global.exit_status = 1;
 	}
-	if (sig == SIGQUIT)
+	if (signo == SIGQUIT)
 	{
-		printf("sigquit !\n");
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
 
-void	set_sigaction(void)
+void	handle_signal(void)
 {
-	struct sigaction	act;
-
-	sigemptyset(&act.sa_mask);
-	sigaddset(&act.sa_mask, SIGINT);
-	sigaddset(&act.sa_mask, SIGQUIT);
-	act.sa_flags = SA_SIGINFO;
-	act.sa_sigaction = (void *)handler;
-	sigaction(SIGINT, &act, NULL);
-	sigaction(SIGQUIT, &act, NULL);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 }

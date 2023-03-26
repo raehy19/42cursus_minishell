@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 21:07:21 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 17:08:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	handle_child_process(t_node *node, t_execute *execute)
 {
 	if (node->pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		close_fildes(execute->pipe[NEW][READ]);
 		close_fildes(execute->pipe[OLD][WRITE]);
 		if (execute->cnt)
@@ -65,6 +63,12 @@ void	handle_process(t_node *node, t_execute *execute)
 	execute->pid = node->pid;
 }
 
+unsigned char	get_status(int status)
+{
+	status = *(int *) & status;
+	return (status >> 8 & 0x000000ff);
+}
+
 void	wait_process(t_execute *execute)
 {
 	int	res;
@@ -75,6 +79,6 @@ void	wait_process(t_execute *execute)
 		execute->cnt -= 1;
 		res = wait(&status);
 		if (res == execute->pid)
-			g_global.exit_status = status >> 8;
+			g_global.exit_status = get_status(status);
 	}
 }
