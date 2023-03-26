@@ -140,6 +140,15 @@ typedef struct s_token_node
 	t_link_str		*link_str;
 }	t_token;
 
+// parsed
+
+typedef struct s_parsed
+{
+	t_token	*token_list;
+	t_token	*compressed_list;
+	t_node	*tree;
+}	t_parsed;
+
 // tokenize utils
 
 t_token			*new_token(t_token_type type, char *str);
@@ -179,7 +188,7 @@ t_token			*compress_tokens(t_token **token_list);
 // parse
 
 t_node			*make_tree(t_token **token_list);
-t_node			*parse(char *input);
+void		 	parse(char *input, t_parsed *parsed);
 
 // check token
 

@@ -30,7 +30,7 @@ t_node	*make_tree(t_token **token_list)
 	return (tree);
 }
 
-t_node	*parse(char *input)
+void 	parse(char *input, t_parsed *parsed)
 {
 	t_token	*token_list;
 	t_token	*compressed_list;
@@ -40,13 +40,15 @@ t_node	*parse(char *input)
 	{
 		printf("Syntax error !\n");
 		free_token_list(&token_list);
-		return (NULL);
+		return ;
 	}
 	compressed_list = compress_tokens(&token_list);
 	if (check_token_list(&compressed_list))
 	{
 		printf("Syntax error !\n");
-		return (NULL);
+		free_token_list(&token_list);
+		free_token_list(&compressed_list);
+		return ;
 	}
-	return (make_tree(&compressed_list));
+	parsed->tree = make_tree(&compressed_list);
 }

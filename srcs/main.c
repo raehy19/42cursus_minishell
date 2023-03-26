@@ -34,6 +34,7 @@ void	signal_handler(int signo)
 int	main(int argc, char **argv, char **envp)
 {
 	char			*input;
+	t_parsed		parsed;
 
 	(void)argc;
 	(void)argv;
@@ -50,15 +51,17 @@ int	main(int argc, char **argv, char **envp)
 
 		// parsing
 
-		t_node *tree = parse(input);
-		if (!tree)
+		parse(input, &parsed);
+		if (!parsed.tree)
 			continue;
 		
 		// executing
-		search_heredoc(tree);
-		search_tree(tree);
+		search_heredoc(parsed.tree);
+		search_tree(parsed.tree);
 
-		free_tree(tree);
+		free_token_list(&parsed.token_list);
+		free_token_list(&parsed.compressed_list);
+		free_tree(parsed.tree);
 		
 		add_history(input);
 		free(input);
