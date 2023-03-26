@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 17:08:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 18:51:48 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	handle_child_process(t_node *node, t_execute *execute)
 {
 	if (node->pid == 0)
 	{
+		set_control_character();
 		close_fildes(execute->pipe[NEW][READ]);
 		close_fildes(execute->pipe[OLD][WRITE]);
 		if (execute->cnt)

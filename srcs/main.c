@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/26 17:07:59 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 18:54:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		g_global.err_num = NaE;
 		init_standard_fildes();
 		handle_signal();
+		unset_comtrol_character();
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 		if (input == NULL)
 			exit(g_global.exit_status);
@@ -51,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 		free_token_list(&parsed.compressed_list);
 		free_tree(parsed.tree);
 		
-		system("leaks --list minishell");
+	//	system("leaks --list minishell");
 	}
 	return (0);
 }

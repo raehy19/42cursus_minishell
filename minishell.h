@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 18:03:10 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/26 18:57:20 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <dirent.h>
+# include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -242,6 +243,11 @@ void			lst_push_cmd(t_linked_arg **lst, t_link_str *arg);
 
 void			signal_handler(int signo);
 void			handle_signal(void);
+
+// terminal
+
+void			set_control_character(void);
+void			unset_comtrol_character(void);
 
 typedef struct s_execute
 {

@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/26 15:33:12 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/26 18:56:20 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS := \
 	wildcard.c \
 	wildcard_utils.c \
 	signal.c \
+	terminal.c \
 
 ENV_SRCS := \
 	init_env.c \
