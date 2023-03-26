@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 20:22:02 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 21:11:26 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ char	*handle_path(t_node *node)
 {
 	struct stat	st_info;
 
-	if (!ft_strcmp(node->command_arg[0], ""))
-	{
-		g_global.err_num = COMMAND_NOT_FOUND;
-		return (0);
-	}
 	if (access(node->command_arg[0], F_OK | X_OK) == -1)
 	{
 		g_global.err_num = COMMAND_NOT_FOUND;
@@ -88,7 +83,12 @@ char	*find_command_path(t_node *node)
 	idx = -1;
 	is_executable = 0;
 	command_path = 0;
-	if (is_path(node->command_arg[0]))
+	if (!ft_strcmp(node->command_arg[0], ""))
+	{
+		g_global.err_num = COMMAND_NOT_FOUND;
+		return (0);
+	}
+	if (handle_path(node))
 		return (handle_path(node));
 	path = get_path();
 	if (!path)
