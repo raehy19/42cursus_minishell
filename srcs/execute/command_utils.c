@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 16:43:30 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 19:32:39 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int	handle_special_case(t_node *node, char **command_path)
 	struct stat	stat_info;
 
 	if (!ft_strcmp(node->command_arg[0], ""))
+	{
+		g_global.err_num = COMMAND_NOT_FOUND;
 		return (1);
+	}
 	if (!is_path(node->command_arg[0]))
 		return (0);
 	if (access(node->command_arg[0], F_OK | X_OK) == -1)
