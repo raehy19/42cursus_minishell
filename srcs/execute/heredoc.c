@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:31 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 16:17:56 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 16:39:50 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,39 @@
 
 extern t_global	g_global;
 
-void	process_heredoc(t_node *node)
+void	process_heredoc(t_node *node, int pipe[])
 {
-	pid_t	pid;
 	int		newline;
-	int		fd[2];
 	char	*input;
 
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
 	newline = 0;
-	open_pipe(fd);
+	input = ft_strdup("");
+	close_fildes(pipe[READ]);
+	node->redirect_filename = ft_combine_lump(node->redirect_linked_str);
+	while (input && ft_strcmp(input, node->redirect_filename))
+	{
+		write(pipe[WRITE], input, ft_strlen(input));
+		if (newline)
+			write(pipe[WRITE], "\n", 1);
+		free(input);
+		input = readline("> ");
+		newline = 1;
+	}
+	free(input);
+	close_fildes(pipe[WRITE]);
+	exit(0);
+}
+
+void	handle_heredoc(t_node *node)
+{
+	pid_t	pid;
+	int		pipe[2];
+
+	open_pipe(pipe);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -30,28 +54,11 @@ void	process_heredoc(t_node *node)
 		handle_error();
 		return ;
 	}
-	if (pid > 0)
-	{
-		wait(0);
-		close_fildes(fd[WRITE]);
-		node->in_fd = fd[READ];
-		return ;
-	}
-	close_fildes(fd[READ]);
-	input = ft_strdup("");
-	node->redirect_filename = ft_combine_lump(node->redirect_linked_str);
-	while (input && ft_strcmp(input, node->redirect_filename))
-	{
-		write(fd[WRITE], input, ft_strlen(input));
-		if (newline)
-			write(fd[WRITE], "\n", 1);
-		free(input);
-		input = readline("> ");
-		newline = 1;
-	}
-	free(input);
-	close_fildes(fd[WRITE]);
-	exit(0);
+	if (pid == 0)
+		process_heredoc(node, pipe);
+	wait(0);
+	close_fildes(pipe[WRITE]);
+	node->in_fd = pipe[READ];
 }
 
 void	search_heredoc(t_node *node)
@@ -63,5 +70,5 @@ void	search_heredoc(t_node *node)
 	if (node->right)
 		search_heredoc(node->right);
 	if (node->redirect_type == HERE_DOCUMENT)
-		process_heredoc(node);
+		handle_heredoc(node);
 }
