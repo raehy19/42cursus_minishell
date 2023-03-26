@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 21:11:26 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 21:35:46 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*find_command_path(t_node *node)
 		g_global.err_num = COMMAND_NOT_FOUND;
 		return (0);
 	}
-	if (handle_path(node))
+	if (is_path(node->command_arg[0]))
 		return (handle_path(node));
 	path = get_path();
 	if (!path)
