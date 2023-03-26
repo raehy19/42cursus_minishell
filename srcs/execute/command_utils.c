@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 19:32:39 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 20:22:02 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,35 +53,29 @@ int	is_path(char *command)
 		|| ft_strchr(command, '/'));
 }
 
-int	handle_special_case(t_node *node, char **command_path)
+char	*handle_path(t_node *node)
 {
-	struct stat	stat_info;
+	struct stat	st_info;
 
 	if (!ft_strcmp(node->command_arg[0], ""))
 	{
 		g_global.err_num = COMMAND_NOT_FOUND;
-		return (1);
-	}
-	if (!is_path(node->command_arg[0]))
 		return (0);
+	}
 	if (access(node->command_arg[0], F_OK | X_OK) == -1)
 	{
 		g_global.err_num = COMMAND_NOT_FOUND;
 		if (ft_strchr(node->command_arg[0], '/'))
 			g_global.err_num = NO_SUCH_FILE;
-		return (1);
+		return (0);
 	}
-	stat(node->command_arg[0], &stat_info);
-	if (is_regular_file(stat_info.st_mode))
-	{
-		*command_path = node->command_arg[0];
-		return (1);
-	}
+	stat(node->command_arg[0], &st_info);
+	if (is_regular_file(st_info.st_mode))
+		return (node->command_arg[0]);
 	g_global.err_num = NO_SUCH_FILE;
-	if (ft_strchr(node->command_arg[0], '/')
-		&& is_directory(stat_info.st_mode))
+	if (ft_strchr(node->command_arg[0], '/') && is_directory(st_info.st_mode))
 		g_global.err_num = IS_DIRECTORY;
-	return (1);
+	return (0);
 }
 
 char	*find_command_path(t_node *node)
@@ -94,8 +88,8 @@ char	*find_command_path(t_node *node)
 	idx = -1;
 	is_executable = 0;
 	command_path = 0;
-	if (handle_special_case(node, &command_path))
-		return (command_path);
+	if (is_path(node->command_arg[0]))
+		return (handle_path(node));
 	path = get_path();
 	if (!path)
 		return (0);
