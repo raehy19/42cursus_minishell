@@ -179,6 +179,12 @@ t_token			*compress_tokens(t_token **token_list);
 t_node			*make_tree(t_token **token_list);
 t_node			*parse(char *input);
 
+// check token
+
+void	free_link_str(t_link_str **link_str_list);
+void	free_token_list(t_token **token_list);
+int 	check_token_list(t_token **token_list);
+
 // parse_utils
 
 t_node			*new_node(t_node_type type, t_logical_type logical_type);
