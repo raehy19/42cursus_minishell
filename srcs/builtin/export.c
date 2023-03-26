@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:46:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:25:44 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 22:31:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,17 @@ static int	handle_duplicated_name(char *src)
 	name = make_name(src, index);
 	env = find_env(name);
 	if (!env)
+	{
+		free(name);
 		return (0);
+	}
 	if (index < 1)
 		return (1);
 	free(env->value);
 	env->value = ft_substr(src, index + 1, ft_strlen(src));
 	if (!env->value)
 		g_global.err_num = FAIL_MALLOC;
+	free(name);
 	return (1);
 }
 
