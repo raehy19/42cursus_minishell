@@ -40,6 +40,7 @@ void	free_redirect_node(t_node *node)
 	free(node->redirect_filename);
 	if (node->redirect_type == HERE_DOCUMENT)
 		close_fildes(node->in_fd);
+	free_link_str(node->redirect_linked_str);
 }
 
 void	free_node(t_node *node)

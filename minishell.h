@@ -263,7 +263,7 @@ typedef struct s_node
 
 	// node_type == redirect
 	t_redirect_type	redirect_type;
-	t_link_str	*redirect_linked_str;
+	t_link_str		*redirect_linked_str;
 	char			*redirect_filename;
 	int				in_fd; // initialize STDIN
 	int				out_fd; // initialize STDOUT

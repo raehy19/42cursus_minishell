@@ -41,10 +41,12 @@ int	main(int argc, char **argv, char **envp)
 	init_global(envp);
 	while (1)
 	{
+		parsed = (t_parsed) {NULL, NULL, NULL};
 		g_global.err_num = NaE;
 		init_standard_fildes();
 		signal(SIGINT, signal_handler);
 		signal(SIGQUIT, signal_handler);
+
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 		if (input == NULL)
 			exit(g_global.exit_status);
@@ -52,9 +54,14 @@ int	main(int argc, char **argv, char **envp)
 		// parsing
 
 		parse(input, &parsed);
+
+		add_history(input);
+		free(input);
+		input = 0;
+
 		if (!parsed.tree)
 			continue;
-		
+
 		// executing
 		search_heredoc(parsed.tree);
 		search_tree(parsed.tree);
@@ -63,9 +70,6 @@ int	main(int argc, char **argv, char **envp)
 		free_token_list(&parsed.compressed_list);
 		free_tree(parsed.tree);
 		
-		add_history(input);
-		free(input);
-		input = 0;
 		system("leaks --list minishell");
 	}
 	return (0);
