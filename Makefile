@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/26 18:56:20 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/26 20:52:00 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,10 @@ LIBFT_DIR := libft
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -MMD -MP -g
 READLINE_FLAG := -lreadline
-#LDFLAGS := -L/Users/yeepark/.brew/opt/readline/lib
-#CPPFLAGS := -I/Users/yeepark/.brew/opt/readline/include
-LDFLAGS := -L/Users/rjeong/goinfre/.brew/opt/readline/lib
-CPPFLAGS := -I/Users/rjeong/goinfre/.brew/opt/readline/include
+LDFLAGS := -L/Users/yeepark/.brew/opt/readline/lib
+CPPFLAGS := -I/Users/yeepark/.brew/opt/readline/include
+#LDFLAGS := -L/Users/rjeong/goinfre/.brew/opt/readline/lib
+#CPPFLAGS := -I/Users/rjeong/goinfre/.brew/opt/readline/include
 RM := rm -f
 
 all : $(NAME)
@@ -69,6 +69,7 @@ PARSE_SRCS := \
 	parse_utils_2.c \
 	parse_on_excute.c \
 	check_env.c \
+	utils.c \
 
 BUILTIN_SRCS := \
 	echo.c \

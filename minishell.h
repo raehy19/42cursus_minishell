@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 18:57:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 20:51:41 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define STDIN 0
 # define STDOUT 1
 
+char	**make_two_dim(char	**array, int size);
 typedef enum e_node_type
 {
 	LOGICAL,

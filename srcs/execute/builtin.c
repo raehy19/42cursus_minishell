@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:20:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 20:07:59 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 21:02:33 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ extern t_global	g_global;
 void	set_builtin_type(t_node *node)
 {
 	if (!node->command_arg)
+	{
 		node->command_arg
 			= ft_combine_arg(&node->cmd_arg_linked_str, &node->arg_cnt);
+		node->command_arg = make_two_dim(node->command_arg, node->arg_cnt);
+	}
 	if (!node->command_arg)
 		return ;
 	handle_command_wildcard(node);
