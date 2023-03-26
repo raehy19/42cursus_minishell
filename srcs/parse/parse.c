@@ -29,3 +29,19 @@ t_node	*make_tree(t_token **token_list)
 	}
 	return (tree);
 }
+
+t_node	*parse(char *input)
+{
+
+	t_token	*token_list;
+	t_token	*compressed_list;
+
+	token_list = ft_tokenize(input);
+	if (g_global.err_num == SYNTAX_ERR)
+	{
+		printf("Syntax error !\n");
+		return (NULL);
+	}
+	compressed_list = compress_tokens(&token_list);
+	return (make_tree(&compressed_list));
+}

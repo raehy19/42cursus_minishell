@@ -177,6 +177,7 @@ t_token			*compress_tokens(t_token **token_list);
 // parse
 
 t_node			*make_tree(t_token **token_list);
+t_node			*parse(char *input);
 
 // parse_utils
 

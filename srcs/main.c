@@ -34,7 +34,6 @@ void	signal_handler(int signo)
 int	main(int argc, char **argv, char **envp)
 {
 	char			*input;
-	t_token	*token_node;
 
 	(void)argc;
 	(void)argv;
@@ -48,15 +47,10 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("\033[34mminishell-1.0$ \033[0m");
 		if (input == NULL)
 			exit(g_global.exit_status);
-		//	printf("input command : %s\n", input); //debug
 
 		// parsing
 
-		// make_tree debug
-		token_node = ft_tokenize(input);
-
-		t_token *temp = compress_tokens(&token_node);
-		t_node *tree = make_tree(&temp);
+		t_node *tree = parse(input);
 		if (!tree)
 			continue;
 		
