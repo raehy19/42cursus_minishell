@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:31 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/21 15:31:39 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 16:17:56 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,28 @@ extern t_global	g_global;
 
 void	process_heredoc(t_node *node)
 {
+	pid_t	pid;
 	int		newline;
 	int		fd[2];
 	char	*input;
 
 	newline = 0;
 	open_pipe(fd);
+	pid = fork();
+	if (pid == -1)
+	{
+		g_global.err_num = FAIL_FORK;
+		handle_error();
+		return ;
+	}
+	if (pid > 0)
+	{
+		wait(0);
+		close_fildes(fd[WRITE]);
+		node->in_fd = fd[READ];
+		return ;
+	}
+	close_fildes(fd[READ]);
 	input = ft_strdup("");
 	node->redirect_filename = ft_combine_lump(node->redirect_linked_str);
 	while (input && ft_strcmp(input, node->redirect_filename))
@@ -35,7 +51,7 @@ void	process_heredoc(t_node *node)
 	}
 	free(input);
 	close_fildes(fd[WRITE]);
-	node->in_fd = fd[READ];
+	exit(0);
 }
 
 void	search_heredoc(t_node *node)
