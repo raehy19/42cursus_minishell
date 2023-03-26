@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 20:05:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 15:21:39 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	handle_builtin(t_node *node)
 void	execve_command(t_node *node)
 {
 	char	**envp;
-	char	*error_message;
 
 	envp = make_envp();
 	handle_error();
@@ -34,11 +33,7 @@ void	execve_command(t_node *node)
 		g_global.exit_status = 127;
 		if (!find_env("PATH"))
 			g_global.err_num = NO_SUCH_FILE;
-		if (g_global.err_num == NO_SUCH_FILE)
-			error_message = "No such file or directory";
-		if (g_global.err_num == COMMAND_NOT_FOUND)
-			error_message = "command not found";
-		print_command_error(node, 0, error_message);
+		print_command_path_error(node, 0);
 	}
 	if (execve(node->command_path, node->command_arg, envp) == -1)
 	{

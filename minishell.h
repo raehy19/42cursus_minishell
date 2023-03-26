@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 12:50:50 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/26 15:33:45 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef enum e_error_number
 	INVALID_IDENTIFIER,
 	NO_SUCH_FILE,
 	COMMAND_NOT_FOUND,
+	IS_DIRECTORY,
 	FAIL_MALLOC,
 	FAIL_FORK,
 	FAIL_OPEN_FILDES,
@@ -361,9 +362,15 @@ void			execve_command(t_node *node);
 void			handle_command(t_node *node);
 char			*find_command_path(t_node *node);
 
+// file
+
+int	is_directory(mode_t st_mode);
+int	is_regular_file(mode_t st_mode);
+
 // error
 
 void			print_command_error(t_node *node, int idx, char *error_message);
+void			print_command_path_error(t_node *node, int idx);
 void			print_invalid_identifier_error(t_node *node, int idx);
 void			print_redirect_error(char *filename, char *error_message);
 void			handle_error(void);

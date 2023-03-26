@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:11:32 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 20:00:27 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 15:39:43 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,11 @@ char	*make_command_path(char *path, char *command)
 	return (command_path);
 }
 
-int	is_regular_file(mode_t st_mode)
-{
-	return (st_mode & S_IFMT);
-}
-
 int	is_path(char *command)
 {
-	return (*command == '.' || *command == '/'
-		|| !ft_strncmp(command, "..", 2));
+	return (*command == '.'
+		|| !ft_strncmp(command, "..", 2)
+		|| ft_strchr(command, '/'));
 }
 
 int	handle_special_case(t_node *node, char **command_path)
@@ -71,6 +67,8 @@ int	handle_special_case(t_node *node, char **command_path)
 	if (access(node->command_arg[0], F_OK | X_OK) == -1)
 	{
 		g_global.err_num = COMMAND_NOT_FOUND;
+		if (ft_strchr(node->command_arg[0], '/'))
+			g_global.err_num = NO_SUCH_FILE;
 		return (1);
 	}
 	stat(node->command_arg[0], &stat_info);
@@ -80,7 +78,10 @@ int	handle_special_case(t_node *node, char **command_path)
 		return (1);
 	}
 	g_global.err_num = NO_SUCH_FILE;
-	return (is_path(node->command_arg[0]));
+	if (ft_strchr(node->command_arg[0], '/')
+		&& is_directory(stat_info.st_mode))
+		g_global.err_num = IS_DIRECTORY;
+	return (1);
 }
 
 char	*find_command_path(t_node *node)
