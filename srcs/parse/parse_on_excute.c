@@ -55,14 +55,13 @@ void	check_env(char **str)
 	{
 		if (*((*str) + idx + i) == '$')
 		{
-
 			if (!((*str) + idx + i + 1) || (*((*str) + idx + i + 1) != '?'
 				&& !is_env_allowed_char(*((*str) + idx + i + 1))))
 			{
-				g_global.err_num = SYNTAX_ERR;
-				return ;
+				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, strndup((*str) + idx + i, 1)));
+				++idx;
 			}
-			if (*((*str) + idx + i + 1) == '?')
+			else if (*((*str) + idx + i + 1) == '?')
 			{
 				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, ft_itoa(g_global.exit_status)));
 				idx += 2;
