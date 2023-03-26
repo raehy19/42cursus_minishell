@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 16:49:57 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 18:03:10 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ t_token			*compress_tokens(t_token **token_list);
 // parse
 
 t_node			*make_tree(t_token **token_list);
-void		 	parse(char *input, t_parsed *parsed);
+void			parse(char *input, t_parsed *parsed);
 
 // check token
 
@@ -227,12 +227,18 @@ t_token			*token_shift(t_token **token_list);
 void			node_unshift(t_node **lst, t_node *new);
 void			parse_token_list(t_node **head, t_token **token_list);
 
+// parse on excute
+
 char			*ft_combine_lump(t_link_str *head);
 char			**ft_combine_arg(t_linked_arg **head, int *arg_cnt);
 
+// check_env
+
+void			check_env(char **str);
+
 void			lst_push_cmd(t_linked_arg **lst, t_link_str *arg);
 
-//signal
+// signal
 
 void			signal_handler(int signo);
 void			handle_signal(void);
@@ -365,8 +371,8 @@ char			*find_command_path(t_node *node);
 
 // file
 
-int	is_directory(mode_t st_mode);
-int	is_regular_file(mode_t st_mode);
+int				is_directory(mode_t st_mode);
+int				is_regular_file(mode_t st_mode);
 
 // error
 
@@ -386,8 +392,6 @@ void			free_tree(t_node *node);
 void			free_link_str(t_link_str *link_str_list);
 void			free_token_list(t_token **token_list);
 void			free_cmd_arg_linked(t_linked_arg *linked_arg_list);
-
-
 
 // bonus
 

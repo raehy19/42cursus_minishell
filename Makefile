@@ -39,7 +39,8 @@ SRCS := \
 	main.c \
 	global.c \
 	error.c \
-	free.c \
+	free_1.c \
+	free_2.c \
 	utils.c \
 	search.c \
 	process.c \
@@ -66,6 +67,7 @@ PARSE_SRCS := \
 	parse_utils_1.c \
 	parse_utils_2.c \
 	parse_on_excute.c \
+	check_env.c \
 
 BUILTIN_SRCS := \
 	echo.c \

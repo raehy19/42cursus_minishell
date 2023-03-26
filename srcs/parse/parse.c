@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:10:53 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/26 12:42:32 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/26 17:56:54 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_node	*make_tree(t_token **token_list)
 	return (tree);
 }
 
-void 	parse(char *input, t_parsed *parsed)
+void	parse(char *input, t_parsed *parsed)
 {
 	t_token	*token_list;
 	t_token	*compressed_list;
