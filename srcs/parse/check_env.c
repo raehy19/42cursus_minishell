@@ -36,9 +36,11 @@ void	make_env_linked_str(char *str, t_link_str **lst, int *idx)
 	if (!env_name)
 		g_global.err_num = FAIL_MALLOC;
 	env = find_env(env_name);
-	if (env)
+	if (env && ft_strlen(env->value))
+	{
 		link_str_add_back(lst,
 			new_link_str(T_SINGLE_QUOTE, strdup(env->value)));
+	}
 	free(env_name);
 	*idx += i + 1;
 }
@@ -90,5 +92,5 @@ void	check_env(char **str)
 		link_str_add_back(&temp,
 			new_link_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
 	free(*str);
-	*str = ft_combine_lump(temp);
+	*str = ft_combine_lump(&temp);
 }

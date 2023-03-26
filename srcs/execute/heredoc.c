@@ -24,7 +24,7 @@ void	process_heredoc(t_node *node, int pipe[])
 	newline = 0;
 	input = ft_strdup("");
 	close_fildes(pipe[READ]);
-	node->redirect_filename = ft_combine_lump(node->redirect_linked_str);
+	node->redirect_filename = ft_combine_lump(&node->redirect_linked_str);
 	while (input && ft_strcmp(input, node->redirect_filename))
 	{
 		write(pipe[WRITE], input, ft_strlen(input));

@@ -59,7 +59,7 @@ void	handle_redirect(t_node *node)
 {
 	if (node->redirect_type != HERE_DOCUMENT)
 	{
-		node->redirect_filename = ft_combine_lump(node->redirect_linked_str);
+		node->redirect_filename = ft_combine_lump(&node->redirect_linked_str);
 		handle_redirect_wildcard(node);
 	}
 	if (is_in(node->redirect_type))

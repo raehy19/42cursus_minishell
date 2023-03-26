@@ -24,6 +24,8 @@ void	parse_arrow(t_node **arrow, t_token *temp, t_token **token_list)
 		return ;
 	}
 	new = new_node(REDIRECT, NaL);
+	if (!new)
+		return;
 	new->redirect_type = (t_redirect_type)(temp->type - 4);
 	free(temp);
 	temp = token_shift(token_list);

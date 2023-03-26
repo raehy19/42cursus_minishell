@@ -21,18 +21,18 @@ void	free_cmd_arg_linked(t_linked_arg *linked_arg_list)
 	while (temp)
 	{
 		next = temp->next;
-		free_link_str(temp->arg_str);
+		free_link_str(&temp->arg_str);
 		free(temp);
 		temp = next;
 	}
 }
 
-void	free_link_str(t_link_str *link_str_list)
+void	free_link_str(t_link_str **link_str_list)
 {
 	t_link_str	*temp;
 	t_link_str	*next;
 
-	temp = link_str_list;
+	temp = *link_str_list;
 	while (temp)
 	{
 		next = temp->next;
@@ -40,6 +40,7 @@ void	free_link_str(t_link_str *link_str_list)
 		free(temp);
 		temp = next;
 	}
+	*link_str_list = NULL;
 }
 
 void	free_token_list(t_token **token_list)
@@ -50,7 +51,7 @@ void	free_token_list(t_token **token_list)
 	while (temp)
 	{
 		free(temp->str);
-		free_link_str(temp->link_str);
+		free_link_str(&temp->link_str);
 		free(temp);
 		temp = token_shift(token_list);
 	}

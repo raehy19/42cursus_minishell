@@ -14,31 +14,33 @@
 
 extern t_global	g_global;
 
-char	*ft_combine_lump(t_link_str *head)
+char	*ft_combine_lump(t_link_str **head)
 {
 	t_link_str		*next;
 	char			*res;
 	char			*temp_str;
 
-	if (!head)
+	if (!(*head))
 		return (NULL);
-	res = head->str;
-	if (head->str_type != T_SINGLE_QUOTE)
+	res = (*head)->str;
+	if ((*head)->str_type != T_SINGLE_QUOTE)
 		check_env(&res);
-	while (head->next)
+	while ((*head)->next)
 	{
-		if (head->next->str_type != T_SINGLE_QUOTE)
-			check_env(&(head->next->str));
-		temp_str = ft_strjoin(res, head->next->str);
+		if ((*head)->next->str_type != T_SINGLE_QUOTE)
+			check_env(&((*head)->next->str));
+		temp_str = ft_strjoin(res, (*head)->next->str);
 		free(res);
-		free(head->next->str);
-		head->next->str = NULL;
+		free((*head)->next->str);
+		(*head)->next->str = NULL;
 		res = temp_str;
-		next = head->next;
-		free(head);
-		head = next;
+		next = (*head)->next;
+		free((*head));
+		*head = NULL;
+		(*head) = next;
 	}
-	free(head);
+	free((*head));
+	*head = NULL;
 	return (res);
 }
 
@@ -72,7 +74,7 @@ char	**ft_combine_arg(t_linked_arg **head, int *arg_cnt)
 	i = -1;
 	while (++i < *arg_cnt)
 	{
-		*(res + i) = ft_combine_lump((*head)->arg_str);
+		*(res + i) = ft_combine_lump(&(*head)->arg_str);
 		temp = *head;
 		*head = (*head)->next;
 		free(temp);
