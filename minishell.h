@@ -1,11 +1,12 @@
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 15:58:02 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/24 20:06:03 by yeepark          ###   ########.fr       */
+/*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
+/*   Updated: 2023/03/26 12:50:50 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +91,7 @@ typedef enum e_error_number
 	FAIL_OPEN_DIR
 }	t_error_number;
 
-typedef struct s_node	t_node;
+typedef struct s_node		t_node;
 
 // tokenize
 
@@ -118,10 +119,10 @@ typedef struct s_link_str
 {
 	char			*str;
 	t_token_type	str_type;
-	t_link_str	*next;
+	t_link_str		*next;
 }	t_link_str;
 
-typedef struct s_linked_arg t_linked_arg;
+typedef struct s_linked_arg	t_linked_arg;
 
 typedef struct s_linked_arg
 {
@@ -135,10 +136,9 @@ typedef struct s_token_node
 {
 	t_token_type	type;
 	char			*str;
-	t_token	*next;
-	t_link_str	*link_str;
+	t_token			*next;
+	t_link_str		*link_str;
 }	t_token;
-
 
 // tokenize utils
 
@@ -170,8 +170,10 @@ void			link_str_add_back(t_link_str **lst, t_link_str *new);
 
 // token compress
 
-void			ft_combine_str(t_token *temp, t_link_str **linked_str, t_token **token_list);
-void			compress_str_node(t_token *temp, t_token **compressed_token_list, t_token **token_list);
+void			ft_combine_str(t_token *temp,
+					t_link_str **linked_str, t_token **token_list);
+void			compress_str_node(t_token *temp,
+					t_token **compressed_token_list, t_token **token_list);
 t_token			*compress_tokens(t_token **token_list);
 
 // parse
@@ -181,9 +183,9 @@ t_node			*parse(char *input);
 
 // check token
 
-void	free_link_str(t_link_str **link_str_list);
-void	free_token_list(t_token **token_list);
-int 	check_token_list(t_token **token_list);
+void			free_link_str(t_link_str **link_str_list);
+void			free_token_list(t_token **token_list);
+int				check_token_list(t_token **token_list);
 
 // parse_utils
 
@@ -198,13 +200,19 @@ int				is_arrow(t_token *temp);
 
 // parse_token
 
-t_token			*parse_l_parenthesis(t_node **head, t_token *temp, t_token **token_list);
-t_token			*parse_r_parenthesis(t_node **head, t_token *temp, t_token **token_list);
-void			parse_parenthesis(t_node **head, t_token **temp, t_token **token_list);
-void			parse_arrow(t_node **arrow, t_token *temp, t_token **token_list);
+t_token			*parse_l_parenthesis(t_node **head,
+					t_token *temp, t_token **token_list);
+t_token			*parse_r_parenthesis(t_node **head,
+					t_token *temp, t_token **token_list);
+void			parse_parenthesis(t_node **head,
+					t_token **temp, t_token **token_list);
+void			parse_arrow(t_node **arrow,
+					t_token *temp, t_token **token_list);
 void			parse_cmd(t_linked_arg **cmd_args, t_token *temp);
-void			add_new_logical(t_node **head, t_token *temp, t_token **token_list);
-void			ft_check_cmd(t_node **head, t_linked_arg *cmd_args, t_node *arrow);
+void			add_new_logical(t_node **head,
+					t_token *temp, t_token **token_list);
+void			ft_check_cmd(t_node **head,
+					t_linked_arg *cmd_args, t_node *arrow);
 void			parse_token_list(t_node **head, t_token **token_list);
 
 t_token			*token_shift(t_token **token_list);
@@ -217,7 +225,7 @@ char			**ft_combine_arg(t_linked_arg *head, int *arg_cnt);
 void			lst_push_cmd(t_linked_arg **lst, t_link_str *arg);
 
 //signal
-void	set_sigaction(void);
+void			set_sigaction(void);
 
 typedef struct s_execute
 {
@@ -251,7 +259,6 @@ typedef struct s_node
 	char			*redirect_filename;
 	int				in_fd; // initialize STDIN
 	int				out_fd; // initialize STDOUT
-
 	// ?
 	pid_t			pid;
 
@@ -277,103 +284,104 @@ typedef struct s_global
 
 //global
 
-void	init_global(char **envp);
-int		init_envp(char *envp[]);
-void	init_builtin_functions(void);
+void			init_global(char **envp);
+int				init_envp(char *envp[]);
+void			init_builtin_functions(void);
 
 // env
 
-int		is_valid_name(char *str);
-char	*make_name(char *src, int index);
-void	set_node(t_node **node, char *src);
-t_env	*make_env(char *src);
-void	add_env_back(t_env *new);
+int				is_valid_name(char *str);
+char			*make_name(char *src, int index);
+void			set_node(t_node **node, char *src);
+t_env			*make_env(char *src);
+void			add_env_back(t_env *new);
 
-int		get_env_size(void);
-t_env	*find_env(char *name);
-char	**make_envp(void);
+int				get_env_size(void);
+t_env			*find_env(char *name);
+char			**make_envp(void);
 
-void	remove_env(char *name);
-void	clear_one_env(t_env **env);
-int		clear_env(void);
+void			remove_env(char *name);
+void			clear_one_env(t_env **env);
+int				clear_env(void);
 
-void	init_env_order(void);
-t_env	*get_largest_env(void);
-void	rank_envp(void);
+void			init_env_order(void);
+t_env			*get_largest_env(void);
+void			rank_envp(void);
 
 // tree
 
-void	search_tree(t_node *node);
-void	search_node(t_node *node);
-void	handle_node(t_node *node);
-void	handle_process(t_node *node, t_execute *execute);
-void	handle_child_process(t_node *node, t_execute *execute);
-void	handle_parent_process(t_node *node, t_execute *execute);
-void	wait_process(t_execute *execute);
+void			search_tree(t_node *node);
+void			search_node(t_node *node);
+void			handle_node(t_node *node);
+void			handle_process(t_node *node, t_execute *execute);
+void			handle_child_process(t_node *node, t_execute *execute);
+void			handle_parent_process(t_node *node, t_execute *execute);
+void			wait_process(t_execute *execute);
 
 // builtin
 
-int		handle_singlebuiltin(t_node *node);
-void	set_builtin_type(t_node *node);
+int				handle_singlebuiltin(t_node *node);
+void			set_builtin_type(t_node *node);
 
-void	ft_echo(t_node *node);
-void	ft_cd(t_node *node);
-void	ft_pwd(t_node *node);
-void	ft_export(t_node *node);
-void	ft_unset(t_node *node);
-void	ft_env(t_node *node);
-void	ft_exit(t_node *node);
+void			ft_echo(t_node *node);
+void			ft_cd(t_node *node);
+void			ft_pwd(t_node *node);
+void			ft_export(t_node *node);
+void			ft_unset(t_node *node);
+void			ft_env(t_node *node);
+void			ft_exit(t_node *node);
 
 // redirect
 
-void	handle_redirect(t_node *node);
-void	search_heredoc(t_node *node);
-void	process_heredoc(t_node *node);
+void			handle_redirect(t_node *node);
+void			search_heredoc(t_node *node);
+void			process_heredoc(t_node *node);
 
-void	open_pipe(int fd[2]);
-void	close_pipe(int pipe[2]);
-int		open_fildes(char *file_name, int oflag, int mode);
-void	close_fildes(int fd);
-void	init_standard_fildes(void);
-void	duplicate_standard_fildes(int fd);
-void	duplicate_fildes(int fd1, int fd2);
+void			open_pipe(int fd[2]);
+void			close_pipe(int pipe[2]);
+int				open_fildes(char *file_name, int oflag, int mode);
+void			close_fildes(int fd);
+void			init_standard_fildes(void);
+void			duplicate_standard_fildes(int fd);
+void			duplicate_fildes(int fd1, int fd2);
 
 // command
 
-void	handle_builtin(t_node *node);
-void	execve_command(t_node *node);
-void	handle_command(t_node *node);
-char	*find_command_path(t_node *node);
+void			handle_builtin(t_node *node);
+void			execve_command(t_node *node);
+void			handle_command(t_node *node);
+char			*find_command_path(t_node *node);
 
 // error
 
-void	print_command_error(t_node *node, int idx, char *error_message);
-void	print_invalid_identifier_error(t_node *node, int idx);
-void	print_redirect_error(char *filename, char *error_message);
-void	handle_error(void);
+void			print_command_error(t_node *node, int idx, char *error_message);
+void			print_invalid_identifier_error(t_node *node, int idx);
+void			print_redirect_error(char *filename, char *error_message);
+void			handle_error(void);
 
 // utils
 
-int		free_two_dim(char **array);
-void	free_command_node(t_node *node);
-void	free_redirect_node(t_node *node);
-void	free_node(t_node *node);
-void	free_tree(t_node *node);
+int				free_two_dim(char **array);
+void			free_command_node(t_node *node);
+void			free_redirect_node(t_node *node);
+void			free_node(t_node *node);
+void			free_tree(t_node *node);
 
 // bonus
 
-int		check_fork(t_node *node);
-int		check_exit_status(t_node *node);
-int		handle_and_or(t_node *node, t_execute *execute);
-int		handle_parenthesis(t_node **node, t_execute *execute);
+int				check_fork(t_node *node);
+int				check_exit_status(t_node *node);
+int				handle_and_or(t_node *node, t_execute *execute);
+int				handle_parenthesis(t_node **node, t_execute *execute);
 
 // wildcard
 
-void	handle_redirect_wildcard(t_node *node);
-void	handle_command_wildcard(t_node *node);
-int		is_wildcard_format(char *name, char *format);
-int		is_wildcard(char c);
-void	add_new_list(t_list **command_lst, char *name);
-char	**make_command_arg(t_list *command_lst);
-void	handle_wildcard_error(t_node *node, char *new_filename, int cnt);
+void			handle_redirect_wildcard(t_node *node);
+void			handle_command_wildcard(t_node *node);
+int				is_wildcard_format(char *name, char *format);
+int				is_wildcard(char c);
+void			add_new_list(t_list **command_lst, char *name);
+char			**make_command_arg(t_list *command_lst);
+void			handle_wildcard_error(t_node *node,
+					char *new_filename, int cnt);
 #endif

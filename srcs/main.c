@@ -63,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(input);
 		free(input);
 		input = 0;
-	//	system("leaks --list minishell");
+		system("leaks --list minishell");
 	}
 	return (0);
 }

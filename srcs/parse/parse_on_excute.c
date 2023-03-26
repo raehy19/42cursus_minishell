@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 23:52:29 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/24 15:46:37 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/26 12:44:10 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ void	make_env_linked_str(char *str, t_link_str **lst, int *idx)
 	t_env	*env;
 
 	i = 0;
-	while(is_env_allowed_char(*(str + i)))
+	while (is_env_allowed_char(*(str + i)))
 		++i;
 	env_name = ft_strndup((str), i);
 	if (!env_name)
 		g_global.err_num = FAIL_MALLOC;
 	env = find_env(env_name);
 	if (env)
-		link_str_add_back(lst, new_link_str(T_SINGLE_QUOTE, strdup(env->value)));
+		link_str_add_back(lst,
+			new_link_str(T_SINGLE_QUOTE, strdup(env->value)));
 	free(env_name);
 	*idx += i + 1;
 }
@@ -45,8 +46,8 @@ void	make_env_linked_str(char *str, t_link_str **lst, int *idx)
 void	check_env(char **str)
 {
 	t_link_str	*temp;
-	int				idx;
-	int				i;
+	int			idx;
+	int			i;
 
 	temp = NULL;
 	idx = 0;
@@ -56,25 +57,29 @@ void	check_env(char **str)
 		if (*((*str) + idx + i) == '$')
 		{
 			if (!((*str) + idx + i + 1) || (*((*str) + idx + i + 1) != '?'
-				&& !is_env_allowed_char(*((*str) + idx + i + 1))))
+					&& !is_env_allowed_char(*((*str) + idx + i + 1))))
 			{
-				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, strndup((*str) + idx + i, 1)));
+				link_str_add_back(&temp,
+					new_link_str(T_SINGLE_QUOTE, strndup((*str) + idx + i, 1)));
 				++idx;
 			}
 			else if (*((*str) + idx + i + 1) == '?')
 			{
-				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, ft_itoa(g_global.exit_status)));
+				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE,
+						ft_itoa(g_global.exit_status)));
 				idx += 2;
 			}
 			else
 			{
-				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, strndup(((*str) + idx), i)));
+				link_str_add_back(&temp,
+					new_link_str(T_SINGLE_QUOTE, strndup(((*str) + idx), i)));
 				make_env_linked_str((*str + idx + i + 1), &temp, &idx);
 			}
 			i = -1;
 		}
 	}
-	link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
+	link_str_add_back(&temp,
+		new_link_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
 	free(*str);
 	*str = ft_combine_lump(temp);
 }
