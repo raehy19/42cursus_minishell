@@ -24,19 +24,19 @@ void	set_builtin_type(t_node *node)
 	handle_command_wildcard(node);
 	node->builtin_type = NaB;
 	if (!ft_strcmp(node->command_arg[0], "echo"))
-		node->builtin_type = ECHO;
+		node->builtin_type = BUILTIN_ECHO;
 	if (!ft_strcmp(node->command_arg[0], "cd"))
-		node->builtin_type = CD;
+		node->builtin_type = BUILTIN_CD;
 	if (!ft_strcmp(node->command_arg[0], "pwd"))
-		node->builtin_type = PWD;
+		node->builtin_type = BUILTIN_PWD;
 	if (!ft_strcmp(node->command_arg[0], "export"))
-		node->builtin_type = EXPORT;
+		node->builtin_type = BUILTIN_EXPORT;
 	if (!ft_strcmp(node->command_arg[0], "unset"))
-		node->builtin_type = UNSET;
+		node->builtin_type = BUILTIN_UNSET;
 	if (!ft_strcmp(node->command_arg[0], "env"))
-		node->builtin_type = ENV;
+		node->builtin_type = BUILTIN_ENV;
 	if (!ft_strcmp(node->command_arg[0], "exit"))
-		node->builtin_type = EXIT;
+		node->builtin_type = BUILTIN_EXIT;
 }
 
 int	handle_singlebuiltin(t_node *node)

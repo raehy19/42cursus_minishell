@@ -27,8 +27,10 @@ LIBFT_DIR := libft
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -MMD -MP -g
 READLINE_FLAG := -lreadline
-LDFLAGS := -L/Users/yeepark/.brew/opt/readline/lib
-CPPFLAGS := -I/Users/yeepark/.brew/opt/readline/include
+#LDFLAGS := -L/Users/yeepark/.brew/opt/readline/lib
+#CPPFLAGS := -I/Users/yeepark/.brew/opt/readline/include
+LDFLAGS := -L/Users/rjeong/goinfre/.brew/opt/readline/lib
+CPPFLAGS := -I/Users/rjeong/goinfre/.brew/opt/readline/include
 RM := rm -f
 
 all : $(NAME)

@@ -19,11 +19,11 @@ void	set_pwd(void)
 	t_env	*pwd;
 	t_env	*oldpwd;
 
-	pwd = find_env("PWD");
+	pwd = find_env("BUILTIN_PWD");
 	oldpwd = find_env("OLDPWD");
 	if (!pwd)
 	{
-		pwd = make_env("PWD=");
+		pwd = make_env("BUILTIN_PWD=");
 		if (g_global.err_num == NaE)
 			add_env_back(pwd);
 	}

@@ -56,13 +56,13 @@ typedef enum e_logical_type
 typedef enum e_builtin_type
 {
 	NaB,
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT
+	BUILTIN_ECHO,
+	BUILTIN_CD,
+	BUILTIN_PWD,
+	BUILTIN_EXPORT,
+	BUILTIN_UNSET,
+	BUILTIN_ENV,
+	BUILTIN_EXIT
 }	t_builtin_type;
 
 typedef enum e_redirect_type

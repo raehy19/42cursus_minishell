@@ -43,13 +43,13 @@ int	init_envp(char *envp[])
 
 void	init_builtin_functions(void)
 {
-	g_global.builtin_function[ECHO] = ft_echo;
-	g_global.builtin_function[CD] = ft_cd;
-	g_global.builtin_function[PWD] = ft_pwd;
-	g_global.builtin_function[EXPORT] = ft_export;
-	g_global.builtin_function[UNSET] = ft_unset;
-	g_global.builtin_function[ENV] = ft_env;
-	g_global.builtin_function[EXIT] = ft_exit;
+	g_global.builtin_function[BUILTIN_ECHO] = ft_echo;
+	g_global.builtin_function[BUILTIN_CD] = ft_cd;
+	g_global.builtin_function[BUILTIN_PWD] = ft_pwd;
+	g_global.builtin_function[BUILTIN_EXPORT] = ft_export;
+	g_global.builtin_function[BUILTIN_UNSET] = ft_unset;
+	g_global.builtin_function[BUILTIN_ENV] = ft_env;
+	g_global.builtin_function[BUILTIN_EXIT] = ft_exit;
 }
 
 void	init_global(char **envp)
