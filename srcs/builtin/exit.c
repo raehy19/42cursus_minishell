@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 11:03:19 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 09:00:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 19:58:29 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ extern t_global	g_global;
 
 void	ft_exit(t_node *node)
 {
+	if (!g_global.is_child)
+		ft_putstr_fd("exit\n", 2);
 	if (node->arg_cnt == 1)
 		exit(g_global.exit_status);
 	if (node->arg_cnt > 2)
