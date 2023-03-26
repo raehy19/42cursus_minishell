@@ -101,6 +101,7 @@ char	*ft_combine_lump(t_link_str *head)
 		temp_str = ft_strjoin(res, temp->next->str);
 		free(res);
 		free(temp->next->str);
+		temp->next->str = NULL;
 		res = temp_str;
 		temp = temp->next;
 	}
@@ -123,13 +124,13 @@ int	ft_count_arg(t_linked_arg *head)
 	return (i);
 }
 
-char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
+char	**ft_combine_arg(t_linked_arg **head, int *arg_cnt)
 {
 	t_linked_arg	*temp;
 	char			**res;
 	int				i;
 
-	*arg_cnt = ft_count_arg(head);
+	*arg_cnt = ft_count_arg(*head);
 	if (*arg_cnt == 0)
 		return (NULL);
 	res = (char **) malloc(sizeof(char *) * (*arg_cnt + 1));
@@ -138,9 +139,9 @@ char	**ft_combine_arg(t_linked_arg *head, int *arg_cnt)
 	i = -1;
 	while (++i < *arg_cnt)
 	{
-		*(res + i) = ft_combine_lump(head->arg_str);
-		temp = head;
-		head = head->next;
+		*(res + i) = ft_combine_lump((*head)->arg_str);
+		temp = *head;
+		*head = (*head)->next;
 		free(temp);
 	}
 	*(res + i) = NULL;

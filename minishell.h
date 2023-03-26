@@ -192,8 +192,6 @@ void		 	parse(char *input, t_parsed *parsed);
 
 // check token
 
-void			free_link_str(t_link_str **link_str_list);
-void			free_token_list(t_token **token_list);
 int				check_token_list(t_token **token_list);
 
 // parse_utils
@@ -229,7 +227,7 @@ void			node_unshift(t_node **lst, t_node *new);
 void			parse_token_list(t_node **head, t_token **token_list);
 
 char			*ft_combine_lump(t_link_str *head);
-char			**ft_combine_arg(t_linked_arg *head, int *arg_cnt);
+char			**ft_combine_arg(t_linked_arg **head, int *arg_cnt);
 
 void			lst_push_cmd(t_linked_arg **lst, t_link_str *arg);
 
@@ -375,6 +373,11 @@ void			free_command_node(t_node *node);
 void			free_redirect_node(t_node *node);
 void			free_node(t_node *node);
 void			free_tree(t_node *node);
+void			free_link_str(t_link_str *link_str_list);
+void			free_token_list(t_token **token_list);
+void			free_cmd_arg_linked(t_linked_arg *linked_arg_list);
+
+
 
 // bonus
 

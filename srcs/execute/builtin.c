@@ -18,7 +18,7 @@ void	set_builtin_type(t_node *node)
 {
 	if (!node->command_arg)
 		node->command_arg
-			= ft_combine_arg(node->cmd_arg_linked_str, &node->arg_cnt);
+			= ft_combine_arg(&node->cmd_arg_linked_str, &node->arg_cnt);
 	if (!node->command_arg)
 		return ;
 	handle_command_wildcard(node);

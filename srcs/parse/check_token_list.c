@@ -14,43 +14,6 @@
 
 extern t_global	g_global;
 
-t_link_str	*link_str_shift(t_link_str **link_str_list)
-{
-	t_link_str	*temp;
-
-	temp = *link_str_list;
-	if (temp)
-		*link_str_list = (*link_str_list)->next;
-	return (temp);
-}
-
-void	free_link_str(t_link_str **link_str_list)
-{
-	t_link_str	*temp;
-
-	temp = link_str_shift(link_str_list);
-	while (temp)
-	{
-		free(temp->str);
-		free(temp);
-		temp = link_str_shift(link_str_list);
-	}
-}
-
-void	free_token_list(t_token **token_list)
-{
-	t_token	*temp;
-
-	temp = token_shift(token_list);
-	while (temp)
-	{
-		free(temp->str);
-		free_link_str(&temp->link_str);
-		free(temp);
-		temp = token_shift(token_list);
-	}
-}
-
 int	free_n_ret(t_token **token_list, int ret)
 {
 	free_token_list(token_list);
