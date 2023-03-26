@@ -87,6 +87,7 @@ void	check_env(char **str)
 char	*ft_combine_lump(t_link_str *head)
 {
 	t_link_str		*temp;
+	t_link_str		*next;
 	char			*res;
 	char			*temp_str;
 
@@ -103,7 +104,9 @@ char	*ft_combine_lump(t_link_str *head)
 		free(temp->next->str);
 		temp->next->str = NULL;
 		res = temp_str;
-		temp = temp->next;
+		next = temp->next;
+		free(temp);
+		temp = next;
 	}
 	free(temp);
 	return (res);
