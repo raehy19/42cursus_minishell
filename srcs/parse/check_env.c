@@ -43,6 +43,34 @@ void	make_env_linked_str(char *str, t_link_str **lst, int *idx)
 	*idx += i + 1;
 }
 
+void	execute_dollar(char **str, t_link_str **temp, int *idx, int *i)
+{
+	if (!((*str) + *idx + *i + 1) || (*((*str) + *idx + *i + 1) != '?'
+		&& !is_env_allowed_char(*((*str) + *idx + *i + 1))))
+	{
+		link_str_add_back(temp,
+			new_link_str(T_SINGLE_QUOTE, strndup((*str) + *idx + *i, 1)));
+		++(*idx);
+	}
+	else if (*((*str) + *idx + *i+ 1) == '?')
+	{
+		link_str_add_back(temp, new_link_str(T_SINGLE_QUOTE,
+			ft_itoa(g_global.exit_status)));
+		(*idx) += 2;
+	}
+	else
+	{
+		if (*i > 0)
+		{
+			link_str_add_back(temp,
+				new_link_str(T_SINGLE_QUOTE, strndup(((*str) + *idx), *i)));
+			*idx += *i;
+		}
+		make_env_linked_str((*str + *idx + 1), temp, idx);
+	}
+	*i = -1;
+}
+
 void	check_env(char **str)
 {
 	t_link_str	*temp;
@@ -55,31 +83,11 @@ void	check_env(char **str)
 	while (*((*str) + idx + ++i))
 	{
 		if (*((*str) + idx + i) == '$')
-		{
-			if (!((*str) + idx + i + 1) || (*((*str) + idx + i + 1) != '?'
-					&& !is_env_allowed_char(*((*str) + idx + i + 1))))
-			{
-				link_str_add_back(&temp,
-					new_link_str(T_SINGLE_QUOTE, strndup((*str) + idx + i, 1)));
-				++idx;
-			}
-			else if (*((*str) + idx + i + 1) == '?')
-			{
-				link_str_add_back(&temp, new_link_str(T_SINGLE_QUOTE,
-						ft_itoa(g_global.exit_status)));
-				idx += 2;
-			}
-			else
-			{
-				link_str_add_back(&temp,
-					new_link_str(T_SINGLE_QUOTE, strndup(((*str) + idx), i)));
-				make_env_linked_str((*str + idx + i + 1), &temp, &idx);
-			}
-			i = -1;
-		}
+			execute_dollar(str, &temp, &idx, &i);
 	}
-	link_str_add_back(&temp,
-		new_link_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
+	if (i > 0)
+		link_str_add_back(&temp,
+			new_link_str(T_SINGLE_QUOTE, strndup((*str + idx), i)));
 	free(*str);
 	*str = ft_combine_lump(temp);
 }

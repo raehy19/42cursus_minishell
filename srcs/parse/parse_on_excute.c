@@ -16,29 +16,29 @@ extern t_global	g_global;
 
 char	*ft_combine_lump(t_link_str *head)
 {
-	t_link_str		*temp;
 	t_link_str		*next;
 	char			*res;
 	char			*temp_str;
 
+	if (!head)
+		return (NULL);
 	res = head->str;
-	temp = head;
-	if (temp->str_type != T_SINGLE_QUOTE)
+	if (head->str_type != T_SINGLE_QUOTE)
 		check_env(&res);
-	while (temp->next)
+	while (head->next)
 	{
-		if (temp->next->str_type != T_SINGLE_QUOTE)
-			check_env(&(temp->next->str));
-		temp_str = ft_strjoin(res, temp->next->str);
+		if (head->next->str_type != T_SINGLE_QUOTE)
+			check_env(&(head->next->str));
+		temp_str = ft_strjoin(res, head->next->str);
 		free(res);
-		free(temp->next->str);
-		temp->next->str = NULL;
+		free(head->next->str);
+		head->next->str = NULL;
 		res = temp_str;
-		next = temp->next;
-		free(temp);
-		temp = next;
+		next = head->next;
+		free(head);
+		head = next;
 	}
-	free(temp);
+	free(head);
 	return (res);
 }
 
