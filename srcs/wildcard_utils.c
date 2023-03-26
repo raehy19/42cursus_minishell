@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:07:12 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 17:25:02 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 16:44:44 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**make_command_arg(t_list *command_lst)
 	if (is_error)
 		g_global.err_num = FAIL_MALLOC;
 	command_arg[idx] = 0;
-	if (g_global.err_num !=NaE)
+	if (g_global.err_num != NaE)
 	{
 		free_two_dim(command_arg);
 		command_arg = 0;

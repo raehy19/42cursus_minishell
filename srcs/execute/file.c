@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:32:08 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 15:32:10 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 16:44:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ int	is_regular_file(mode_t st_mode)
 {
 	return ((st_mode & S_IFMT) == S_IFREG);
 }
-
