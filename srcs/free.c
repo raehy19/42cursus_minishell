@@ -75,6 +75,7 @@ void	free_link_str(t_link_str *link_str_list)
 	while (temp)
 	{
 		next = temp->next;
+		free(temp->str);
 		free(temp);
 		temp = next;
 	}
