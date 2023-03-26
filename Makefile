@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/24 21:38:24 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/26 15:33:12 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,8 @@ LIBFT_DIR := libft
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -MMD -MP -g
 READLINE_FLAG := -lreadline
-#LDFLAGS := -L/Users/yeepark/.brew/opt/readline/lib
-#CPPFLAGS := -I/Users/yeepark/.brew/opt/readline/include
-LDFLAGS := -L/Users/rjeong/goinfre/.brew/opt/readline/lib
-CPPFLAGS := -I/Users/rjeong/goinfre/.brew/opt/readline/include
+LDFLAGS := -L/Users/yeepark/.brew/opt/readline/lib
+CPPFLAGS := -I/Users/yeepark/.brew/opt/readline/include
 RM := rm -f
 
 all : $(NAME)
@@ -83,6 +81,7 @@ EXECUTE_SRCS := \
 	standard_fildes.c \
 	command.c \
 	command_utils.c \
+	file.c \
 	builtin.c \
 
 BONUS_SRCS := \

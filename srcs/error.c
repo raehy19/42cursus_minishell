@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 20:07:14 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 15:21:18 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ void	print_command_error(t_node *node, int idx, char *error_message)
 	ft_putstr_fd("\n", 2);
 	if (g_global.is_child)
 		exit(g_global.exit_status);
+}
+
+void	print_command_path_error(t_node *node, int idx)
+{
+	char	*error_message;
+
+	if (g_global.err_num == NO_SUCH_FILE)
+		error_message = "No such file or directory";
+	if (g_global.err_num == COMMAND_NOT_FOUND)
+		error_message = "command not found";
+	if (g_global.err_num == IS_DIRECTORY)
+		error_message = "is a directory";
+	print_command_error(node, idx, error_message);
 }
 
 void	print_invalid_identifier_error(t_node *node, int idx)
