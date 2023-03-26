@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 15:21:18 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 19:50:49 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern t_global	g_global;
 
 void	print_command_error(t_node *node, int idx, char *error_message)
 {
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(node->command_arg[0], 2);
 	ft_putstr_fd(": ", 2);
 	if (idx)
@@ -45,7 +45,7 @@ void	print_command_path_error(t_node *node, int idx)
 
 void	print_invalid_identifier_error(t_node *node, int idx)
 {
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(node->command_arg[0], 2);
 	ft_putstr_fd(": `", 2);
 	ft_putstr_fd(node->command_arg[idx], 2);
@@ -55,7 +55,7 @@ void	print_invalid_identifier_error(t_node *node, int idx)
 
 void	print_redirect_error(char *filename, char *error_message)
 {
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(filename, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error_message, 2);

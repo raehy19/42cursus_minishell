@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:43:09 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 18:51:48 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/26 19:03:30 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,18 @@ void	wait_process(t_execute *execute)
 	{
 		execute->cnt -= 1;
 		res = wait(&status);
+		if (status == 2)
+		{
+			g_global.exit_status = 130;
+			ft_putstr_fd("\n", 2);
+			return ;
+		}
+		if (status == 3)
+		{
+			g_global.exit_status = 131;
+			ft_putstr_fd("Quit: 3\n", 2);
+			return ;
+		}
 		if (res == execute->pid)
 			g_global.exit_status = get_status(status);
 	}
