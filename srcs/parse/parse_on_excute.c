@@ -36,7 +36,6 @@ char	*ft_combine_lump(t_link_str **head)
 		res = temp_str;
 		next = (*head)->next;
 		free((*head));
-		*head = NULL;
 		(*head) = next;
 	}
 	free((*head));

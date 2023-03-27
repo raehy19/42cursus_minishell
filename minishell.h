@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 20:51:41 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/27 14:12:31 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 # define STDIN 0
 # define STDOUT 1
 
-char	**make_two_dim(char	**array, int size);
 typedef enum e_node_type
 {
 	LOGICAL,
@@ -95,8 +94,6 @@ typedef enum e_error_number
 }	t_error_number;
 
 typedef struct s_node		t_node;
-
-// tokenize
 
 typedef enum e_token_type
 {
@@ -234,6 +231,8 @@ void			parse_token_list(t_node **head, t_token **token_list);
 char			*ft_combine_lump(t_link_str **head);
 char			**ft_combine_arg(t_linked_arg **head, int *arg_cnt);
 
+char			**make_two_dim(char	**array, int size);
+
 // check_env
 
 void			check_env(char **str);
@@ -266,23 +265,19 @@ typedef struct s_node
 	t_node			*left;
 	t_node			*right;
 
-	// node_type == logical
 	t_logical_type	logical_type;
 
-	// node_type == command
 	char			*command_path;
 	t_linked_arg	*cmd_arg_linked_str;
 	char			**command_arg;
 	int				arg_cnt;
 	t_builtin_type	builtin_type;
 
-	// node_type == redirect
 	t_redirect_type	redirect_type;
 	t_link_str		*redirect_linked_str;
 	char			*redirect_filename;
-	int				in_fd; // initialize STDIN
-	int				out_fd; // initialize STDOUT
-	// ?
+	int				in_fd;
+	int				out_fd;
 	pid_t			pid;
 
 }	t_node;
