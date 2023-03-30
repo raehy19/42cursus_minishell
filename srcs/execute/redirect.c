@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:38 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 22:47:44 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:58:57 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,10 @@ extern t_global	g_global;
 
 void	handle_in_redirect(t_node *node)
 {
-	char	*error_message;
-
 	if (node->redirect_type == REDIRECTING_INPUT)
 	{
-		if (access(node->redirect_filename, F_OK | R_OK) == -1)
-		{
-			error_message = "No such file or directory\n";
-			g_global.err_num = NO_SUCH_FILE;
-			print_redirect_error(node->redirect_filename, error_message);
+		if (!check_authority(node->redirect_filename))
 			return ;
-		}
 		node->in_fd = open_fildes(node->redirect_filename, O_RDONLY, 0);
 	}
 	duplicate_fildes(node->in_fd, STDIN_FILENO);
