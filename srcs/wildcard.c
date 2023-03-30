@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:27:57 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 23:06:46 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 23:20:14 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	handle_directory(t_list **command_lst, char *format)
 	dir_entry = readdir(dir_info);
 	while (dir_entry)
 	{
-		if (is_wildcard_format(dir_entry->d_name, format))
+		if (ft_strncmp(dir_entry->d_name, ".", 1)
+		&& is_wildcard_format(dir_entry->d_name, format))
 		{
 			add_new_list(command_lst, dir_entry->d_name);
 			cnt++;
@@ -134,7 +135,8 @@ int	handle_redirect_wildcard(t_node *node)
 	new_filename = 0;
 	while (cnt <= 1 && dir_entry)
 	{
-		if (is_wildcard_format(dir_entry->d_name, node->redirect_filename))
+		if (ft_strncmp(dir_entry->d_name, ".", 1)
+		&& is_wildcard_format(dir_entry->d_name, node->redirect_filename))
 		{
 			free(new_filename);
 			new_filename = ft_strdup(dir_entry->d_name);
