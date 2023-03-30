@@ -6,7 +6,7 @@
 /*   By: yeepark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:58:37 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 20:06:34 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:26:51 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	search_node(t_node *node)
 		search_node(node->left);
 	if (node->right)
 		search_node(node->right);
-	handle_node(node);
+	if (g_global.err_num == NaE)
+		handle_node(node);
 }
 
 void	search_tree(t_node *node)

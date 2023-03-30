@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:07:12 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 22:08:10 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:31:02 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,14 @@ void	handle_wildcard_error(t_node *node, char *new_filename, int cnt)
 		return ;
 	}
 	if (cnt)
+	{
+		g_global.err_num = AMBIGUOUS_REDIRECT;
 		error_message = "ambiguous redirect\n";
+	}
 	if (!cnt)
+	{
+		g_global.err_num = NO_SUCH_FILE;
 		error_message = "No such file or directory\n";
+	}
 	print_redirect_error(node->redirect_filename, error_message);
 }

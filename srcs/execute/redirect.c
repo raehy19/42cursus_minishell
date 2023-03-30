@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:38 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 16:56:30 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:31:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,16 @@ void	handle_out_redirect(t_node *node)
 
 void	handle_redirect(t_node *node)
 {
+	int	is_error;
+
+	is_error = 0;
 	if (node->redirect_type != HERE_DOCUMENT)
 	{
 		node->redirect_filename = ft_combine_lump(&node->redirect_linked_str);
-		handle_redirect_wildcard(node);
+		is_error = (handle_redirect_wildcard(node) != 1);
 	}
+	if (is_error)
+		return ;
 	if (is_in(node->redirect_type))
 		handle_in_redirect(node);
 	if (is_out(node->redirect_type))
