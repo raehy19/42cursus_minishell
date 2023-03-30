@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:07:12 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 22:31:02 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 23:06:54 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void	handle_wildcard_error(t_node *node, char *new_filename, int cnt)
 		g_global.err_num = NO_SUCH_FILE;
 		error_message = "No such file or directory\n";
 	}
+	free(new_filename);
 	print_redirect_error(node->redirect_filename, error_message);
 }

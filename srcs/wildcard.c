@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:27:57 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 22:18:05 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 23:06:46 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,12 @@ int	handle_redirect_wildcard(t_node *node)
 		handle_error();
 	}
 	dir_entry = readdir(dir_info);
+	new_filename = 0;
 	while (cnt <= 1 && dir_entry)
 	{
 		if (is_wildcard_format(dir_entry->d_name, node->redirect_filename))
 		{
+			free(new_filename);
 			new_filename = ft_strdup(dir_entry->d_name);
 			cnt++;
 		}
