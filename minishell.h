@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 17:00:12 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:07:03 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,7 +405,7 @@ int				handle_parenthesis(t_node **node, t_execute *execute);
 // wildcard
 
 void			handle_redirect_wildcard(t_node *node);
-void			handle_command_wildcard(t_node *node);
+int				handle_command_wildcard(t_node *node);
 int				is_wildcard_format(char *name, char *format);
 int				is_wildcard(char c);
 void			add_new_list(t_list **command_lst, char *name);

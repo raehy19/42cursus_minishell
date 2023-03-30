@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:27:57 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/24 17:14:40 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:08:22 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ int	is_wildcard_format(char *name, char *format)
 	return (name != 0);
 }
 
-void	handle_directory(t_list **command_lst, char *format)
+int	handle_directory(t_list **command_lst, char *format)
 {
+	int				cnt;
 	DIR				*dir_info;
 	struct dirent	*dir_entry;
 
+	cnt = 0;
 	dir_info = opendir(".");
 	if (!dir_info)
 	{
@@ -76,32 +78,42 @@ void	handle_directory(t_list **command_lst, char *format)
 	while (dir_entry)
 	{
 		if (is_wildcard_format(dir_entry->d_name, format))
+		{
 			add_new_list(command_lst, dir_entry->d_name);
+			cnt++;
+		}
 		dir_entry = readdir(dir_info);
 	}
 	closedir(dir_info);
+	return (cnt);
 }
 
-void	handle_command_wildcard(t_node *node)
+int	handle_command_wildcard(t_node *node)
 {
 	int		idx;
+	int		cnt;
 	t_list	*command_lst;
 
 	idx = 0;
+	cnt = 1;
 	command_lst = 0;
-	while (node->command_arg[idx])
+	while (cnt && node->command_arg[idx])
 	{
 		if (ft_strchr(node->command_arg[idx], '*'))
-			handle_directory(&command_lst, node->command_arg[idx]);
+			cnt = handle_directory(&command_lst, node->command_arg[idx]);
 		else
 			add_new_list(&command_lst, node->command_arg[idx]);
 		idx++;
 	}
+	if (cnt == 0)
+	{
+		g_global.exit_status = 1;
+		print_command_error(node, idx - 1, "No such file or directory");
+	}
 	free_two_dim(node->command_arg);
 	node->command_arg = make_command_arg(command_lst);
-	if (g_global.err_num != NaE)
-		handle_error();
 	ft_lstclear(&command_lst, free);
+	return (cnt);
 }
 
 void	handle_redirect_wildcard(t_node *node)

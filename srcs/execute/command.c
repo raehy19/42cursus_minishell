@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 17:27:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:01:42 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	execve_command(t_node *node)
 
 void	handle_command(t_node *node)
 {
-	set_builtin_type(node);
+	if (!handle_command_wildcard(node))
+		return ;
 	if (!node->command_arg)
 		exit(g_global.exit_status);
 	if (node->builtin_type)
