@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 15:21:39 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 17:27:20 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,28 @@ void	handle_builtin(t_node *node)
 		exit(g_global.exit_status);
 }
 
+int	handle_exception(char *command)
+{
+	if (!ft_strcmp(command, ""))
+		g_global.err_num = COMMAND_NOT_FOUND;
+	if (!find_env("PATH"))
+		g_global.err_num = NO_SUCH_FILE;
+	return (g_global.err_num != NaE);
+}
+
 void	execve_command(t_node *node)
 {
 	char	**envp;
 
-	envp = make_envp();
-	handle_error();
-	node->command_path = find_command_path(node);
+	if (!handle_exception(node->command_arg[0]))
+		node->command_path = find_command_path(node);
 	if (!node->command_path)
 	{
 		g_global.exit_status = 127;
-		if (!find_env("PATH"))
-			g_global.err_num = NO_SUCH_FILE;
 		print_command_path_error(node, 0);
 	}
+	envp = make_envp();
+	handle_error();
 	if (execve(node->command_path, node->command_arg, envp) == -1)
 	{
 		g_global.err_num = FAIL_EXECUTE;

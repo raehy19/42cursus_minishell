@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/27 14:12:31 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:00:12 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,9 +366,9 @@ void			duplicate_fildes(int fd1, int fd2);
 
 // command
 
-void			handle_builtin(t_node *node);
-void			execve_command(t_node *node);
 void			handle_command(t_node *node);
+void			execve_builtin(t_node *node);
+void			execve_command(t_node *node);
 char			*find_command_path(t_node *node);
 
 // file
