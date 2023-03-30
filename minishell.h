@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 22:30:15 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:49:09 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,6 +357,8 @@ void			search_heredoc(t_node *node);
 void			process_heredoc(t_node *node, int pipe[]);
 void			handle_heredoc(t_node *node);
 
+int				is_in(t_redirect_type type);
+int				is_out(t_redirect_type type);
 void			open_pipe(int fd[2]);
 void			close_pipe(int pipe[2]);
 int				open_fildes(char *file_name, int oflag, int mode);

@@ -6,24 +6,13 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:38 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 22:31:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:47:44 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 extern t_global	g_global;
-
-int	is_in(t_redirect_type type)
-{
-	return (type == REDIRECTING_INPUT || type == HERE_DOCUMENT);
-}
-
-int	is_out(t_redirect_type type)
-{
-	return (type == REDIRECTING_OUTPUT
-		|| type == APPENDING_REDIRECTED_OUTPUT);
-}
 
 void	handle_in_redirect(t_node *node)
 {
@@ -34,7 +23,9 @@ void	handle_in_redirect(t_node *node)
 		if (access(node->redirect_filename, F_OK | R_OK) == -1)
 		{
 			error_message = "No such file or directory\n";
+			g_global.err_num = NO_SUCH_FILE;
 			print_redirect_error(node->redirect_filename, error_message);
+			return ;
 		}
 		node->in_fd = open_fildes(node->redirect_filename, O_RDONLY, 0);
 	}

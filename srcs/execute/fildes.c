@@ -1,18 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   duplicate.c                                        :+:      :+:    :+:   */
+/*   fildes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 15:32:58 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/19 15:57:30 by yeepark          ###   ########.fr       */
+/*   Created: 2023/03/30 22:44:57 by yeepark           #+#    #+#             */
+/*   Updated: 2023/03/30 22:45:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 extern t_global	g_global;
+
+int	open_fildes(char *file_name, int oflag, int mode)
+{
+	int	fd;
+
+	if (mode == 0)
+		fd = open(file_name, oflag);
+	if (mode)
+		fd = open(file_name, oflag, mode);
+	if (fd != -1)
+		return (fd);
+	g_global.err_num = FAIL_OPEN_FILDES;
+	handle_error();
+	return (-1);
+}
+
+void	close_fildes(int fd)
+{
+	if (close(fd) != -1)
+		return ;
+	g_global.err_num = FAIL_CLOSE_FILDES;
+	handle_error();
+}
+
+void	duplicate_fildes(int exist_fd, int new_fd)
+{
+	duplicate_standard_fildes(new_fd);
+	if (dup2(exist_fd, new_fd) != -1)
+		return ;
+	g_global.err_num = FAIL_DUPLICATE_FILDES;
+	handle_error();
+}
 
 void	init_standard_fildes(void)
 {

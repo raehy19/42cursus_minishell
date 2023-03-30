@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_utils.c                                   :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 16:43:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 22:50:07 by yeepark          ###   ########.fr       */
+/*   Created: 2023/03/30 22:45:33 by yeepark           #+#    #+#             */
+/*   Updated: 2023/03/30 22:50:00 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	is_in(t_redirect_type type)
+extern t_global	g_global;
+
+void	open_pipe(int fd[2])
 {
-	return (type == REDIRECTING_INPUT || type == HERE_DOCUMENT);
+	if (pipe(fd) != -1)
+		return ;
+	g_global.err_num = FAIL_OPEN_PIPE;
+	handle_error();
 }
 
-int	is_out(t_redirect_type type)
+void	close_pipe(int pipe[2])
 {
-	return (type == REDIRECTING_OUTPUT
-		|| type == APPENDING_REDIRECTED_OUTPUT);
+	if ((close(pipe[0]) != -1) && (close(pipe[1]) != -1))
+		return ;
+	g_global.err_num = FAIL_CLOSE_FILDES;
+	handle_error();
 }

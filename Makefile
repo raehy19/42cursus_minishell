@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:56:23 by rjeong            #+#    #+#              #
-#    Updated: 2023/03/26 20:52:00 by yeepark          ###   ########.fr        #
+#    Updated: 2023/03/30 22:48:21 by yeepark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,8 @@ EXECUTE_SRCS := \
 	heredoc.c \
 	redirect.c \
 	redirect_utils.c \
-	standard_fildes.c \
+	fildes.c \
+	pipe.c \
 	command.c \
 	command_utils.c \
 	file.c \
