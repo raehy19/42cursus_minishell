@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/01 20:27:01 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 20:51:15 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,8 +417,10 @@ int				handle_redirect_wildcard(t_node *node);
 int				handle_command_wildcard(t_node *node);
 int				is_wildcard_format(char *name, char *format);
 int				is_wildcard(char c);
-void			add_new_list(t_list **command_lst, char *name);
-char			**make_command_arg(t_list *command_lst);
+char			*make_newfile(DIR *dir_info, char *filename, int *cnt);
 void			handle_wildcard_error(t_node *node,
 					char *new_filename, int cnt);
+void			add_new_list(t_list **command_lst, char *name);
+char			**make_command_arg(t_list *command_lst);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/01 16:40:37 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 16:41:55 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	set_pwd(void)
 	if (g_global.err_num != NaE)
 	{
 		handle_error();
-		return ;	
+		return ;
 	}
 	free(oldpwd->value);
 	oldpwd->value = pwd->value;

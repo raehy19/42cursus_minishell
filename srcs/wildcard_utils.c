@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:07:12 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 23:06:54 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 20:50:19 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,38 @@ char	**make_command_arg(t_list *command_lst)
 	return (command_arg);
 }
 
-void	handle_wildcard_error(t_node *node, char *new_filename, int cnt)
+char	*make_newfile(DIR *dir_info, char *filename, int *cnt)
+{
+	char			*new_file;
+	struct dirent	*dir_entry;
+
+	new_file = 0;
+	dir_entry = readdir(dir_info);
+	while (g_global.err_num == NaE && *cnt <= 1 && dir_entry)
+	{
+		if (ft_strncmp(dir_entry->d_name, ".", 1)
+			&& is_wildcard_format(dir_entry->d_name, filename))
+		{
+			free(new_file);
+			new_file = 0;
+			new_file = ft_strdup(dir_entry->d_name);
+			(*cnt)++;
+		}
+		dir_entry = readdir(dir_info);
+		if (*cnt >= 1 && !new_file)
+			g_global.err_num = FAIL_MALLOC;
+	}
+	return (new_file);
+}
+
+void	handle_wildcard_error(t_node *node, char *new_file, int cnt)
 {
 	char	*error_message;
 
 	if (cnt == 1)
 	{
 		free(node->redirect_filename);
-		node->redirect_filename = new_filename;
+		node->redirect_filename = new_file;
 		return ;
 	}
 	if (cnt)
@@ -84,6 +108,6 @@ void	handle_wildcard_error(t_node *node, char *new_filename, int cnt)
 		g_global.err_num = NO_SUCH_FILE;
 		error_message = "No such file or directory\n";
 	}
-	free(new_filename);
+	free(new_file);
 	print_redirect_error(node->redirect_filename, error_message);
 }
