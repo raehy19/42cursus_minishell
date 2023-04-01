@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/04/01 20:23:11 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 21:27:48 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ void	set_main(t_parsed *parsed)
 	unset_control_character();
 }
 
-void	free_all(t_parsed *parsed, char **input)
+void	free_all(t_parsed *parsed)
 {
 	free_token_list(&parsed->token_list);
 	free_token_list(&parsed->compressed_list);
 	free_tree(parsed->tree);
-	free(*input);
-	*input = 0;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -51,12 +49,13 @@ int	main(int argc, char **argv, char **envp)
 			exit(g_global.exit_status);
 		}
 		parse(input, &parsed);
+		add_history(input);
+		free(input);
 		if (!parsed.tree)
 			continue ;
-		add_history(input);
 		search_heredoc(parsed.tree);
 		search_tree(parsed.tree);
-		free_all(&parsed, &input);
+		free_all(&parsed);
 //		system("leaks --list minishell");
 	}
 	return (0);
