@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:04:01 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/26 16:48:00 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 19:56:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_global	g_global;
 
-void	signal_handler(int signo)
+void	handle_main_signal(int signo)
 {
 	if (signo == SIGINT)
 	{
@@ -33,6 +33,17 @@ void	signal_handler(int signo)
 
 void	handle_signal(void)
 {
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	signal(SIGINT, handle_main_signal);
+	signal(SIGQUIT, handle_main_signal);
+}
+
+void	handle_heredoc_signal(int signo)
+{
+	if (signo == SIGINT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		exit(0);
+	}
 }

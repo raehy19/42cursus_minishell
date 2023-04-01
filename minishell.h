@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/01 16:49:51 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 19:18:12 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,8 +243,8 @@ void			lst_push_cmd(t_linked_arg **lst, t_link_str *arg);
 
 // signal
 
-void			signal_handler(int signo);
 void			handle_signal(void);
+void			handle_main_signal(int signo);
 
 // terminal
 

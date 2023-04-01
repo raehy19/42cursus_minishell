@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:58:31 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 16:39:50 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 19:55:59 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	process_heredoc(t_node *node, int pipe[])
 	int		newline;
 	char	*input;
 
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_heredoc_signal);
 	newline = 0;
 	input = ft_strdup("");
 	close_fildes(pipe[READ]);
