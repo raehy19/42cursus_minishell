@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/01 20:24:46 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 20:27:01 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,7 @@ typedef struct s_env
 
 typedef struct s_global
 {
-	unsigned char	exit_status;
+	unsigned int	exit_status;
 	t_env			*envp;
 	t_error_number	err_num;
 	void			(*builtin_function[8])(t_node *);

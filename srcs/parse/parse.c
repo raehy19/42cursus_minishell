@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:10:53 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/26 17:56:54 by rjeong           ###   ########.fr       */
+/*   Updated: 2023/04/01 20:27:16 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	parse(char *input, t_parsed *parsed)
 	token_list = ft_tokenize(input);
 	if (g_global.err_num == SYNTAX_ERR)
 	{
-		g_global.exit_status = 1;
+		g_global.exit_status = 258;
 		printf("Syntax error !\n");
 		free_token_list(&token_list);
 		return ;
@@ -46,7 +46,7 @@ void	parse(char *input, t_parsed *parsed)
 	compressed_list = compress_tokens(&token_list);
 	if (check_token_list(&compressed_list))
 	{
-		g_global.exit_status = 1;
+		g_global.exit_status = 258;
 		printf("Syntax error !\n");
 		free_token_list(&token_list);
 		free_token_list(&compressed_list);
