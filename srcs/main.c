@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/04/01 19:52:23 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 20:23:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	set_main(t_parsed *parsed)
 {
 	*parsed = (t_parsed){NULL, NULL, NULL};
 	g_global.err_num = NaE;
+	g_global.is_child = 0;
 	init_standard_fildes();
 	handle_signal();
-	unset_comtrol_character();
+	unset_control_character();
 }
 
 void	free_all(t_parsed *parsed, char **input)

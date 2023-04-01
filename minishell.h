@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/01 19:58:34 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 20:24:46 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ typedef enum e_error_number
 	FAIL_OPEN_PIPE,
 	FAIL_DUPLICATE_FILDES,
 	FAIL_EXECUTE,
-	FAIL_OPEN_DIR
+	FAIL_OPEN_DIR,
+	FAIL_GET_TERMIOS,
+	FAIL_SET_TERMIOS
 }	t_error_number;
 
 typedef struct s_node		t_node;
@@ -250,7 +252,7 @@ void			handle_heredoc_signal(int signo);
 // terminal
 
 void			set_control_character(void);
-void			unset_comtrol_character(void);
+void			unset_control_character(void);
 
 typedef struct s_execute
 {
