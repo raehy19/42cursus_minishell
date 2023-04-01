@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:57:24 by rjeong            #+#    #+#             */
-/*   Updated: 2023/03/26 21:53:20 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 19:52:23 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ void	set_main(t_parsed *parsed)
 	unset_comtrol_character();
 }
 
-void	free_all(t_parsed *parsed)
+void	free_all(t_parsed *parsed, char **input)
 {
 	free_token_list(&parsed->token_list);
 	free_token_list(&parsed->compressed_list);
 	free_tree(parsed->tree);
+	free(*input);
+	*input = 0;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -41,21 +43,20 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		set_main(&parsed);
-		input = readline("\033[34mminishell-1.0$ \033[0m");
+		input = readline("minishell-1.0$ ");
 		if (input == NULL)
 		{
 			printf("exit\n");
 			exit(g_global.exit_status);
 		}
 		parse(input, &parsed);
-		add_history(input);
-		free(input);
 		if (!parsed.tree)
 			continue ;
+		add_history(input);
 		search_heredoc(parsed.tree);
 		search_tree(parsed.tree);
-		free_all(&parsed);
-		system("leaks --list minishell");
+		free_all(&parsed, &input);
+//		system("leaks --list minishell");
 	}
 	return (0);
 }
