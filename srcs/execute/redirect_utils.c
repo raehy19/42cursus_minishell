@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:43:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 23:00:33 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 17:05:05 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_out(t_redirect_type type)
 		|| type == APPENDING_REDIRECTED_OUTPUT);
 }
 
-int	check_authority(char *filename)
+int	check_in_redirect_authority(char *filename)
 {
 	char	*error_message;
 
@@ -39,6 +39,23 @@ int	check_authority(char *filename)
 	{
 		error_message = "No such file or directory\n";
 		g_global.err_num = NO_SUCH_FILE;
+	}
+	if (error_message)
+		print_redirect_error(filename, error_message);
+	return (g_global.err_num == NaE);
+}
+
+int	check_out_redirect_authority(char *filename)
+{
+	char	*error_message;
+
+	error_message = 0;
+	if (access(filename, F_OK) == -1)
+		return (1);
+	if (access(filename, W_OK) == -1)
+	{
+		error_message = "Permission denied\n";
+		g_global.err_num = PERMISSION_DENIED;
 	}
 	if (error_message)
 		print_redirect_error(filename, error_message);

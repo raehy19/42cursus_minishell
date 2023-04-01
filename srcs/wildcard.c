@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:27:57 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 23:20:14 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 17:00:12 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int	handle_redirect_wildcard(t_node *node)
 	struct dirent	*dir_entry;
 	char			*new_filename;
 
+	if (!ft_strchr(node->redirect_filename, '*'))
+		return (1);
 	cnt = 0;
 	dir_info = opendir(".");
 	if (!dir_info)
