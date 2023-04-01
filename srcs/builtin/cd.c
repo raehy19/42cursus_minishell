@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/17 12:53:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 16:40:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,47 @@ void	set_pwd(void)
 			add_env_back(oldpwd);
 	}
 	if (g_global.err_num != NaE)
+	{
 		handle_error();
+		return ;	
+	}
 	free(oldpwd->value);
 	oldpwd->value = pwd->value;
 	pwd->value = getcwd(0, 0);
+}
+
+static int	check_directory(char *changed_dir)
+{
+	struct stat	st_info;
+
+	if (access(changed_dir, F_OK) == -1)
+		return (1);
+	stat(changed_dir, &st_info);
+	return (is_directory(st_info.st_mode));
+}
+
+int	handle_cd_error(int is_error, t_node *node, char *changed_dir)
+{
+	char	*error_msg;
+
+	if (!is_error)
+		return (0);
+	error_msg = 0;
+	if (!error_msg && node->arg_cnt == 1)
+		error_msg = "HOME not set";
+	if (!error_msg && !check_directory(changed_dir))
+		error_msg = "Not a directory";
+	if (!error_msg && node->arg_cnt > 1)
+		error_msg = "No such file or directory";
+	g_global.exit_status = 1;
+	print_command_error(node, (node->arg_cnt > 1), error_msg);
+	return (1);
 }
 
 void	ft_cd(t_node *node)
 {
 	int		is_error;
 	char	*changed_dir;
-	char	*error_msg;
 	t_env	*home;
 
 	changed_dir = node->command_arg[1];
@@ -52,15 +82,8 @@ void	ft_cd(t_node *node)
 	if (node->arg_cnt == 1 && home)
 		changed_dir = home->value;
 	is_error = chdir(changed_dir);
-	if (is_error)
-	{
-		if (node->arg_cnt == 1)
-			error_msg = "HOME not set";
-		if (node->arg_cnt > 1)
-			error_msg = "No such file or directory";
-		g_global.exit_status = 1;
-		print_command_error(node, (node->arg_cnt > 1), error_msg);
-	}
+	if (handle_cd_error(is_error, node, changed_dir))
+		return ;
 	set_pwd();
 	g_global.exit_status = 0;
 }
