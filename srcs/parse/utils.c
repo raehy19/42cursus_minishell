@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:45:59 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 21:06:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 21:22:06 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ char	**make_two_dim(char	**array, int size)
 	while (idx < size)
 	{
 		if (array[idx])
-		{
-			new_array[new_idx] = array[idx];
-			new_idx++;
-		}
+			new_array[new_idx++] = array[idx];
 		idx++;
 	}
 	new_array[new_idx] = 0;
