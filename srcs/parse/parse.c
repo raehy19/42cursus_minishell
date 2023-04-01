@@ -38,6 +38,7 @@ void	parse(char *input, t_parsed *parsed)
 	token_list = ft_tokenize(input);
 	if (g_global.err_num == SYNTAX_ERR)
 	{
+		g_global.exit_status = 1;
 		printf("Syntax error !\n");
 		free_token_list(&token_list);
 		return ;
@@ -45,6 +46,7 @@ void	parse(char *input, t_parsed *parsed)
 	compressed_list = compress_tokens(&token_list);
 	if (check_token_list(&compressed_list))
 	{
+		g_global.exit_status = 1;
 		printf("Syntax error !\n");
 		free_token_list(&token_list);
 		free_token_list(&compressed_list);
