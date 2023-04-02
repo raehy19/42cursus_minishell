@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:43:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/02 12:45:10 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/02 13:42:50 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,19 @@ int	check_in_redirect_authority(char *filename)
 
 int	check_out_redirect_authority(char *filename)
 {
-	char	*error_message;
+	char			*error_message;
+	struct stat		st_info;
 
 	error_message = 0;
 	if (access(filename, F_OK) == -1)
 		return (1);
-	if (access(filename, W_OK) == -1)
+	stat(filename, &st_info);
+	if (is_directory(st_info.st_mode))
+	{
+		error_message = "Is a directory\n";
+		g_global.err_num = IS_DIRECTORY;
+	}
+	if (!error_message && access(filename, W_OK) == -1)
 	{
 		error_message = "Permission denied\n";
 		g_global.err_num = PERMISSION_DENIED;
