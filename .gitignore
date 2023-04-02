@@ -1,8 +1,0 @@
-.DS_store
-*.o
-*.d
-libft.a
-minishell
-a.out
-.*.swp
-test*
