@@ -29,7 +29,7 @@ LIBFT := ./libft/libft.a
 LIBFT_DIR := libft
 
 CC := cc
-CFLAGS := -Wall -Wextra -Werror -MMD -MP -g
+CFLAGS := -Wall -Wextra -Werror -MMD -MP
 READLINE_FLAG := -lreadline
 LDFLAGS := -L/Users/rjeong/goinfre/.brew/opt/readline/lib
 CPPFLAGS := -I/Users/rjeong/goinfre/.brew/opt/readline/include
