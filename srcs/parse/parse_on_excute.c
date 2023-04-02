@@ -23,10 +23,20 @@ char	*ft_combine_lump(t_link_str **head)
 	if (!(*head))
 		return (NULL);
 	res = (*head)->str;
-	if ((*head)->str_type != T_SINGLE_QUOTE)
+	if (ft_strlen(res) != 0
+		&& ((*head)->str_type != T_SINGLE_QUOTE))
 		check_env(&res);
 	while ((*head)->next)
 	{
+		if (ft_strlen((*head)->next->str) == 0)
+		{
+			free((*head)->next->str);
+			(*head)->next->str = NULL;
+			next = (*head)->next;
+			free((*head));
+			(*head) = next;
+			continue;
+		}
 		if ((*head)->next->str_type != T_SINGLE_QUOTE)
 			check_env(&((*head)->next->str));
 		temp_str = ft_strjoin(res, (*head)->next->str);
@@ -73,7 +83,13 @@ char	**ft_combine_arg(t_linked_arg **head, int *arg_cnt)
 	i = -1;
 	while (++i < *arg_cnt)
 	{
+		// combine arg lump 로 변경해야함
 		*(res + i) = ft_combine_lump(&(*head)->arg_str);
+		// ???
+		if (res+i)
+		{
+			// check whitespace split ?
+		}
 		temp = *head;
 		*head = (*head)->next;
 		free(temp);
