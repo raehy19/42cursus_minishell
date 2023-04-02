@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/02 13:51:07 by rjeong           ###   ########.fr       */
+/*   Created: 2023/04/02 22:15:10 by yeepark           #+#    #+#             */
+/*   Updated: 2023/04/02 22:15:13 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell_bonus.h"
+#include "../../minishell.h"
 
 extern t_global	g_global;
 
@@ -25,8 +25,6 @@ int	handle_exception(char *command)
 {
 	if (!ft_strcmp(command, ""))
 		g_global.err_num = COMMAND_NOT_FOUND;
-	if (!find_env("PATH"))
-		g_global.err_num = NO_SUCH_FILE;
 	return (g_global.err_num != NaE);
 }
 
@@ -38,6 +36,8 @@ void	execve_command(t_node *node)
 		node->command_path = find_command_path(node);
 	if (!node->command_path)
 	{
+		if (!find_env("PATH"))
+			g_global.err_num = NO_SUCH_FILE;
 		g_global.exit_status = 127;
 		print_command_path_error(node, 0);
 	}

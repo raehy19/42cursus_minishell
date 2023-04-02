@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:26:27 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/30 22:01:42 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/02 22:08:37 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	handle_exception(char *command)
 {
 	if (!ft_strcmp(command, ""))
 		g_global.err_num = COMMAND_NOT_FOUND;
-	if (!find_env("PATH"))
-		g_global.err_num = NO_SUCH_FILE;
 	return (g_global.err_num != NaE);
 }
 
@@ -38,6 +36,8 @@ void	execve_command(t_node *node)
 		node->command_path = find_command_path(node);
 	if (!node->command_path)
 	{
+		if (!find_env("PATH"))
+			g_global.err_num = NO_SUCH_FILE;
 		g_global.exit_status = 127;
 		print_command_path_error(node, 0);
 	}
