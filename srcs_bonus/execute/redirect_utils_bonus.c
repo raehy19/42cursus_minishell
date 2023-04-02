@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:43:24 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/02 14:10:55 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:14:24 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	*set_error_messeage(char *filename)
 int	check_out_redirect_authority(char *filename)
 {
 	char			*error_message;
-	
+
 	if (!ft_strchr(filename, '/') && access(filename, F_OK) == -1)
 		return (1);
 	error_message = set_error_messeage(filename);
