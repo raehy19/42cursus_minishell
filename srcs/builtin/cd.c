@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:37:36 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/01 16:41:55 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/02 12:28:11 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	set_pwd(void)
 	t_env	*pwd;
 	t_env	*oldpwd;
 
-	pwd = find_env("BUILTIN_PWD");
+	pwd = find_env("PWD");
 	oldpwd = find_env("OLDPWD");
 	if (!pwd)
 	{
-		pwd = make_env("BUILTIN_PWD=");
+		pwd = make_env("PWD=");
 		if (g_global.err_num == NaE)
 			add_env_back(pwd);
 	}
@@ -84,6 +84,6 @@ void	ft_cd(t_node *node)
 	is_error = chdir(changed_dir);
 	if (handle_cd_error(is_error, node, changed_dir))
 		return ;
-	set_pwd();
 	g_global.exit_status = 0;
+	set_pwd();
 }
