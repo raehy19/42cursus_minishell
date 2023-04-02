@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:06:03 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/01 20:51:15 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/02 13:51:49 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "libft/libft_bonus.h"
+# include "libft/libft.h"
 
 # define READ 0
 # define WRITE 1
