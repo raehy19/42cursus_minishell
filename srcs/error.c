@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:36:18 by yeepark           #+#    #+#             */
-/*   Updated: 2023/03/26 19:50:49 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/01 22:56:47 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	handle_error(void)
 	if (g_global.err_num == FAIL_MALLOC)
 	{
 		ft_putstr_fd(strerror(ENOMEM), 2);
+		ft_putstr_fd("\n", 2);
 		g_global.exit_status = ENOMEM;
 	}
 	if (g_global.err_num == FAIL_OPEN_PIPE)
