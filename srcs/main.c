@@ -56,7 +56,6 @@ int	main(int argc, char **argv, char **envp)
 		search_heredoc(parsed.tree);
 		search_tree(parsed.tree);
 		free_all(&parsed);
-//		system("leaks --list minishell");
 	}
 	return (0);
 }
