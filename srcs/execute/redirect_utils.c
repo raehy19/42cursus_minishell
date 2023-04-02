@@ -6,7 +6,7 @@
 /*   By: yeepark <yeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 13:58:07 by yeepark           #+#    #+#             */
-/*   Updated: 2023/04/02 14:06:34 by yeepark          ###   ########.fr       */
+/*   Updated: 2023/04/02 14:10:27 by yeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ int	check_in_redirect_authority(char *filename)
 static char	*set_error_messeage(char *filename)
 {
 	char			*error_message;
+	struct stat		st_info;
 
 	error_message = 0;
+	stat(filename, &st_info);
 	if (ft_strchr(filename, '/')
 		&& access(filename, F_OK) == -1)
 	{
@@ -87,9 +89,7 @@ static char	*set_error_messeage(char *filename)
 int	check_out_redirect_authority(char *filename)
 {
 	char			*error_message;
-	struct stat		st_info;
 
-	stat(filename, &st_info);
 	if (!ft_strchr(filename, '/') && access(filename, F_OK) == -1)
 		return (1);
 	error_message = set_error_messeage(filename);
